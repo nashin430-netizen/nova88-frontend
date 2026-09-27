@@ -1,38 +1,173 @@
-const games=[
- {name:"Golden Spin",cat:"slots",icon:"🎰",desc:"Classic reel-style demo"},
- {name:"Neon Rush",cat:"arcade",icon:"🕹️",desc:"Fast arcade-style concept"},
- {name:"Royal Cards",cat:"cards",icon:"🃏",desc:"Elegant card-game interface"},
- {name:"Lucky Gems",cat:"slots",icon:"💎",desc:"Premium gem-themed demo"},
- {name:"Cyber Race",cat:"arcade",icon:"🏎️",desc:"Futuristic racing concept"},
- {name:"Ace Royale",cat:"cards",icon:"♠️",desc:"Dark royal card interface"},
- {name:"Moon Slots",cat:"slots",icon:"🌙",desc:"Night-themed reel concept"},
- {name:"Pixel Quest",cat:"arcade",icon:"👾",desc:"Retro arcade-inspired UI"}
-];
-const grid=document.getElementById("gameGrid");
-function render(filter="all"){
- grid.innerHTML=games.filter(g=>filter==="all"||g.cat===filter).map(g=>`
- <article class="game"><div class="game-art">${g.icon}</div><div class="game-info">
- <h3>${g.name}</h3><p>${g.desc}</p><span class="tag">${g.cat}</span></div></article>`).join("");
+const API = "https://nova88-backend.onrender.com/api";
+
+let games = [];
+let modalMode = "login";
+
+const grid = document.getElementById("gameGrid");
+
+function render(filter = "all") {
+  const filtered = games.filter(
+    game => filter === "all" || game.category === filter
+  );
+
+  if (!filtered.length) {
+    grid.innerHTML = "<p>No games available.</p>";
+    return;
+  }
+
+  grid.innerHTML = filtered.map(game => `
+    <article class="game">
+      <div class="game-art">${game.icon || "🎮"}</div>
+      <div class="game-info">
+        <h3>${game.name}</h3>
+        <p>${game.description || ""}</p>
+        <span class="tag">${game.category}</span>
+      </div>
+    </article>
+  `).join("");
 }
-render();
-document.querySelectorAll(".filter").forEach(b=>b.onclick=()=>{
- document.querySelectorAll(".filter").forEach(x=>x.classList.remove("active"));
- b.classList.add("active");render(b.dataset.filter);
+
+async function loadGames() {
+  try {
+    const response = await fetch(`${API}/games`);
+
+    if (!response.ok) {
+      throw new Error("Failed");
+    }
+
+    games = await response.json();
+    render();
+  } catch (error) {
+    grid.innerHTML = "<p>Unable to load games.</p>";
+  }
+}
+
+loadGames();
+
+document.querySelectorAll(".filter").forEach(button => {
+  button.onclick = () => {
+    document
+      .querySelectorAll(".filter")
+      .forEach(item => item.classList.remove("active"));
+
+    button.classList.add("active");
+
+    render(button.dataset.filter);
+  };
 });
-const modal=document.getElementById("modal");
-document.querySelectorAll("[data-modal]").forEach(b=>b.onclick=()=>{
- document.getElementById("modalTitle").textContent=b.dataset.modal==="login"?"Login":"Create Demo Account";
- document.getElementById("formMsg").textContent="";
- modal.classList.add("open");
+
+const modal = document.getElementById("modal");
+const modalTitle = document.getElementById("modalTitle");
+const form = document.getElementById("demoForm");
+const formMsg = document.getElementById("formMsg");
+
+document.querySelectorAll("[data-modal]").forEach(button => {
+  button.onclick = () => {
+    modalMode = button.dataset.modal;
+
+    modalTitle.textContent =
+      modalMode === "login"
+        ? "Login"
+        : "Create Account";
+
+    formMsg.textContent = "";
+
+    const inputs = form.querySelectorAll("input");
+    const nameInput = inputs[0];
+
+    if (modalMode === "login") {
+      nameInput.style.display = "none";
+      nameInput.required = false;
+    } else {
+      nameInput.style.display = "";
+      nameInput.required = true;
+    }
+
+    modal.classList.add("open");
+  };
 });
-document.getElementById("close").onclick=()=>modal.classList.remove("open");
-modal.onclick=e=>{if(e.target===modal)modal.classList.remove("open")};
-document.getElementById("demoForm").onsubmit=e=>{
- e.preventDefault();document.getElementById("formMsg").textContent="Demo only — no account was created.";
+
+document.getElementById("close").onclick = () => {
+  modal.classList.remove("open");
 };
-document.getElementById("menuBtn").onclick=()=>{
- const nav=document.getElementById("nav");
- nav.style.display=nav.style.display==="flex"?"none":"flex";
- nav.style.position="absolute";nav.style.top="76px";nav.style.left="0";nav.style.right="0";
- nav.style.padding="20px";nav.style.background="#0b0d12";nav.style.flexDirection="column";
+
+modal.onclick = event => {
+  if (event.target === modal) {
+    modal.classList.remove("open");
+  }
+};
+
+form.onsubmit = async event => {
+  event.preventDefault();
+
+  const inputs = form.querySelectorAll("input");
+
+  const name = inputs[0].value.trim();
+  const email = inputs[1].value.trim();
+  const password = inputs[2].value;
+
+  formMsg.textContent = "Please wait...";
+
+  try {
+    let response;
+
+    if (modalMode === "login") {
+      response = await fetch(`${API}/auth/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          email,
+          password
+        })
+      });
+    } else {
+      response = await fetch(`${API}/auth/register`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          name,
+          email,
+          password
+        })
+      });
+    }
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.error || "Something went wrong");
+    }
+
+    if (modalMode === "login") {
+      localStorage.setItem("nova88_token", data.token);
+      formMsg.textContent = "Login successful!";
+    } else {
+      formMsg.textContent =
+        "Account created successfully! You can now login.";
+    }
+
+    form.reset();
+
+  } catch (error) {
+    formMsg.textContent = error.message;
+  }
+};
+
+document.getElementById("menuBtn").onclick = () => {
+  const nav = document.getElementById("nav");
+
+  nav.style.display =
+    nav.style.display === "flex" ? "none" : "flex";
+
+  nav.style.position = "absolute";
+  nav.style.top = "76px";
+  nav.style.left = "0";
+  nav.style.right = "0";
+  nav.style.padding = "20px";
+  nav.style.background = "#0b0d12";
+  nav.style.flexDirection = "column";
 };
