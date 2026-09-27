@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NOVA88 — Gaming Demo</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="topbar">
+  <a class="logo" href="#">NOVA<span>88</span></a>
+  <nav id="nav">
+    <a href="#home">Home</a><a href="#games">Games</a><a href="#promo">Promotions</a><a href="#about">About</a>
+  </nav>
+  <div class="actions">
+    <button class="btn ghost" data-modal="login">Login</button>
+    <button class="btn primary" data-modal="register">Register</button>
+    <button class="menu" id="menuBtn">☰</button>
+  </div>
+</header>
+
+<main>
+<section class="hero" id="home">
+  <div class="hero-content">
+    <p class="eyebrow">WELCOME TO NOVA88</p>
+    <h1>PLAY THE <span>EXCITEMENT</span></h1>
+    <p class="lead">A modern gaming-style landing page demo built with pure HTML, CSS and JavaScript.</p>
+    <div class="hero-buttons">
+      <a class="btn primary large" href="#games">Explore Games</a>
+      <button class="btn ghost large" data-modal="register">Create Account</button>
+    </div>
+  </div>
+  <div class="hero-orb orb1"></div><div class="hero-orb orb2"></div>
+</section>
+
+<section class="ticker"><div>🔥 NEW GAMES • DAILY PROMOTIONS • 24/7 SUPPORT • MOBILE FRIENDLY • 🔥</div></section>
+
+<section class="section" id="games">
+  <div class="section-head">
+    <div><p class="eyebrow">EXPLORE</p><h2>Popular <span>Games</span></h2></div>
+    <div class="filters">
+      <button class="filter active" data-filter="all">All</button>
+      <button class="filter" data-filter="slots">Slots</button>
+      <button class="filter" data-filter="arcade">Arcade</button>
+      <button class="filter" data-filter="cards">Cards</button>
+    </div>
+  </div>
+  <div class="games" id="gameGrid"></div>
+</section>
+
+<section class="promo" id="promo">
+  <div><p class="eyebrow">SPECIAL OFFER</p><h2>WELCOME BONUS <strong>50%</strong></h2>
+  <p>Demo promotion area — replace this content with your own legal offer.</p></div>
+  <button class="btn primary large" data-modal="register">Join Demo</button>
+</section>
+
+<section class="section features" id="about">
+  <div class="feature"><b>⚡</b><h3>Fast Experience</h3><p>Clean, lightweight frontend with smooth interactions.</p></div>
+  <div class="feature"><b>📱</b><h3>Mobile Ready</h3><p>Responsive layout designed for phones, tablets and desktops.</p></div>
+  <div class="feature"><b>🔒</b><h3>UI Demo</h3><p>No real-money transactions or gambling functionality are included.</p></div>
+</section>
+</main>
+
+<footer><div class="logo">NOVA<span>88</span></div><p>© 2026 NOVA88 Demo. Frontend concept only.</p></footer>
+
+<div class="modal" id="modal">
+  <div class="modal-card">
+    <button class="close" id="close">×</button>
+    <h2 id="modalTitle">Welcome</h2>
+    <p class="muted">Demo interface only. No account is created.</p>
+    <form id="demoForm">
+      <input type="text" placeholder="Username" required>
+      <input type="email" placeholder="Email address" required>
+      <input type="password" placeholder="Password" required>
+      <button class="btn primary full">Continue</button>
+    </form>
+    <p id="formMsg" class="form-msg"></p>
+  </div>
+</div>
+<script src="script.js"></script>
+</body>
+</html>
