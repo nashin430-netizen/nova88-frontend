@@ -113,8 +113,8 @@
   <main>
 
     <div class="welcome">
-      <h1>Welcome to your Dashboard</h1>
-      <p>You are successfully logged in.</p>
+  <h1>Welcome to your Dashboard</h1>
+  <p id="userInfo">Loading user information...</p>
     </div>
 
     <div class="cards">
@@ -139,17 +139,45 @@
   </main>
 
   <script>
-    const token = localStorage.getItem("nova88_token");
+  const token = localStorage.getItem("nova88_token");
+  const API = "https://nova88-backend.onrender.com/api";
 
-    if (!token) {
-      window.location.href = "index.html";
-    }
+  if (!token) {
+    window.location.href = "index.html";
+  }
 
-    function logout() {
-      localStorage.removeItem("nova88_token");
-      window.location.href = "index.html";
+  async function loadUser() {
+    try {
+      const response = await fetch(`${API}/auth/me`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        localStorage.removeItem("nova88_token");
+        window.location.href = "index.html";
+        return;
+      }
+
+      document.getElementById("userInfo").textContent =
+        `Welcome, ${data.user.name} • ${data.user.email}`;
+
+    } catch (error) {
+      document.getElementById("userInfo").textContent =
+        "Unable to load account information.";
     }
-  </script>
+  }
+
+  function logout() {
+    localStorage.removeItem("nova88_token");
+    window.location.href = "index.html";
+  }
+
+  loadUser();
+</script>
 
 </body>
 </html>
