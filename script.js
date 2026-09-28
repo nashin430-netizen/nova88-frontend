@@ -143,11 +143,12 @@ form.onsubmit = async event => {
     }
 
     if (modalMode === "login") {
-      localStorage.setItem("nova88_token", data.token);
-      formMsg.textContent = "Login successful!";
-    } else {
-      formMsg.textContent =
-        "Account created successfully! You can now login.";
+  localStorage.setItem("nova88_token", data.token);
+  formMsg.textContent = "Login successful!";
+
+  setTimeout(() => {
+    window.location.href = "dashboard.html";
+  }, 500);
     }
 
     form.reset();
