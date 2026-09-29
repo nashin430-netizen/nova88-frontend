@@ -134,33 +134,14 @@
       <p>Choose a game to continue.</p>
     </div>
 
-    <div class="games">
-
-      <div class="game" onclick="openGame('Lucky Spin')">
-        <div class="game-icon">🎡</div>
-        <h3>Lucky Spin</h3>
-        <p>Try your luck.</p>
-      </div>
-
-      <div class="game" onclick="openGame('Dice')">
-        <div class="game-icon">🎲</div>
-        <h3>Dice</h3>
-        <p>Roll the dice.</p>
-      </div>
-
-      <div class="game" onclick="openGame('Cards')">
-        <div class="game-icon">🃏</div>
-        <h3>Cards</h3>
-        <p>Play card games.</p>
-      </div>
-
-    </div>
+    <div class="games"></div>
 
   </main>
 
   <script>
 
     const token = localStorage.getItem("nova88_token");
+    const API = "https://nova88-backend.onrender.com/api";
 
     if (!token) {
       window.location.href = "index.html";
@@ -170,9 +151,76 @@
       window.location.href = "dashboard.html";
     }
 
+    async function loadGames() {
+
+      const gamesContainer = document.querySelector(".games");
+
+      try {
+
+        const response = await fetch(`${API}/games`);
+
+        if (!response.ok) {
+          throw new Error("Failed to load games");
+        }
+
+        const games = await response.json();
+
+        gamesContainer.innerHTML = "";
+
+        if (games.length === 0) {
+
+          gamesContainer.innerHTML = `
+            <div class="game">
+              <div class="game-icon">🎮</div>
+              <h3>No Games Available</h3>
+              <p>Games will be added soon.</p>
+            </div>
+          `;
+
+          return;
+        }
+
+        games.forEach(game => {
+
+          const card = document.createElement("div");
+          card.className = "game";
+
+          card.innerHTML = `
+            <div class="game-icon">
+              ${game.icon || "🎮"}
+            </div>
+
+            <h3>${game.name}</h3>
+
+            <p>
+              ${game.description || "Play now."}
+            </p>
+          `;
+
+          card.onclick = () => openGame(game.name);
+
+          gamesContainer.appendChild(card);
+
+        });
+
+      } catch (error) {
+
+        gamesContainer.innerHTML = `
+          <div class="game">
+            <div class="game-icon">⚠️</div>
+            <h3>Unable to load games</h3>
+            <p>Please try again later.</p>
+          </div>
+        `;
+
+      }
+    }
+
     function openGame(game) {
       alert(game + " game will be available soon.");
     }
+
+    loadGames();
 
   </script>
 
