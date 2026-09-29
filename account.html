@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>NOVA88 - Account</title>
+  <title>NOVA88 - My Account</title>
 
   <style>
     * {
@@ -23,6 +24,7 @@
     header {
       padding: 20px;
       border-bottom: 1px solid #252832;
+
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -38,19 +40,19 @@
     }
 
     .back {
-      background: #ff9f1c;
       color: #111;
+      background: #ffae2b;
       border: none;
-      padding: 12px 20px;
+      padding: 11px 18px;
       border-radius: 10px;
       font-weight: bold;
       cursor: pointer;
     }
 
     main {
-      max-width: 800px;
+      max-width: 900px;
       margin: auto;
-      padding: 40px 20px;
+      padding: 45px 20px;
     }
 
     .title {
@@ -69,57 +71,83 @@
     .account-card {
       background: #11131a;
       border: 1px solid #292d38;
-      border-radius: 16px;
-      padding: 30px;
+      border-radius: 18px;
+      overflow: hidden;
     }
 
-    .profile-icon {
-      width: 80px;
-      height: 80px;
-      border-radius: 50%;
-      background: #ff9f1c;
-      color: #111;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 35px;
-      margin-bottom: 25px;
-    }
-
-    .info {
-      padding: 18px 0;
+    .account-header {
+      padding: 25px;
       border-bottom: 1px solid #292d38;
     }
 
-    .info:last-child {
+    .account-header h2 {
+      color: #ffae2b;
+      margin-bottom: 6px;
+    }
+
+    .account-header p {
+      color: #9da3b2;
+    }
+
+    .info {
+      padding: 25px;
+    }
+
+    .row {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 18px 0;
+      border-bottom: 1px solid #242732;
+    }
+
+    .row:last-child {
       border-bottom: none;
     }
 
     .label {
-      color: #8f95a3;
-      font-size: 14px;
-      margin-bottom: 7px;
+      color: #8f95a5;
     }
 
     .value {
-      font-size: 17px;
-      font-weight: 600;
-    }
-
-    .logout {
-      margin-top: 25px;
-      background: #ff9f1c;
-      color: #111;
-      border: none;
-      padding: 13px 25px;
-      border-radius: 10px;
       font-weight: bold;
-      cursor: pointer;
+      text-align: right;
+      word-break: break-word;
     }
 
-    @media (max-width: 700px) {
+    .role {
+      color: #ffae2b;
+    }
+
+    .loading {
+      color: #ffae2b;
+    }
+
+    .error {
+      color: #ff6b6b;
+    }
+
+    @media (max-width: 600px) {
+
+      header {
+        padding: 16px;
+      }
+
+      .logo {
+        font-size: 24px;
+      }
+
       .title h1 {
         font-size: 28px;
+      }
+
+      .row {
+        flex-direction: column;
+        gap: 7px;
+      }
+
+      .value {
+        text-align: left;
       }
     }
   </style>
@@ -133,98 +161,245 @@
       NOVA<span>88</span>
     </div>
 
-    <button class="back" onclick="goBack()">
+    <button
+      class="back"
+      id="backBtn"
+    >
       ← Dashboard
     </button>
 
   </header>
 
+
   <main>
 
     <div class="title">
-      <h1>👤 My Account</h1>
-      <p>Manage and view your account information.</p>
+
+      <h1>My Account</h1>
+
+      <p>
+        Manage and view your account information.
+      </p>
+
     </div>
+
 
     <div class="account-card">
 
-      <div class="profile-icon">
-        👤
+      <div class="account-header">
+
+        <h2>Account Information</h2>
+
+        <p>
+          Your registered account details.
+        </p>
+
       </div>
+
 
       <div class="info">
-        <div class="label">Name</div>
-        <div class="value" id="userName">Loading...</div>
-      </div>
 
-      <div class="info">
-        <div class="label">Email</div>
-        <div class="value" id="userEmail">Loading...</div>
-      </div>
+        <div class="row">
 
-      <button class="logout" onclick="logout()">
-        Logout
-      </button>
+          <span class="label">
+            Name
+          </span>
+
+          <span
+            class="value loading"
+            id="userName"
+          >
+            Loading...
+          </span>
+
+        </div>
+
+
+        <div class="row">
+
+          <span class="label">
+            Email
+          </span>
+
+          <span
+            class="value loading"
+            id="userEmail"
+          >
+            Loading...
+          </span>
+
+        </div>
+
+
+        <div class="row">
+
+          <span class="label">
+            Account Role
+          </span>
+
+          <span
+            class="value role loading"
+            id="userRole"
+          >
+            Loading...
+          </span>
+
+        </div>
+
+      </div>
 
     </div>
 
   </main>
 
+
   <script>
 
-    const token = localStorage.getItem("nova88_token");
-    const API = "https://nova88-backend.onrender.com/api";
+    const API =
+      "https://nova88-backend.onrender.com/api";
+
+    const token =
+      localStorage.getItem("nova88_token");
+
+
+    /*
+      Protect Account Page
+    */
 
     if (!token) {
-      window.location.href = "index.html";
+
+      window.location.href =
+        "index.html";
+
     }
+
+
+    /*
+      Load account information
+    */
 
     async function loadAccount() {
 
       try {
 
-        const response = await fetch(`${API}/auth/me`, {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        });
+        const response =
+          await fetch(
+            `${API}/auth/me`,
+            {
+              method: "GET",
 
-        const data = await response.json();
+              headers: {
+                "Authorization":
+                  `Bearer ${token}`
+              }
+            }
+          );
+
+
+        const data =
+          await response.json();
+
 
         if (!response.ok) {
-          localStorage.removeItem("nova88_token");
-          window.location.href = "index.html";
+
+          localStorage.removeItem(
+            "nova88_token"
+          );
+
+          window.location.href =
+            "index.html";
+
           return;
         }
 
-        document.getElementById("userName").textContent =
+
+        /*
+          Display user information
+        */
+
+        document.getElementById(
+          "userName"
+        ).textContent =
           data.user.name;
 
-        document.getElementById("userEmail").textContent =
+
+        document.getElementById(
+          "userEmail"
+        ).textContent =
           data.user.email;
+
+
+        document.getElementById(
+          "userRole"
+        ).textContent =
+          data.user.role || "USER";
+
+
+        /*
+          Remove loading style
+        */
+
+        document
+          .querySelectorAll(".loading")
+          .forEach(element => {
+            element.classList.remove(
+              "loading"
+            );
+          });
+
 
       } catch (error) {
 
-        document.getElementById("userName").textContent =
+        document.getElementById(
+          "userName"
+        ).textContent =
           "Unable to load";
 
-        document.getElementById("userEmail").textContent =
+
+        document.getElementById(
+          "userEmail"
+        ).textContent =
           "Unable to load";
+
+
+        document.getElementById(
+          "userRole"
+        ).textContent =
+          "Unable to load";
+
+
+        document
+          .querySelectorAll(".value")
+          .forEach(element => {
+            element.classList.add("error");
+          });
+
       }
+
     }
 
-    function goBack() {
-      window.location.href = "dashboard.html";
-    }
 
-    function logout() {
-      localStorage.removeItem("nova88_token");
-      window.location.href = "index.html";
-    }
+    /*
+      Back to Dashboard
+    */
+
+    document
+      .getElementById("backBtn")
+      .addEventListener(
+        "click",
+        () => {
+
+          window.location.href =
+            "dashboard.html";
+
+        }
+      );
+
 
     loadAccount();
 
   </script>
 
 </body>
+
 </html>
