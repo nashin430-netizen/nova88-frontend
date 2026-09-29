@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>NOVA88 - Dashboard</title>
 
   <style>
@@ -22,6 +24,7 @@
     header {
       padding: 20px;
       border-bottom: 1px solid #252832;
+
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -38,16 +41,31 @@
 
     .logout {
       background: #ff9f1c;
+      color: #111;
+
       border: none;
+
       padding: 12px 20px;
+
       border-radius: 10px;
+
       font-weight: bold;
+
       cursor: pointer;
+
+      transition: 0.2s ease;
+    }
+
+    .logout:hover {
+      opacity: 0.9;
+      transform: translateY(-1px);
     }
 
     main {
       max-width: 1100px;
+
       margin: auto;
+
       padding: 40px 20px;
     }
 
@@ -57,36 +75,73 @@
 
     .welcome h1 {
       font-size: 36px;
+
       margin-bottom: 10px;
     }
 
     .welcome p {
       color: #9da3b2;
+
+      line-height: 1.5;
     }
 
     .cards {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+
+      grid-template-columns:
+        repeat(3, 1fr);
+
       gap: 20px;
     }
 
     .card {
       background: #11131a;
+
       border: 1px solid #292d38;
+
       border-radius: 16px;
+
       padding: 25px;
+
+      cursor: pointer;
+
+      transition: 0.25s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+
+      border-color: #ffae2b;
+
+      box-shadow:
+        0 10px 30px
+        rgba(255, 174, 43, 0.08);
+    }
+
+    .card:active {
+      transform: translateY(-2px);
     }
 
     .card h3 {
       color: #ffae2b;
+
+      font-size: 20px;
+
       margin-bottom: 10px;
     }
 
     .card p {
       color: #a5aab8;
+
+      line-height: 1.5;
+    }
+
+    .loading {
+      color: #ffae2b;
     }
 
     @media (max-width: 700px) {
+
       .cards {
         grid-template-columns: 1fr;
       }
@@ -94,121 +149,271 @@
       .welcome h1 {
         font-size: 28px;
       }
+
+      header {
+        padding: 16px;
+      }
+
+      .logo {
+        font-size: 24px;
+      }
+
+      .logout {
+        padding: 10px 16px;
+      }
     }
-    .card {
-  cursor: pointer;
-  transition: 0.25s ease;
-}
-
-.card:hover {
-  transform: translateY(-5px);
-  border-color: #ffae2b;
-  box-shadow: 0 10px 30px rgba(255, 174, 43, 0.08);
-}
-
-.card:active {
-  transform: translateY(-2px);
-}
-
-.card h3 {
-  font-size: 20px;
-}
-
-.card p {
-  margin-top: 5px;
-  line-height: 1.5;
-}
   </style>
 </head>
+
 
 <body>
 
   <header>
+
     <div class="logo">
       NOVA<span>88</span>
     </div>
 
-    <button class="logout" onclick="logout()">
+    <button
+      class="logout"
+      id="logoutBtn"
+    >
       Logout
     </button>
+
   </header>
+
 
   <main>
 
     <div class="welcome">
-  <h1>Welcome to your Dashboard</h1>
-  <p id="userInfo">Loading user information...</p>
+
+      <h1>
+        Welcome to your Dashboard
+      </h1>
+
+      <p
+        id="userInfo"
+        class="loading"
+      >
+        Loading user information...
+      </p>
+
     </div>
+
 
     <div class="cards">
 
-      <div class="card" onclick="openGames()">
-  <h3>🎮 Games</h3>
-  <p>Explore available games.</p>
+      <div
+        class="card"
+        id="gamesCard"
+      >
+        <h3>🎮 Games</h3>
+
+        <p>
+          Explore available games.
+        </p>
       </div>
 
-      <div class="card" onclick="openPromotions()">
-  <h3>🎁 Promotions</h3>
-  <p>View current promotions and offers.</p>
+
+      <div
+        class="card"
+        id="promotionsCard"
+      >
+        <h3>🎁 Promotions</h3>
+
+        <p>
+          View current promotions and offers.
+        </p>
       </div>
 
-      <div class="card" onclick="openAccount()">
-  <h3>👤 Account</h3>
-  <p>Manage your account information.</p>
+
+      <div
+        class="card"
+        id="accountCard"
+      >
+        <h3>👤 Account</h3>
+
+        <p>
+          Manage your account information.
+        </p>
       </div>
 
     </div>
 
   </main>
 
+
   <script>
-  const token = localStorage.getItem("nova88_token");
-  const API = "https://nova88-backend.onrender.com/api";
 
-  if (!token) {
-    window.location.href = "index.html";
-  }
+    const API =
+      "https://nova88-backend.onrender.com/api";
 
-  async function loadUser() {
-    try {
-      const response = await fetch(`${API}/auth/me`, {
-        headers: {
-          Authorization: `Bearer ${token}`
+
+    /*
+      Get saved JWT token
+    */
+
+    const token =
+      localStorage.getItem("nova88_token");
+
+
+    /*
+      Protect dashboard
+    */
+
+    if (!token) {
+
+      window.location.href =
+        "index.html";
+
+    }
+
+
+    /*
+      Load logged-in user
+    */
+
+    async function loadUser() {
+
+      const userInfo =
+        document.getElementById("userInfo");
+
+      try {
+
+        const response =
+          await fetch(
+            `${API}/auth/me`,
+            {
+              method: "GET",
+
+              headers: {
+                "Authorization":
+                  `Bearer ${token}`
+              }
+            }
+          );
+
+
+        const data =
+          await response.json();
+
+
+        /*
+          Invalid / expired token
+        */
+
+        if (!response.ok) {
+
+          localStorage.removeItem(
+            "nova88_token"
+          );
+
+          window.location.href =
+            "index.html";
+
+          return;
         }
-      });
 
-      const data = await response.json();
 
-      if (!response.ok) {
-        localStorage.removeItem("nova88_token");
-        window.location.href = "index.html";
-        return;
+        /*
+          Display user
+        */
+
+        userInfo.classList.remove(
+          "loading"
+        );
+
+        userInfo.textContent =
+          `Welcome, ${data.user.name} • ${data.user.email}`;
+
+
+      } catch (error) {
+
+        userInfo.classList.remove(
+          "loading"
+        );
+
+        userInfo.textContent =
+          "Unable to load account information.";
+
       }
 
-      document.getElementById("userInfo").textContent =
-        `Welcome, ${data.user.name} • ${data.user.email}`;
+    }
 
-    } catch (error) {
-      document.getElementById("userInfo").textContent =
-        "Unable to load account information.";
-    }
-  }
 
-  function logout() {
-    localStorage.removeItem("nova88_token");
-    window.location.href = "index.html";
-  }
-function openGames() {
-  window.location.href = "games.html";
-    }
-    function openPromotions() {
-  window.location.href = "promotions.html";
-    }
-    function openAccount() {
-  window.location.href = "account.html";
-    }
-  loadUser();
-</script>
+    /*
+      Logout
+    */
+
+    document
+      .getElementById("logoutBtn")
+      .addEventListener(
+        "click",
+        () => {
+
+          localStorage.removeItem(
+            "nova88_token"
+          );
+
+          window.location.href =
+            "index.html";
+
+        }
+      );
+
+
+    /*
+      Dashboard navigation
+    */
+
+    document
+      .getElementById("gamesCard")
+      .addEventListener(
+        "click",
+        () => {
+
+          window.location.href =
+            "games.html";
+
+        }
+      );
+
+
+    document
+      .getElementById("promotionsCard")
+      .addEventListener(
+        "click",
+        () => {
+
+          window.location.href =
+            "promotions.html";
+
+        }
+      );
+
+
+    document
+      .getElementById("accountCard")
+      .addEventListener(
+        "click",
+        () => {
+
+          window.location.href =
+            "account.html";
+
+        }
+      );
+
+
+    /*
+      Start
+    */
+
+    loadUser();
+
+  </script>
 
 </body>
+
 </html>
