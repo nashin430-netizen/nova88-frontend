@@ -129,9 +129,9 @@
   <p>View current promotions and offers.</p>
       </div>
 
-      <div class="card">
-        <h3>👤 Account</h3>
-        <p>Manage your account information.</p>
+      <div class="card" onclick="openAccount()">
+  <h3>👤 Account</h3>
+  <p>Manage your account information.</p>
       </div>
 
     </div>
@@ -180,6 +180,9 @@ function openGames() {
     }
     function openPromotions() {
   window.location.href = "promotions.html";
+    }
+    function openAccount() {
+  window.location.href = "account.html";
     }
   loadUser();
 </script>
