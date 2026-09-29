@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -22,7 +23,9 @@
 
     header {
       padding: 20px;
+
       border-bottom: 1px solid #252832;
+
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -40,16 +43,30 @@
     .back {
       background: #ff9f1c;
       color: #111;
+
       border: none;
+
       padding: 12px 20px;
+
       border-radius: 10px;
+
       font-weight: bold;
+
       cursor: pointer;
+
+      transition: 0.2s ease;
+    }
+
+    .back:hover {
+      transform: translateY(-1px);
+      opacity: 0.9;
     }
 
     main {
       max-width: 1100px;
+
       margin: auto;
+
       padding: 40px 20px;
     }
 
@@ -59,6 +76,7 @@
 
     .title h1 {
       font-size: 36px;
+
       margin-bottom: 10px;
     }
 
@@ -68,50 +86,142 @@
 
     .games {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+
+      grid-template-columns:
+        repeat(3, 1fr);
+
       gap: 20px;
     }
 
     .game {
       background: #11131a;
+
       border: 1px solid #292d38;
+
       border-radius: 16px;
+
       padding: 30px;
+
       text-align: center;
+
       cursor: pointer;
-      transition: 0.2s;
+
+      transition: 0.25s ease;
     }
 
     .game:hover {
       transform: translateY(-5px);
+
       border-color: #ffae2b;
+
+      box-shadow:
+        0 10px 30px
+        rgba(255, 174, 43, 0.08);
+    }
+
+    .game:active {
+      transform: translateY(-2px);
     }
 
     .game-icon {
       font-size: 50px;
+
       margin-bottom: 15px;
     }
 
     .game h3 {
       color: #ffae2b;
+
       margin-bottom: 8px;
+
+      font-size: 20px;
     }
 
     .game p {
       color: #a5aab8;
+
+      line-height: 1.5;
     }
 
-    @media (max-width: 700px) {
+    .loading {
+      grid-column: 1 / -1;
+
+      text-align: center;
+
+      padding: 50px 20px;
+
+      color: #ffae2b;
+    }
+
+    .message {
+      grid-column: 1 / -1;
+
+      text-align: center;
+
+      padding: 50px 20px;
+
+      background: #11131a;
+
+      border: 1px solid #292d38;
+
+      border-radius: 16px;
+    }
+
+    .message-icon {
+      font-size: 45px;
+
+      margin-bottom: 15px;
+    }
+
+    .message h3 {
+      color: #ffae2b;
+
+      margin-bottom: 8px;
+    }
+
+    .message p {
+      color: #a5aab8;
+    }
+
+    @media (max-width: 800px) {
+
       .games {
-        grid-template-columns: 1fr;
+        grid-template-columns:
+          repeat(2, 1fr);
+      }
+
+    }
+
+    @media (max-width: 600px) {
+
+      header {
+        padding: 16px;
+      }
+
+      .logo {
+        font-size: 24px;
+      }
+
+      .back {
+        padding: 10px 14px;
+      }
+
+      main {
+        padding: 30px 16px;
       }
 
       .title h1 {
         font-size: 28px;
       }
+
+      .games {
+        grid-template-columns: 1fr;
+      }
+
     }
   </style>
 </head>
+
 
 <body>
 
@@ -121,108 +231,294 @@
       NOVA<span>88</span>
     </div>
 
-    <button class="back" onclick="goBack()">
+    <button
+      class="back"
+      id="backBtn"
+    >
       ← Dashboard
     </button>
 
   </header>
 
+
   <main>
 
     <div class="title">
+
       <h1>🎮 Games</h1>
-      <p>Choose a game to continue.</p>
+
+      <p>
+        Choose a game to continue.
+      </p>
+
     </div>
 
-    <div class="games"></div>
+
+    <div
+      class="games"
+      id="gamesContainer"
+    >
+
+      <div class="loading">
+        Loading games...
+      </div>
+
+    </div>
 
   </main>
 
+
   <script>
 
-    const token = localStorage.getItem("nova88_token");
-    const API = "https://nova88-backend.onrender.com/api";
+    const API =
+      "https://nova88-backend.onrender.com/api";
+
+
+    /*
+      Get JWT token
+    */
+
+    const token =
+      localStorage.getItem("nova88_token");
+
+
+    /*
+      Protect page
+    */
 
     if (!token) {
-      window.location.href = "index.html";
+
+      window.location.href =
+        "index.html";
+
     }
 
-    function goBack() {
-      window.location.href = "dashboard.html";
-    }
+
+    /*
+      Dashboard button
+    */
+
+    document
+      .getElementById("backBtn")
+      .addEventListener(
+        "click",
+        () => {
+
+          window.location.href =
+            "dashboard.html";
+
+        }
+      );
+
+
+    /*
+      Load games
+    */
 
     async function loadGames() {
 
-      const gamesContainer = document.querySelector(".games");
+      const container =
+        document.getElementById(
+          "gamesContainer"
+        );
+
 
       try {
 
-        const response = await fetch(`${API}/games`);
+        /*
+          First verify login
+        */
 
-        if (!response.ok) {
-          throw new Error("Failed to load games");
+        const userResponse =
+          await fetch(
+            `${API}/auth/me`,
+            {
+              method: "GET",
+
+              headers: {
+                "Authorization":
+                  `Bearer ${token}`
+              }
+            }
+          );
+
+
+        if (!userResponse.ok) {
+
+          localStorage.removeItem(
+            "nova88_token"
+          );
+
+          window.location.href =
+            "index.html";
+
+          return;
         }
 
-        const games = await response.json();
 
-        gamesContainer.innerHTML = "";
+        /*
+          Load games
+        */
 
-        if (games.length === 0) {
+        const response =
+          await fetch(
+            `${API}/games`
+          );
 
-          gamesContainer.innerHTML = `
-            <div class="game">
-              <div class="game-icon">🎮</div>
-              <h3>No Games Available</h3>
-              <p>Games will be added soon.</p>
+
+        if (!response.ok) {
+
+          throw new Error(
+            "Failed to load games"
+          );
+
+        }
+
+
+        const games =
+          await response.json();
+
+
+        /*
+          No games
+        */
+
+        if (
+          !Array.isArray(games) ||
+          games.length === 0
+        ) {
+
+          container.innerHTML = `
+
+            <div class="message">
+
+              <div class="message-icon">
+                🎮
+              </div>
+
+              <h3>
+                No Games Available
+              </h3>
+
+              <p>
+                Games will be added soon.
+              </p>
+
             </div>
+
           `;
 
           return;
         }
 
+
+        /*
+          Display games
+        */
+
+        container.innerHTML = "";
+
+
         games.forEach(game => {
 
-          const card = document.createElement("div");
+          const card =
+            document.createElement(
+              "div"
+            );
+
           card.className = "game";
 
+
           card.innerHTML = `
+
             <div class="game-icon">
               ${game.icon || "🎮"}
             </div>
 
-            <h3>${game.name}</h3>
+            <h3>
+              ${game.name}
+            </h3>
 
             <p>
               ${game.description || "Play now."}
             </p>
+
           `;
 
-          card.onclick = () => openGame(game.name);
 
-          gamesContainer.appendChild(card);
+          card.addEventListener(
+            "click",
+            () => {
+
+              openGame(
+                game.name
+              );
+
+            }
+          );
+
+
+          container.appendChild(
+            card
+          );
 
         });
 
+
       } catch (error) {
 
-        gamesContainer.innerHTML = `
-          <div class="game">
-            <div class="game-icon">⚠️</div>
-            <h3>Unable to load games</h3>
-            <p>Please try again later.</p>
+        console.error(
+          error
+        );
+
+
+        container.innerHTML = `
+
+          <div class="message">
+
+            <div class="message-icon">
+              ⚠️
+            </div>
+
+            <h3>
+              Unable to Load Games
+            </h3>
+
+            <p>
+              Please try again later.
+            </p>
+
           </div>
+
         `;
 
       }
+
     }
 
-    function openGame(game) {
-      alert(game + " game will be available soon.");
+
+    /*
+      Game action
+    */
+
+    function openGame(gameName) {
+
+      alert(
+        gameName +
+        " game will be available soon."
+      );
+
     }
+
+
+    /*
+      Start
+    */
 
     loadGames();
 
   </script>
 
 </body>
+
 </html>
