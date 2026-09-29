@@ -124,9 +124,9 @@
   <p>Explore available games.</p>
       </div>
 
-      <div class="card">
-        <h3>🎁 Promotions</h3>
-        <p>View current promotions and offers.</p>
+      <div class="card" onclick="openPromotions()">
+  <h3>🎁 Promotions</h3>
+  <p>View current promotions and offers.</p>
       </div>
 
       <div class="card">
@@ -177,6 +177,9 @@
   }
 function openGames() {
   window.location.href = "games.html";
+    }
+    function openPromotions() {
+  window.location.href = "promotions.html";
     }
   loadUser();
 </script>
