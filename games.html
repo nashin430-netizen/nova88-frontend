@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>NOVA88 - Games</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #08090d;
+      color: #fff;
+      min-height: 100vh;
+    }
+
+    header {
+      padding: 20px;
+      border-bottom: 1px solid #252832;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 28px;
+      font-weight: 800;
+    }
+
+    .logo span {
+      color: #ffae2b;
+    }
+
+    .back {
+      background: #ff9f1c;
+      color: #111;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 10px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    main {
+      max-width: 1100px;
+      margin: auto;
+      padding: 40px 20px;
+    }
+
+    .title {
+      margin-bottom: 30px;
+    }
+
+    .title h1 {
+      font-size: 36px;
+      margin-bottom: 10px;
+    }
+
+    .title p {
+      color: #9da3b2;
+    }
+
+    .games {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .game {
+      background: #11131a;
+      border: 1px solid #292d38;
+      border-radius: 16px;
+      padding: 30px;
+      text-align: center;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .game:hover {
+      transform: translateY(-5px);
+      border-color: #ffae2b;
+    }
+
+    .game-icon {
+      font-size: 50px;
+      margin-bottom: 15px;
+    }
+
+    .game h3 {
+      color: #ffae2b;
+      margin-bottom: 8px;
+    }
+
+    .game p {
+      color: #a5aab8;
+    }
+
+    @media (max-width: 700px) {
+      .games {
+        grid-template-columns: 1fr;
+      }
+
+      .title h1 {
+        font-size: 28px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+
+    <div class="logo">
+      NOVA<span>88</span>
+    </div>
+
+    <button class="back" onclick="goBack()">
+      ← Dashboard
+    </button>
+
+  </header>
+
+  <main>
+
+    <div class="title">
+      <h1>🎮 Games</h1>
+      <p>Choose a game to continue.</p>
+    </div>
+
+    <div class="games">
+
+      <div class="game" onclick="openGame('Lucky Spin')">
+        <div class="game-icon">🎡</div>
+        <h3>Lucky Spin</h3>
+        <p>Try your luck.</p>
+      </div>
+
+      <div class="game" onclick="openGame('Dice')">
+        <div class="game-icon">🎲</div>
+        <h3>Dice</h3>
+        <p>Roll the dice.</p>
+      </div>
+
+      <div class="game" onclick="openGame('Cards')">
+        <div class="game-icon">🃏</div>
+        <h3>Cards</h3>
+        <p>Play card games.</p>
+      </div>
+
+    </div>
+
+  </main>
+
+  <script>
+
+    const token = localStorage.getItem("nova88_token");
+
+    if (!token) {
+      window.location.href = "index.html";
+    }
+
+    function goBack() {
+      window.location.href = "dashboard.html";
+    }
+
+    function openGame(game) {
+      alert(game + " game will be available soon.");
+    }
+
+  </script>
+
+</body>
+</html>
