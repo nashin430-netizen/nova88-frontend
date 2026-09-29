@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>NOVA88 - Promotions</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #08090d;
+      color: #fff;
+      min-height: 100vh;
+    }
+
+    header {
+      padding: 20px;
+      border-bottom: 1px solid #252832;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 28px;
+      font-weight: 800;
+    }
+
+    .logo span {
+      color: #ffae2b;
+    }
+
+    .back {
+      background: #ff9f1c;
+      color: #111;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 10px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    main {
+      max-width: 1100px;
+      margin: auto;
+      padding: 40px 20px;
+    }
+
+    .title {
+      margin-bottom: 30px;
+    }
+
+    .title h1 {
+      font-size: 36px;
+      margin-bottom: 10px;
+    }
+
+    .title p {
+      color: #9da3b2;
+    }
+
+    .promotions {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    .promo {
+      background: #11131a;
+      border: 1px solid #292d38;
+      border-radius: 16px;
+      padding: 30px;
+    }
+
+    .promo-icon {
+      font-size: 45px;
+      margin-bottom: 15px;
+    }
+
+    .promo h3 {
+      color: #ffae2b;
+      margin-bottom: 10px;
+    }
+
+    .promo p {
+      color: #a5aab8;
+      line-height: 1.6;
+    }
+
+    .claim {
+      margin-top: 20px;
+      background: #ff9f1c;
+      color: #111;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 10px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    @media (max-width: 700px) {
+      .promotions {
+        grid-template-columns: 1fr;
+      }
+
+      .title h1 {
+        font-size: 28px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+
+    <div class="logo">
+      NOVA<span>88</span>
+    </div>
+
+    <button class="back" onclick="goBack()">
+      ← Dashboard
+    </button>
+
+  </header>
+
+  <main>
+
+    <div class="title">
+      <h1>🎁 Promotions</h1>
+      <p>Check out our latest promotions and offers.</p>
+    </div>
+
+    <div class="promotions">
+
+      <div class="promo">
+        <div class="promo-icon">🎁</div>
+        <h3>Welcome Bonus</h3>
+        <p>
+          New members can check available welcome offers
+          and promotional rewards.
+        </p>
+
+        <button class="claim" onclick="claimPromo('Welcome Bonus')">
+          Claim Offer
+        </button>
+      </div>
+
+      <div class="promo">
+        <div class="promo-icon">🔥</div>
+        <h3>Special Offer</h3>
+        <p>
+          Limited-time promotional offer.
+          Check your account for available details.
+        </p>
+
+        <button class="claim" onclick="claimPromo('Special Offer')">
+          View Offer
+        </button>
+      </div>
+
+    </div>
+
+  </main>
+
+  <script>
+
+    const token = localStorage.getItem("nova88_token");
+
+    if (!token) {
+      window.location.href = "index.html";
+    }
+
+    function goBack() {
+      window.location.href = "dashboard.html";
+    }
+
+    function claimPromo(promo) {
+      alert(promo + " selected.");
+    }
+
+  </script>
+
+</body>
+</html>
