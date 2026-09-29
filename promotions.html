@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -24,7 +23,6 @@
     header {
       padding: 20px;
       border-bottom: 1px solid #252832;
-
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -42,30 +40,16 @@
     .back {
       background: #ff9f1c;
       color: #111;
-
       border: none;
-
       padding: 12px 20px;
-
       border-radius: 10px;
-
       font-weight: bold;
-
       cursor: pointer;
-
-      transition: 0.2s ease;
-    }
-
-    .back:hover {
-      transform: translateY(-1px);
-      opacity: 0.9;
     }
 
     main {
       max-width: 1100px;
-
       margin: auto;
-
       padding: 40px 20px;
     }
 
@@ -75,102 +59,166 @@
 
     .title h1 {
       font-size: 36px;
-
       margin-bottom: 10px;
     }
 
     .title p {
       color: #9da3b2;
-
-      line-height: 1.5;
     }
 
     .promotions {
       display: grid;
-
-      grid-template-columns:
-        repeat(2, 1fr);
-
+      grid-template-columns: repeat(2, 1fr);
       gap: 20px;
     }
 
     .promo {
       background: #11131a;
-
       border: 1px solid #292d38;
-
       border-radius: 16px;
-
       padding: 30px;
-
       transition: 0.25s ease;
     }
 
     .promo:hover {
       transform: translateY(-5px);
-
       border-color: #ffae2b;
-
-      box-shadow:
-        0 10px 30px
-        rgba(255, 174, 43, 0.08);
+      box-shadow: 0 15px 35px rgba(255, 174, 43, 0.08);
     }
 
     .promo-icon {
       font-size: 45px;
-
       margin-bottom: 15px;
     }
 
     .promo h3 {
       color: #ffae2b;
-
       margin-bottom: 10px;
-
-      font-size: 21px;
+      font-size: 22px;
     }
 
     .promo p {
       color: #a5aab8;
-
       line-height: 1.6;
     }
 
     .claim {
       margin-top: 20px;
-
       background: #ff9f1c;
-
       color: #111;
-
       border: none;
-
       padding: 12px 20px;
-
       border-radius: 10px;
-
       font-weight: bold;
-
       cursor: pointer;
-
-      transition: 0.2s ease;
+      transition: 0.2s;
     }
 
     .claim:hover {
-      opacity: 0.9;
-
-      transform: translateY(-1px);
+      transform: translateY(-2px);
+      filter: brightness(1.08);
     }
 
-    .loading {
-      text-align: center;
+    /* MODAL */
 
-      padding: 50px;
+    .modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.78);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      z-index: 9999;
+      backdrop-filter: blur(5px);
+    }
 
-      color: #ffae2b;
+    .modal.open {
+      display: flex;
+    }
+
+    .modal-card {
+      width: 100%;
+      max-width: 480px;
+      background: #11131a;
+      border: 1px solid #343945;
+      border-radius: 20px;
+      padding: 30px;
+      position: relative;
+      box-shadow: 0 25px 80px rgba(0, 0, 0, 0.6);
+      animation: modalIn 0.2s ease;
+    }
+
+    @keyframes modalIn {
+      from {
+        opacity: 0;
+        transform: translateY(15px) scale(0.98);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .close {
+      position: absolute;
+      right: 18px;
+      top: 15px;
+      background: transparent;
+      border: none;
+      color: #a5aab8;
+      font-size: 32px;
+      cursor: pointer;
+      line-height: 1;
+    }
+
+    .close:hover {
+      color: #fff;
+    }
+
+    .modal-icon {
+      font-size: 50px;
+      margin-bottom: 15px;
+    }
+
+    .modal-card h2 {
+      font-size: 28px;
+      margin-bottom: 10px;
+      color: #fff;
+    }
+
+    .modal-card p {
+      color: #9da3b2;
+      line-height: 1.6;
+    }
+
+    .modal-button {
+      width: 100%;
+      margin-top: 25px;
+      padding: 14px;
+      border: none;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #ffae2b, #ff6b1a);
+      color: #111;
+      font-size: 16px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .modal-button:hover {
+      filter: brightness(1.08);
     }
 
     @media (max-width: 700px) {
+
+      .promotions {
+        grid-template-columns: 1fr;
+      }
+
+      .title h1 {
+        font-size: 28px;
+      }
 
       header {
         padding: 16px;
@@ -184,25 +232,12 @@
         padding: 10px 14px;
       }
 
-      main {
-        padding: 30px 16px;
-      }
-
-      .title h1 {
-        font-size: 28px;
-      }
-
-      .promotions {
-        grid-template-columns: 1fr;
-      }
-
-      .promo {
+      .modal-card {
         padding: 25px;
       }
     }
   </style>
 </head>
-
 
 <body>
 
@@ -212,10 +247,7 @@
       NOVA<span>88</span>
     </div>
 
-    <button
-      class="back"
-      id="backBtn"
-    >
+    <button class="back" onclick="goBack()">
       ← Dashboard
     </button>
 
@@ -225,23 +257,90 @@
   <main>
 
     <div class="title">
-
       <h1>🎁 Promotions</h1>
-
-      <p>
-        Check out our latest promotions and offers.
-      </p>
-
+      <p>Check out our latest promotions and offers.</p>
     </div>
 
 
-    <div
-      class="promotions"
-      id="promotionsContainer"
-    >
+    <div class="promotions">
 
-      <div class="loading">
-        Loading promotions...
+      <div class="promo">
+
+        <div class="promo-icon">🎁</div>
+
+        <h3>Welcome Bonus</h3>
+
+        <p>
+          New members can check available welcome offers
+          and promotional rewards.
+        </p>
+
+        <button
+          class="claim"
+          onclick="openPromo('Welcome Bonus', '🎁')">
+          Claim Offer
+        </button>
+
+      </div>
+
+
+      <div class="promo">
+
+        <div class="promo-icon">🔥</div>
+
+        <h3>Special Offer</h3>
+
+        <p>
+          Limited-time promotional offer.
+          Check your account for available details.
+        </p>
+
+        <button
+          class="claim"
+          onclick="openPromo('Special Offer', '🔥')">
+          View Offer
+        </button>
+
+      </div>
+
+
+      <div class="promo">
+
+        <div class="promo-icon">⚡</div>
+
+        <h3>VIP Rewards</h3>
+
+        <p>
+          Demo VIP promotion area for future account
+          features.
+        </p>
+
+        <button
+          class="claim"
+          onclick="openPromo('VIP Rewards', '⭐')">
+          View Details
+        </button>
+
+      </div>
+
+
+      <div class="promo">
+
+        <div class="promo-icon">🏆</div>
+
+        <h3>Daily Rewards</h3>
+
+        <p>
+          Demo rewards section for future account
+          features and achievements.
+        </p>
+
+        <button
+          class="claim"
+          onclick="openPromo('Daily Rewards', '🏆')">
+          View Details
+        </button>
+
       </div>
 
     </div>
@@ -249,262 +348,102 @@
   </main>
 
 
+  <!-- CUSTOM MODAL -->
+
+  <div class="modal" id="promoModal">
+
+    <div class="modal-card">
+
+      <button
+        class="close"
+        onclick="closePromo()">
+        ×
+      </button>
+
+      <div
+        class="modal-icon"
+        id="promoIcon">
+        🎁
+      </div>
+
+      <h2 id="promoTitle">
+        Welcome Bonus
+      </h2>
+
+      <p id="promoMessage">
+        This is a demo promotion area.
+        No real-money transactions or rewards are available.
+      </p>
+
+      <button
+        class="modal-button"
+        onclick="closePromo()">
+        Continue
+      </button>
+
+    </div>
+
+  </div>
+
+
   <script>
-
-    const API =
-      "https://nova88-backend.onrender.com/api";
-
-
-    /*
-      Get JWT token
-    */
 
     const token =
       localStorage.getItem("nova88_token");
 
-
-    /*
-      Protect page
-    */
-
     if (!token) {
-
-      window.location.href =
-        "index.html";
-
+      window.location.href = "index.html";
     }
 
 
-    /*
-      Dashboard button
-    */
-
-    document
-      .getElementById("backBtn")
-      .addEventListener(
-        "click",
-        () => {
-
-          window.location.href =
-            "dashboard.html";
-
-        }
-      );
+    function goBack() {
+      window.location.href = "dashboard.html";
+    }
 
 
-    /*
-      Verify logged-in user
-    */
+    function openPromo(title, icon) {
 
-    async function verifyUser() {
+      document.getElementById("promoTitle")
+        .textContent = title;
 
-      try {
+      document.getElementById("promoIcon")
+        .textContent = icon;
 
-        const response =
-          await fetch(
-            `${API}/auth/me`,
-            {
-              method: "GET",
+      document.getElementById("promoMessage")
+        .textContent =
+        "This is a demo promotion area. No real-money transactions or rewards are available.";
 
-              headers: {
-                "Authorization":
-                  `Bearer ${token}`
-              }
-            }
-          );
+      document.getElementById("promoModal")
+        .classList.add("open");
+    }
 
 
-        if (!response.ok) {
+    function closePromo() {
 
-          localStorage.removeItem(
-            "nova88_token"
-          );
+      document.getElementById("promoModal")
+        .classList.remove("open");
+    }
 
-          window.location.href =
-            "index.html";
 
-          return false;
+    document.getElementById("promoModal")
+      .addEventListener("click", function(event) {
+
+        if (event.target === this) {
+          closePromo();
         }
 
+      });
 
-        return true;
 
-      } catch (error) {
+    document.addEventListener("keydown", function(event) {
 
-        return false;
-
+      if (event.key === "Escape") {
+        closePromo();
       }
 
-    }
-
-
-    /*
-      Load promotions
-    */
-
-    async function loadPromotions() {
-
-      const container =
-        document.getElementById(
-          "promotionsContainer"
-        );
-
-
-      const validUser =
-        await verifyUser();
-
-
-      if (!validUser) {
-        return;
-      }
-
-
-      /*
-        Demo promotions
-      */
-
-      container.innerHTML = `
-
-        <div class="promo">
-
-          <div class="promo-icon">
-            🎁
-          </div>
-
-          <h3>
-            Welcome Bonus
-          </h3>
-
-          <p>
-            New members can check available
-            welcome offers and promotional
-            rewards.
-          </p>
-
-          <button
-            class="claim"
-            data-promo="Welcome Bonus"
-          >
-            Claim Offer
-          </button>
-
-        </div>
-
-
-        <div class="promo">
-
-          <div class="promo-icon">
-            🔥
-          </div>
-
-          <h3>
-            Special Offer
-          </h3>
-
-          <p>
-            Limited-time promotional offer.
-            Check your account for available
-            details.
-          </p>
-
-          <button
-            class="claim"
-            data-promo="Special Offer"
-          >
-            View Offer
-          </button>
-
-        </div>
-
-
-        <div class="promo">
-
-          <div class="promo-icon">
-            ⚡
-          </div>
-
-          <h3>
-            Daily Rewards
-          </h3>
-
-          <p>
-            Demo reward section for future
-            promotional content.
-          </p>
-
-          <button
-            class="claim"
-            data-promo="Daily Rewards"
-          >
-            View Details
-          </button>
-
-        </div>
-
-
-        <div class="promo">
-
-          <div class="promo-icon">
-            ⭐
-          </div>
-
-          <h3>
-            VIP Rewards
-          </h3>
-
-          <p>
-            Demo VIP promotion area for
-            future account features.
-          </p>
-
-          <button
-            class="claim"
-            data-promo="VIP Rewards"
-          >
-            View Details
-          </button>
-
-        </div>
-
-      `;
-
-
-      /*
-        Promotion buttons
-      */
-
-      document
-        .querySelectorAll("[data-promo]")
-        .forEach(button => {
-
-          button.addEventListener(
-            "click",
-            () => {
-
-              const promo =
-                button.dataset.promo;
-
-              alert(
-                promo +
-                " selected. Demo feature only."
-              );
-
-            }
-          );
-
-        });
-
-    }
-
-
-    /*
-      Start
-    */
-
-    loadPromotions();
+    });
 
   </script>
 
 </body>
-
 </html>
