@@ -859,6 +859,140 @@
     const API =
       "https://nova88-backend.onrender.com/api";
 
+    // =====================================
+// ADD GAME
+// =====================================
+
+function openGameModal() {
+
+  const modal =
+    document.getElementById("gameModal");
+
+  if (!modal) return;
+
+  modal.style.display = "flex";
+
+  document.getElementById("gameForm").reset();
+
+  document.getElementById("gameStatus").checked = true;
+}
+
+
+function closeGameModal() {
+
+  const modal =
+    document.getElementById("gameModal");
+
+  if (!modal) return;
+
+  modal.style.display = "none";
+}
+
+
+// =====================================
+// SAVE NEW GAME
+// =====================================
+
+const gameForm =
+  document.getElementById("gameForm");
+
+
+if (gameForm) {
+
+  gameForm.addEventListener(
+    "submit",
+    async function (event) {
+
+      event.preventDefault();
+
+      const token =
+        localStorage.getItem("nova88_token");
+
+      if (!token) {
+        alert("Authentication required.");
+        return;
+      }
+
+      const gameData = {
+
+        name:
+          document.getElementById("gameName").value.trim(),
+
+        category:
+          document.getElementById("gameCategory").value,
+
+        icon:
+          document.getElementById("gameIcon").value.trim(),
+
+        description:
+          document.getElementById("gameDescription").value.trim(),
+
+        image:
+          document.getElementById("gameImage").value.trim(),
+
+        status:
+          document.getElementById("gameStatus").checked
+
+      };
+
+
+      try {
+
+        const response = await fetch(
+          API + "/admin/games",
+          {
+            method: "POST",
+
+            headers: {
+              "Content-Type": "application/json",
+              "Authorization": "Bearer " + token
+            },
+
+            body: JSON.stringify(gameData)
+          }
+        );
+
+
+        const data =
+          await response.json();
+
+
+        if (!response.ok) {
+
+          throw new Error(
+            data.error || "Failed to create game"
+          );
+
+        }
+
+
+        alert("Game created successfully!");
+
+
+        closeGameModal();
+
+
+        loadGames();
+
+
+      } catch (error) {
+
+        console.error(
+          "Create game error:",
+          error
+        );
+
+        alert(
+          error.message ||
+          "Failed to create game"
+        );
+
+      }
+
+    }
+  );
+
+}
 
     // =====================================
     // ELEMENTS
