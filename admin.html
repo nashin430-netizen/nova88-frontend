@@ -355,7 +355,58 @@
       </div>
 
     </div>
+<!-- ===============================
+     GAMES MANAGEMENT
+================================ -->
 
+<section class="admin-section">
+
+  <div class="section-header">
+    <div>
+      <h2>🎮 Games Management</h2>
+      <p>Manage NOVA88 games.</p>
+    </div>
+
+    <button
+      class="primary-btn"
+      onclick="openGameModal()"
+    >
+      + Add Game
+    </button>
+  </div>
+
+  <div class="table-wrap">
+
+    <table>
+
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Game</th>
+          <th>Category</th>
+          <th>Status</th>
+          <th>Created</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+
+      <tbody id="gamesTableBody">
+
+        <tr>
+          <td colspan="6" class="empty">
+            Loading games...
+          </td>
+        </tr>
+
+      </tbody>
+
+    </table>
+
+  </div>
+
+  </section>
+
+    
   </main>
   <script>
 
