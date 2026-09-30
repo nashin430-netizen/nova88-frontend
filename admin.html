@@ -391,6 +391,164 @@
         padding: 14px;
       }
     }
+/* =====================================
+   ADD GAME MODAL
+===================================== */
+
+.game-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(0, 0, 0, 0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.game-modal-box {
+  width: 100%;
+  max-width: 520px;
+  max-height: 90vh;
+  overflow-y: auto;
+  background: #11131a;
+  border: 1px solid #2a3040;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+.game-modal-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 15px;
+  margin-bottom: 24px;
+}
+
+.game-modal-header h2 {
+  color: #ffffff;
+  font-size: 21px;
+  margin-bottom: 6px;
+}
+
+.game-modal-header p {
+  color: #8d95a5;
+  font-size: 13px;
+}
+
+.game-modal-close {
+  width: 34px;
+  height: 34px;
+  border: 1px solid #303746;
+  border-radius: 8px;
+  background: #171b24;
+  color: #ffffff;
+  font-size: 22px;
+  cursor: pointer;
+}
+
+.game-modal-close:hover {
+  background: #252b36;
+}
+
+.game-form-group {
+  margin-bottom: 17px;
+}
+
+.game-form-group label {
+  display: block;
+  margin-bottom: 7px;
+  color: #cfd5df;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.game-form-group input,
+.game-form-group select,
+.game-form-group textarea {
+  width: 100%;
+  background: #08090d;
+  color: #ffffff;
+  border: 1px solid #303746;
+  border-radius: 8px;
+  padding: 11px 12px;
+  outline: none;
+  font-family: inherit;
+}
+
+.game-form-group textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.game-form-group input:focus,
+.game-form-group select:focus,
+.game-form-group textarea:focus {
+  border-color: #9d7424;
+}
+
+.game-status-row label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.game-status-row input {
+  width: auto;
+}
+
+.game-modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 24px;
+}
+
+.game-cancel-btn,
+.game-save-btn {
+  border: none;
+  border-radius: 8px;
+  padding: 11px 18px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.game-cancel-btn {
+  background: #242936;
+  color: #ffffff;
+}
+
+.game-save-btn {
+  background: linear-gradient(135deg, #d6b25e, #9d7424);
+  color: #08090d;
+}
+
+.game-save-btn:hover,
+.game-cancel-btn:hover {
+  filter: brightness(1.1);
+}
+
+@media (max-width: 600px) {
+  .game-modal {
+    padding: 12px;
+  }
+
+  .game-modal-box {
+    padding: 18px;
+    border-radius: 12px;
+  }
+
+  .game-modal-actions {
+    flex-direction: column;
+  }
+
+  .game-cancel-btn,
+  .game-save-btn {
+    width: 100%;
+  }
+}
   
   </style>
 </head>
