@@ -1321,9 +1321,10 @@ async function loadDashboard() {
 
   statusText.textContent = "Connecting to backend...";
   statusText.className = "status-text";
-
+console.log("ADMIN TOKEN:", token);
+console.log("API:", `${API}/admin/dashboard`);
   try {
-    const response = await fetch(`${API}/admin/dashboard`, {
+    const response = await fetch console.log("RESPONSE STATUS:", response.status);(`${API}/admin/dashboard`, {
       method: "GET",
       headers: {
         "Authorization": `Bearer ${token}`,
