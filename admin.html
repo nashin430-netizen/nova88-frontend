@@ -21,7 +21,7 @@
     }
 
     header {
-      height: 75px;
+      min-height: 75px;
       padding: 0 25px;
       border-bottom: 1px solid #252832;
       display: flex;
@@ -54,6 +54,10 @@
       border-radius: 9px;
       font-weight: bold;
       cursor: pointer;
+    }
+
+    .logout:hover {
+      background: #ffb84d;
     }
 
     main {
@@ -91,6 +95,14 @@
 
     .status-text {
       color: #a5aab8;
+    }
+
+    .success {
+      color: #52d273;
+    }
+
+    .error {
+      color: #ff6b6b;
     }
 
     .cards {
@@ -134,8 +146,26 @@
       margin-top: 15px;
     }
 
-    .error {
-      color: #ff6b6b;
+    .admin-info {
+      margin-top: 25px;
+      background: #11131a;
+      border: 1px solid #292d38;
+      border-radius: 14px;
+      padding: 20px;
+    }
+
+    .admin-info h3 {
+      color: #ffae2b;
+      margin-bottom: 12px;
+    }
+
+    .admin-info p {
+      color: #a5aab8;
+      margin-top: 6px;
+    }
+
+    .loading {
+      color: #ffae2b;
     }
 
     @media (max-width: 800px) {
@@ -153,6 +183,10 @@
 
       .logo {
         font-size: 23px;
+      }
+
+      .logout {
+        padding: 9px 13px;
       }
     }
   </style>
@@ -183,7 +217,10 @@
 
     <div class="page-title">
       <h1>Admin Dashboard</h1>
-      <p>Manage your NOVA88 demo platform.</p>
+
+      <p>
+        Manage your NOVA88 demo platform.
+      </p>
     </div>
 
 
@@ -193,7 +230,10 @@
         System Status
       </div>
 
-      <div class="status-text" id="statusText">
+      <div
+        class="status-text loading"
+        id="statusText"
+      >
         Connecting to backend...
       </div>
 
@@ -201,6 +241,8 @@
 
 
     <div class="cards">
+
+      <!-- USERS -->
 
       <div class="card">
 
@@ -214,12 +256,17 @@
           Manage registered demo users.
         </p>
 
-        <div class="card-value" id="userCount">
+        <div
+          class="card-value"
+          id="userCount"
+        >
           —
         </div>
 
       </div>
 
+
+      <!-- GAMES -->
 
       <div class="card">
 
@@ -233,12 +280,17 @@
           View and manage available demo games.
         </p>
 
-        <div class="card-value" id="gameCount">
+        <div
+          class="card-value"
+          id="gameCount"
+        >
           —
         </div>
 
       </div>
 
+
+      <!-- PROMOTIONS -->
 
       <div class="card">
 
@@ -252,11 +304,38 @@
           Manage demo promotional content.
         </p>
 
-        <div class="card-value" id="promoCount">
+        <div
+          class="card-value"
+          id="promoCount"
+        >
           —
         </div>
 
       </div>
+
+    </div>
+
+
+    <!-- ADMIN INFORMATION -->
+
+    <div class="admin-info">
+
+      <h3>Admin Information</h3>
+
+      <p>
+        Email:
+        <span id="adminEmail">—</span>
+      </p>
+
+      <p>
+        Role:
+        <span id="adminRole">—</span>
+      </p>
+
+      <p>
+        User ID:
+        <span id="adminId">—</span>
+      </p>
 
     </div>
 
@@ -268,32 +347,55 @@
     const API =
       "https://nova88-backend.onrender.com/api";
 
+
     const token =
       localStorage.getItem("nova88_token");
 
 
-    // No login token
+    /*
+      If there is no login token,
+      send user back to login page.
+    */
+
     if (!token) {
-      window.location.href = "index.html";
+
+      window.location.href =
+        "index.html";
+
     }
 
 
     async function loadAdminDashboard() {
 
-      try {
-
-        const response = await fetch(
-          `${API}/admin/dashboard`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`
-            }
-          }
+      const statusText =
+        document.getElementById(
+          "statusText"
         );
 
 
-        const data = await response.json();
+      try {
 
+        const response =
+          await fetch(
+            `${API}/admin/dashboard`,
+            {
+              method: "GET",
+
+              headers: {
+                "Authorization":
+                  `Bearer ${token}`
+              }
+            }
+          );
+
+
+        const data =
+          await response.json();
+
+
+        /*
+          Authentication / Admin error
+        */
 
         if (!response.ok) {
 
@@ -301,54 +403,102 @@
             response.status === 401 ||
             response.status === 403
           ) {
+
+            localStorage.removeItem(
+              "nova88_token"
+            );
+
             alert(
-              "Admin access required."
+              "Admin access required. Please login again."
             );
 
             window.location.href =
-              "dashboard.html";
+              "index.html";
 
             return;
           }
+
 
           throw new Error(
             data.error ||
             "Failed to load admin dashboard."
           );
+
         }
+
+
+        /*
+          Backend connected
+        */
+
+        statusText.textContent =
+          "Backend connected successfully.";
+
+        statusText.className =
+          "status-text success";
+
+
+        /*
+          Dashboard statistics
+        */
+
+        const stats =
+          data.stats || {};
 
 
         document.getElementById(
-          "statusText"
+          "userCount"
         ).textContent =
-          "Backend connected successfully.";
+          stats.users ?? 0;
 
 
-        // Show dashboard data
-        if (data.users !== undefined) {
-          document.getElementById(
-            "userCount"
-          ).textContent = data.users;
-        }
+        document.getElementById(
+          "gameCount"
+        ).textContent =
+          stats.games ?? 0;
 
-        if (data.games !== undefined) {
-          document.getElementById(
-            "gameCount"
-          ).textContent = data.games;
-        }
 
-        if (data.promotions !== undefined) {
-          document.getElementById(
-            "promoCount"
-          ).textContent = data.promotions;
-        }
+        document.getElementById(
+          "promoCount"
+        ).textContent =
+          stats.promotions ?? 0;
+
+
+        /*
+          Admin information
+        */
+
+        const admin =
+          data.admin || {};
+
+
+        document.getElementById(
+          "adminEmail"
+        ).textContent =
+          admin.email || "—";
+
+
+        document.getElementById(
+          "adminRole"
+        ).textContent =
+          admin.role || "—";
+
+
+        document.getElementById(
+          "adminId"
+        ).textContent =
+          admin.id || "—";
 
 
       } catch (error) {
 
-        document.getElementById(
-          "statusText"
-        ).innerHTML =
+        console.error(
+          "ADMIN DASHBOARD ERROR:",
+          error
+        );
+
+
+        statusText.innerHTML =
           `<span class="error">
             ${error.message}
           </span>`;
@@ -357,6 +507,10 @@
 
     }
 
+
+    /*
+      Logout
+    */
 
     function logout() {
 
@@ -369,6 +523,10 @@
 
     }
 
+
+    /*
+      Load dashboard
+    */
 
     loadAdminDashboard();
 
