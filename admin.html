@@ -1,7 +1,14 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
+
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">  <title>NOVA88 - Admin Panel</title>  <style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>NOVA88 - Admin Panel</title>
+
+  <style>
+
     * {
       box-sizing: border-box;
       margin: 0;
@@ -178,7 +185,7 @@
     table {
       width: 100%;
       border-collapse: collapse;
-      min-width: 600px;
+      min-width: 850px;
     }
 
     th,
@@ -213,7 +220,49 @@
       color: #ffae2b;
     }
 
+    /* ACTION BUTTONS */
+
+    .actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .action-btn {
+      border: none;
+      border-radius: 7px;
+      padding: 8px 11px;
+      font-size: 12px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .role-btn {
+      background: #ffae2b;
+      color: #111;
+    }
+
+    .role-btn:hover {
+      background: #ffc15c;
+    }
+
+    .delete-btn {
+      background: #d64545;
+      color: white;
+    }
+
+    .delete-btn:hover {
+      background: #ef5555;
+    }
+
+    .current-user {
+      color: #777d8c;
+      font-size: 12px;
+      font-weight: bold;
+    }
+
     @media (max-width: 800px) {
+
       .cards {
         grid-template-columns: 1fr;
       }
@@ -233,170 +282,206 @@
       .logout {
         padding: 9px 13px;
       }
+
     }
-  </style></head><body>  <header><div>
-  <div class="logo">
-    NOVA<span>88</span>
-  </div>
 
-  <div class="admin-badge">
-    ADMIN PANEL
-  </div>
-</div>
+  </style>
 
-<button class="logout" onclick="logout()">
-  Logout
-</button>
+</head>
 
-  </header>  <main><div class="page-title">
-  <h1>Admin Dashboard</h1>
+<body>
 
-  <p>
-    Manage your NOVA88 demo platform.
-  </p>
-</div>
+  <header>
 
+    <div>
 
-<div class="status">
+      <div class="logo">
+        NOVA<span>88</span>
+      </div>
 
-  <div class="status-title">
-    System Status
-  </div>
+      <div class="admin-badge">
+        ADMIN PANEL
+      </div>
 
-  <div
-    class="status-text loading"
-    id="statusText"
-  >
-    Connecting to backend...
-  </div>
-
-</div>
-
-
-<div class="cards">
-
-  <div class="card">
-
-    <div class="card-icon">
-      👥
     </div>
 
-    <h2>Users</h2>
+    <button class="logout" onclick="logout()">
+      Logout
+    </button>
 
-    <p>
-      Manage registered demo users.
-    </p>
+  </header>
 
-    <div
-      class="card-value"
-      id="userCount"
-    >
-      —
+
+  <main>
+
+    <div class="page-title">
+
+      <h1>Admin Dashboard</h1>
+
+      <p>
+        Manage your NOVA88 demo platform.
+      </p>
+
     </div>
 
-  </div>
 
+    <div class="status">
 
-  <div class="card">
+      <div class="status-title">
+        System Status
+      </div>
 
-    <div class="card-icon">
-      🎮
+      <div
+        class="status-text loading"
+        id="statusText"
+      >
+        Connecting to backend...
+      </div>
+
     </div>
 
-    <h2>Games</h2>
 
-    <p>
-      View and manage available demo games.
-    </p>
+    <!-- STATS -->
 
-    <div
-      class="card-value"
-      id="gameCount"
-    >
-      —
+    <div class="cards">
+
+      <div class="card">
+
+        <div class="card-icon">
+          👥
+        </div>
+
+        <h2>Users</h2>
+
+        <p>
+          Manage registered demo users.
+        </p>
+
+        <div
+          class="card-value"
+          id="userCount"
+        >
+          —
+        </div>
+
+      </div>
+
+
+      <div class="card">
+
+        <div class="card-icon">
+          🎮
+        </div>
+
+        <h2>Games</h2>
+
+        <p>
+          View and manage available demo games.
+        </p>
+
+        <div
+          class="card-value"
+          id="gameCount"
+        >
+          —
+        </div>
+
+      </div>
+
+
+      <div class="card">
+
+        <div class="card-icon">
+          🎁
+        </div>
+
+        <h2>Promotions</h2>
+
+        <p>
+          Manage demo promotional content.
+        </p>
+
+        <div
+          class="card-value"
+          id="promoCount"
+        >
+          —
+        </div>
+
+      </div>
+
     </div>
 
-  </div>
 
+    <!-- ADMIN INFORMATION -->
 
-  <div class="card">
+    <div class="admin-info">
 
-    <div class="card-icon">
-      🎁
+      <h3>Admin Information</h3>
+
+      <p>
+        Email:
+        <span id="adminEmail">—</span>
+      </p>
+
+      <p>
+        Role:
+        <span id="adminRole">—</span>
+      </p>
+
+      <p>
+        User ID:
+        <span id="adminId">—</span>
+      </p>
+
     </div>
 
-    <h2>Promotions</h2>
 
-    <p>
-      Manage demo promotional content.
-    </p>
+    <!-- USERS -->
 
-    <div
-      class="card-value"
-      id="promoCount"
-    >
-      —
+    <div class="users-section">
+
+      <h2>
+        👥 Registered Users
+      </h2>
+
+      <table>
+
+        <thead>
+
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th>Action</th>
+          </tr>
+
+        </thead>
+
+        <tbody id="usersTable">
+
+          <tr>
+
+            <td
+              colspan="5"
+              class="loading"
+            >
+              Loading users...
+            </td>
+
+          </tr>
+
+        </tbody>
+
+      </table>
+
     </div>
 
-  </div>
-
-</div>
+  </main>
 
 
-<div class="admin-info">
-
-  <h3>Admin Information</h3>
-
-  <p>
-    Email:
-    <span id="adminEmail">—</span>
-  </p>
-
-  <p>
-    Role:
-    <span id="adminRole">—</span>
-  </p>
-
-  <p>
-    User ID:
-    <span id="adminId">—</span>
-  </p>
-
-</div>
-
-
-<!-- USERS LIST -->
-
-<div class="users-section">
-
-  <h2>👥 Registered Users</h2>
-
-  <table>
-
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Email</th>
-        <th>Role</th>
-      </tr>
-    </thead>
-
-    <tbody id="usersTable">
-
-      <tr>
-        <td colspan="4" class="loading">
-          Loading users...
-        </td>
-      </tr>
-
-    </tbody>
-
-  </table>
-
-</div>
-
-  </main>  <script>
+  <script>
 
     const API =
       "https://nova88-backend.onrender.com/api";
@@ -414,10 +499,16 @@
     }
 
 
+    // ===============================
+    // LOAD ADMIN DASHBOARD
+    // ===============================
+
     async function loadAdminDashboard() {
 
       const statusText =
-        document.getElementById("statusText");
+        document.getElementById(
+          "statusText"
+        );
 
 
       try {
@@ -459,6 +550,7 @@
               "index.html";
 
             return;
+
           }
 
 
@@ -525,8 +617,9 @@
 
         await loadUsers();
 
+      }
 
-      } catch (error) {
+      catch (error) {
 
         console.error(
           "ADMIN DASHBOARD ERROR:",
@@ -543,6 +636,10 @@
 
     }
 
+
+    // ===============================
+    // LOAD USERS
+    // ===============================
 
     async function loadUsers() {
 
@@ -590,7 +687,7 @@
 
           table.innerHTML = `
             <tr>
-              <td colspan="4">
+              <td colspan="5">
                 No users found.
               </td>
             </tr>
@@ -610,6 +707,61 @@
                 : "user-role";
 
 
+            const isCurrentUser =
+              Number(user.id) ===
+              Number(getCurrentAdminId());
+
+
+            let actions = "";
+
+
+            if (isCurrentUser) {
+
+              actions = `
+                <span class="current-user">
+                  Current Admin
+                </span>
+              `;
+
+            }
+
+            else {
+
+              const nextRole =
+                user.role === "ADMIN"
+                  ? "USER"
+                  : "ADMIN";
+
+
+              const roleButtonText =
+                user.role === "ADMIN"
+                  ? "Make User"
+                  : "Make Admin";
+
+
+              actions = `
+                <div class="actions">
+
+                  <button
+                    class="action-btn role-btn"
+                    onclick="changeRole(${user.id}, '${nextRole}')"
+                  >
+                    ${roleButtonText}
+                  </button>
+
+                  <button
+                    class="action-btn delete-btn"
+                    onclick="deleteUser(${user.id}, '${escapeHtml(user.name)}')"
+                  >
+                    Delete
+                  </button>
+
+                </div>
+              `;
+
+            }
+
+
             return `
               <tr>
 
@@ -618,15 +770,19 @@
                 </td>
 
                 <td>
-                  ${user.name}
+                  ${escapeHtml(user.name)}
                 </td>
 
                 <td>
-                  ${user.email}
+                  ${escapeHtml(user.email)}
                 </td>
 
                 <td class="role ${roleClass}">
                   ${user.role}
+                </td>
+
+                <td>
+                  ${actions}
                 </td>
 
               </tr>
@@ -634,8 +790,9 @@
 
           }).join("");
 
+      }
 
-      } catch (error) {
+      catch (error) {
 
         console.error(
           "USERS ERROR:",
@@ -645,7 +802,10 @@
 
         table.innerHTML = `
           <tr>
-            <td colspan="4" class="error">
+            <td
+              colspan="5"
+              class="error"
+            >
               ${error.message}
             </td>
           </tr>
@@ -655,6 +815,250 @@
 
     }
 
+
+    // ===============================
+    // GET CURRENT ADMIN ID
+    // ===============================
+
+    function getCurrentAdminId() {
+
+      try {
+
+        const payload =
+          JSON.parse(
+            atob(
+              token.split(".")[1]
+                .replace(/-/g, "+")
+                .replace(/_/g, "/")
+            )
+          );
+
+        return payload.id;
+
+      }
+
+      catch (error) {
+
+        console.error(
+          "TOKEN READ ERROR:",
+          error
+        );
+
+        return null;
+
+      }
+
+    }
+
+
+    // ===============================
+    // CHANGE USER ROLE
+    // ===============================
+
+    async function changeRole(
+      userId,
+      newRole
+    ) {
+
+      const actionText =
+        newRole === "ADMIN"
+          ? "make this user an ADMIN"
+          : "change this user to USER";
+
+
+      const confirmed =
+        confirm(
+          `Are you sure you want to ${actionText}?`
+        );
+
+
+      if (!confirmed) {
+        return;
+      }
+
+
+      try {
+
+        const response =
+          await fetch(
+            `${API}/admin/users/${userId}/role`,
+            {
+              method: "PATCH",
+
+              headers: {
+
+                "Authorization":
+                  `Bearer ${token}`,
+
+                "Content-Type":
+                  "application/json"
+
+              },
+
+              body: JSON.stringify({
+                role: newRole
+              })
+
+            }
+          );
+
+
+        const data =
+          await response.json();
+
+
+        if (!response.ok) {
+
+          throw new Error(
+            data.error ||
+            "Failed to update role."
+          );
+
+        }
+
+
+        alert(
+          data.message ||
+          "User role updated successfully."
+        );
+
+
+        await loadUsers();
+
+      }
+
+      catch (error) {
+
+        console.error(
+          "ROLE UPDATE ERROR:",
+          error
+        );
+
+
+        alert(
+          error.message
+        );
+
+      }
+
+    }
+
+
+    // ===============================
+    // DELETE USER
+    // ===============================
+
+    async function deleteUser(
+      userId,
+      userName
+    ) {
+
+      const confirmed =
+        confirm(
+          `Are you sure you want to delete "${userName}"?`
+        );
+
+
+      if (!confirmed) {
+        return;
+      }
+
+
+      try {
+
+        const response =
+          await fetch(
+            `${API}/admin/users/${userId}`,
+            {
+              method: "DELETE",
+
+              headers: {
+                "Authorization":
+                  `Bearer ${token}`
+              }
+            }
+          );
+
+
+        const data =
+          await response.json();
+
+
+        if (!response.ok) {
+
+          throw new Error(
+            data.error ||
+            "Failed to delete user."
+          );
+
+        }
+
+
+        alert(
+          data.message ||
+          "User deleted successfully."
+        );
+
+
+        // Update user count
+
+        const currentCount =
+          Number(
+            document.getElementById(
+              "userCount"
+            ).textContent
+          );
+
+
+        document.getElementById(
+          "userCount"
+        ).textContent =
+          Math.max(
+            0,
+            currentCount - 1
+          );
+
+
+        await loadUsers();
+
+      }
+
+      catch (error) {
+
+        console.error(
+          "DELETE USER ERROR:",
+          error
+        );
+
+
+        alert(
+          error.message
+        );
+
+      }
+
+    }
+
+
+    // ===============================
+    // ESCAPE HTML
+    // ===============================
+
+    function escapeHtml(value) {
+
+      return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+    }
+
+
+    // ===============================
+    // LOGOUT
+    // ===============================
 
     function logout() {
 
@@ -668,7 +1072,14 @@
     }
 
 
+    // ===============================
+    // START
+    // ===============================
+
     loadAdminDashboard();
 
-  </script></body>
+  </script>
+
+</body>
+
 </html>
