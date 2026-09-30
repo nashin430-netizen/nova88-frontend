@@ -7,6 +7,196 @@
 
   <title>NOVA88 - Admin Panel</title>
 
+
+  /* =====================================
+   PROFESSIONAL GAMES MANAGEMENT
+===================================== */
+
+.admin-section {
+  margin-top: 30px;
+  padding: 24px;
+  background: #0d0f16;
+  border: 1px solid #202532;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+}
+
+.admin-section .section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  margin-bottom: 22px;
+}
+
+.admin-section .section-header h2 {
+  margin: 0 0 6px;
+  font-size: 21px;
+  color: #ffffff;
+}
+
+.admin-section .section-header p {
+  margin: 0;
+  color: #8d95a5;
+  font-size: 13px;
+}
+
+
+/* ADD GAME BUTTON */
+
+.admin-section .primary-btn {
+  border: none;
+  padding: 11px 18px;
+  border-radius: 9px;
+  background: linear-gradient(
+    135deg,
+    #d6b25e,
+    #9d7424
+  );
+  color: #08090d;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.admin-section .primary-btn:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.1);
+}
+
+
+/* TABLE WRAPPER */
+
+.admin-section .table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  border: 1px solid #202532;
+  border-radius: 12px;
+}
+
+
+/* TABLE */
+
+.admin-section table {
+  width: 100%;
+  min-width: 760px;
+  border-collapse: collapse;
+}
+
+.admin-section th {
+  padding: 14px 15px;
+  text-align: left;
+  background: #12151e;
+  color: #8f98aa;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 1px solid #252b38;
+}
+
+.admin-section td {
+  padding: 15px;
+  color: #e9ecf2;
+  font-size: 14px;
+  border-bottom: 1px solid #1c212c;
+  background: #0d0f16;
+}
+
+.admin-section tbody tr {
+  transition: 0.2s ease;
+}
+
+.admin-section tbody tr:hover td {
+  background: #121620;
+}
+
+
+/* GAME NAME */
+
+.admin-section td:nth-child(2) {
+  font-weight: 600;
+  color: #ffffff;
+}
+
+
+/* CATEGORY */
+
+.admin-section td:nth-child(3) {
+  color: #aeb6c5;
+  text-transform: capitalize;
+}
+
+
+/* STATUS */
+
+.admin-section td:nth-child(4) {
+  font-weight: 600;
+}
+
+
+/* ACTION BUTTONS */
+
+.admin-section td:last-child {
+  white-space: nowrap;
+}
+
+.admin-section td:last-child button {
+  border: 1px solid #303746;
+  background: #171b24;
+  color: #dfe4ec;
+  padding: 7px 11px;
+  margin-right: 6px;
+  border-radius: 7px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.admin-section td:last-child button:hover {
+  background: #222936;
+  border-color: #4b5568;
+}
+
+
+/* EMPTY / LOADING */
+
+.admin-section .empty {
+  text-align: center;
+  padding: 35px 15px;
+  color: #777f90;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 700px) {
+
+  .admin-section {
+    padding: 16px;
+    margin-top: 20px;
+    border-radius: 12px;
+  }
+
+  .admin-section .section-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .admin-section .section-header h2 {
+    font-size: 18px;
+  }
+
+  .admin-section .primary-btn {
+    width: 100%;
+  }
+
+  .admin-section .table-wrap {
+    border-radius: 9px;
+  }
+
+}
+  
   <style>
     * {
       box-sizing: border-box;
