@@ -965,6 +965,106 @@
 
     }
 
+    // ===============================
+// GAMES MANAGEMENT
+// ===============================
+
+async function loadGames() {
+
+  const token = localStorage.getItem("nova88_token");
+
+  if (!token) {
+    return;
+  }
+
+  try {
+
+    const response = await fetch(
+      "https://nova88-backend.onrender.com/api/admin/games",
+      {
+        headers: {
+          "Authorization": "Bearer " + token
+        }
+      }
+    );
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(
+        data.error || "Failed to load games"
+      );
+    }
+
+    const tbody =
+      document.getElementById("gamesTableBody");
+
+    if (!tbody) return;
+
+    if (!data.games || data.games.length === 0) {
+
+      tbody.innerHTML = `
+        <tr>
+          <td colspan="6" class="empty">
+            No games found.
+          </td>
+        </tr>
+      `;
+
+      return;
+    }
+
+    tbody.innerHTML = data.games.map(game => `
+
+      <tr>
+
+        <td>${game.id}</td>
+
+        <td>
+          ${game.icon || "🎮"}
+          ${escapeHtml(game.name)}
+        </td>
+
+        <td>
+          ${escapeHtml(game.category)}
+        </td>
+
+        <td>
+          ${game.status ? "🟢 Active" : "🔴 Inactive"}
+        </td>
+
+        <td>
+          ${formatDate(game.createdAt)}
+        </td>
+
+        <td>
+          <button
+            onclick="editGame(${game.id})"
+          >
+            Edit
+          </button>
+
+          <button
+            onclick="deleteGame(${game.id})"
+          >
+            Delete
+          </button>
+        </td>
+
+      </tr>
+
+    `).join("");
+
+  } catch (error) {
+
+    console.error(
+      "Games error:",
+      error
+    );
+
+  }
+
+    }
 
     // =====================================
     // RUN
