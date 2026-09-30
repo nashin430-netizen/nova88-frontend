@@ -1644,6 +1644,122 @@ async function loadGames() {
 
     }
 
+// =====================================
+// EDIT GAME
+// =====================================
+
+async function editGame(id) {
+
+  const token =
+    localStorage.getItem("nova88_token");
+
+  if (!token) {
+    alert("Authentication required.");
+    return;
+  }
+
+  try {
+
+    const response = await fetch(
+      API + "/admin/games",
+      {
+        headers: {
+          "Authorization": "Bearer " + token
+        }
+      }
+    );
+
+    const data =
+      await response.json();
+
+    if (!response.ok) {
+      throw new Error(
+        data.error || "Failed to load game"
+      );
+    }
+
+    const game =
+      data.games.find(
+        item => item.id === id
+      );
+
+    if (!game) {
+      alert("Game not found.");
+      return;
+    }
+
+    // Change modal to EDIT mode
+
+    document.getElementById(
+      "gameModalTitle"
+    ).textContent = "Edit Game";
+
+    document.getElementById(
+      "gameModalDescription"
+    ).textContent =
+      "Update this NOVA88 game.";
+
+    document.getElementById(
+      "gameSaveButton"
+    ).textContent = "Update Game";
+
+
+    // Fill existing data
+
+    document.getElementById(
+      "gameName"
+    ).value = game.name || "";
+
+    document.getElementById(
+      "gameCategory"
+    ).value = game.category || "";
+
+    document.getElementById(
+      "gameIcon"
+    ).value = game.icon || "";
+
+    document.getElementById(
+      "gameDescription"
+    ).value = game.description || "";
+
+    document.getElementById(
+      "gameImage"
+    ).value = game.image || "";
+
+    document.getElementById(
+      "gameStatus"
+    ).checked = game.status;
+
+
+    // Store ID for update
+
+    document.getElementById(
+      "gameForm"
+    ).dataset.editingId = id;
+
+
+    // Open modal
+
+    document.getElementById(
+      "gameModal"
+    ).style.display = "flex";
+
+  } catch (error) {
+
+    console.error(
+      "Edit game error:",
+      error
+    );
+
+    alert(
+      error.message ||
+      "Failed to load game"
+    );
+
+  }
+
+}
+    
     // =====================================
 // DELETE GAME
 // =====================================
