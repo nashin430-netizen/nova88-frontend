@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>NOVA88 - Admin Panel</title>
 
   <style>
@@ -15,270 +17,220 @@
     body {
       font-family: Arial, sans-serif;
       background: #08090d;
-      color: #fff;
+      color: #ffffff;
       min-height: 100vh;
     }
 
-    header {
-      min-height: 75px;
-      padding: 0 25px;
-      border-bottom: 1px solid #252832;
+    .header {
+      background: #11131a;
+      border-bottom: 1px solid #252936;
+      padding: 18px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      background: #0b0d12;
     }
 
     .logo {
-      font-size: 28px;
-      font-weight: 800;
-    }
-
-    .logo span {
-      color: #ffae2b;
-    }
-
-    .admin-badge {
-      color: #ffae2b;
-      font-size: 13px;
+      font-size: 22px;
       font-weight: bold;
+      letter-spacing: 1px;
+    }
+
+    .admin-label {
+      font-size: 12px;
+      color: #999;
       margin-top: 4px;
     }
 
-    .logout {
-      background: #ff9f1c;
-      color: #111;
+    .logout-btn {
+      background: #e53935;
+      color: white;
       border: none;
-      padding: 11px 18px;
-      border-radius: 9px;
-      font-weight: bold;
+      padding: 10px 16px;
+      border-radius: 7px;
       cursor: pointer;
+      font-weight: bold;
     }
 
-    main {
+    .container {
       max-width: 1200px;
       margin: auto;
-      padding: 35px 20px;
+      padding: 22px;
     }
 
-    .page-title {
-      margin-bottom: 30px;
-    }
-
-    .page-title h1 {
-      font-size: 36px;
+    h1 {
+      font-size: 28px;
       margin-bottom: 8px;
     }
 
-    .page-title p {
-      color: #9da3b2;
-    }
-
-    .status {
-      background: #11131a;
-      border: 1px solid #292d38;
-      border-radius: 14px;
-      padding: 20px;
+    .subtitle {
+      color: #999;
       margin-bottom: 25px;
     }
 
+    .status-box {
+      background: #11131a;
+      border: 1px solid #252936;
+      border-radius: 10px;
+      padding: 16px;
+      margin-bottom: 20px;
+    }
+
     .status-title {
-      color: #ffae2b;
-      font-weight: bold;
-      margin-bottom: 8px;
+      font-size: 13px;
+      color: #aaa;
+      margin-bottom: 7px;
     }
 
     .status-text {
-      color: #a5aab8;
+      font-weight: bold;
     }
 
     .success {
-      color: #52d273;
+      color: #35d07f;
     }
 
     .error {
-      color: #ff6b6b;
+      color: #ff5252;
     }
 
     .cards {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
+      gap: 15px;
+      margin-bottom: 20px;
     }
 
     .card {
       background: #11131a;
-      border: 1px solid #292d38;
-      border-radius: 16px;
-      padding: 25px;
-    }
-
-    .card-icon {
-      font-size: 38px;
-      margin-bottom: 15px;
-    }
-
-    .card h2 {
-      color: #ffae2b;
-      margin-bottom: 8px;
-    }
-
-    .card p {
-      color: #9da3b2;
-      line-height: 1.5;
-    }
-
-    .card-value {
-      font-size: 32px;
-      font-weight: 800;
-      margin-top: 15px;
-    }
-
-    .admin-info,
-    .users-section {
-      margin-top: 25px;
-      background: #11131a;
-      border: 1px solid #292d38;
-      border-radius: 16px;
+      border: 1px solid #252936;
+      border-radius: 10px;
       padding: 20px;
     }
 
-    .admin-info h3,
-    .users-section h2 {
-      color: #ffae2b;
-      margin-bottom: 15px;
+    .card-icon {
+      font-size: 25px;
+      margin-bottom: 12px;
     }
 
-    .admin-info p {
-      color: #a5aab8;
+    .card-title {
+      color: #aaa;
+      font-size: 14px;
+    }
+
+    .card-value {
+      font-size: 28px;
+      font-weight: bold;
       margin-top: 7px;
     }
 
-    .user-controls {
-      display: flex;
-      gap: 12px;
-      margin-bottom: 15px;
-      flex-wrap: wrap;
+    .panel {
+      background: #11131a;
+      border: 1px solid #252936;
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 20px;
     }
 
-    .search-box,
-    .role-filter {
+    .panel h2 {
+      font-size: 19px;
+      margin-bottom: 15px;
+    }
+
+    .info {
+      line-height: 1.9;
+      color: #ccc;
+    }
+
+    .controls {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+
+    input,
+    select {
       background: #08090d;
-      border: 1px solid #292d38;
-      color: #fff;
-      padding: 12px 14px;
-      border-radius: 9px;
+      color: white;
+      border: 1px solid #303442;
+      border-radius: 7px;
+      padding: 11px;
       outline: none;
     }
 
-    .search-box {
+    input {
       flex: 1;
-      min-width: 240px;
     }
 
-    .role-filter {
-      min-width: 150px;
-    }
-
-    .user-result {
-      color: #777d8c;
-      font-size: 13px;
-      margin-bottom: 15px;
+    .table-wrap {
+      overflow-x: auto;
     }
 
     table {
       width: 100%;
       border-collapse: collapse;
-      min-width: 900px;
+      min-width: 750px;
     }
 
     th,
     td {
-      padding: 14px;
+      padding: 12px;
       text-align: left;
-      border-bottom: 1px solid #292d38;
+      border-bottom: 1px solid #252936;
+      font-size: 13px;
     }
 
     th {
-      color: #ffae2b;
+      color: #aaa;
+      font-weight: normal;
     }
 
-    td {
-      color: #d8dbe3;
+    .empty {
+      text-align: center;
+      color: #888;
+      padding: 25px;
     }
 
-    .admin-role {
-      color: #ffae2b;
-      font-weight: bold;
-    }
-
-    .user-role {
-      color: #52d273;
-      font-weight: bold;
-    }
-
-    .joined-date {
-      color: #a5aab8;
-      font-size: 13px;
-      white-space: nowrap;
-    }
-
-    .actions {
-      display: flex;
-      gap: 7px;
-      flex-wrap: wrap;
+    .action-btn,
+    .delete-btn {
+      border: none;
+      border-radius: 6px;
+      padding: 7px 10px;
+      cursor: pointer;
+      margin-right: 5px;
+      font-size: 12px;
     }
 
     .action-btn {
-      border: none;
-      border-radius: 7px;
-      padding: 8px 11px;
-      font-size: 12px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-
-    .role-btn {
-      background: #ffae2b;
-      color: #111;
-    }
-
-    .delete-btn {
-      background: #d64545;
+      background: #2d6cdf;
       color: white;
     }
 
-    .current-user {
-      color: #777d8c;
-      font-size: 12px;
+    .delete-btn {
+      background: #d83232;
+      color: white;
+    }
+
+    .role-admin {
+      color: #ffca28;
       font-weight: bold;
     }
 
-    @media (max-width: 800px) {
+    .role-user {
+      color: #64b5f6;
+    }
+
+    @media (max-width: 700px) {
       .cards {
         grid-template-columns: 1fr;
       }
 
-      .page-title h1 {
-        font-size: 28px;
-      }
-
-      header {
-        padding: 0 15px;
-      }
-
-      .logo {
-        font-size: 23px;
-      }
-
-      .user-controls {
+      .controls {
         flex-direction: column;
       }
 
-      .search-box,
-      .role-filter {
-        width: 100%;
-        min-width: 100%;
+      .container {
+        padding: 14px;
       }
     }
   </style>
@@ -286,886 +238,576 @@
 
 <body>
 
-<header>
-  <div>
-    <div class="logo">
-      NOVA<span>88</span>
+  <header class="header">
+
+    <div>
+      <div class="logo">NOVA88</div>
+      <div class="admin-label">ADMIN PANEL</div>
     </div>
 
-    <div class="admin-badge">
-      ADMIN PANEL
-    </div>
-  </div>
+    <button id="logoutButton" class="logout-btn">
+      Logout
+    </button>
 
-  <button
-    class="logout"
-    id="logoutButton"
-  >
-    Logout
-  </button>
-</header>
+  </header>
 
+  <main class="container">
 
-<main>
-
-  <div class="page-title">
     <h1>Admin Dashboard</h1>
-    <p>Manage your NOVA88 demo platform.</p>
-  </div>
 
-
-  <div class="status">
-
-    <div class="status-title">
-      System Status
-    </div>
-
-    <div
-      class="status-text"
-      id="statusText"
-    >
-      Connecting to backend...
-    </div>
-
-  </div>
-
-
-  <!-- STATS -->
-
-  <div class="cards">
-
-    <div class="card">
-      <div class="card-icon">👥</div>
-
-      <h2>Users</h2>
-
-      <p>
-        Registered users.
-      </p>
-
-      <div
-        class="card-value"
-        id="userCount"
-      >
-        —
-      </div>
-    </div>
-
-
-    <div class="card">
-      <div class="card-icon">🎮</div>
-
-      <h2>Games</h2>
-
-      <p>
-        Available demo games.
-      </p>
-
-      <div
-        class="card-value"
-        id="gameCount"
-      >
-        0
-      </div>
-    </div>
-
-
-    <div class="card">
-      <div class="card-icon">🎁</div>
-
-      <h2>Promotions</h2>
-
-      <p>
-        Demo promotional content.
-      </p>
-
-      <div
-        class="card-value"
-        id="promoCount"
-      >
-        0
-      </div>
-    </div>
-
-  </div>
-
-
-  <!-- ADMIN INFORMATION -->
-
-  <div class="admin-info">
-
-    <h3>
-      Admin Information
-    </h3>
-
-    <p>
-      Email:
-      <span id="adminEmail">—</span>
+    <p class="subtitle">
+      Manage your NOVA88 demo platform.
     </p>
 
-    <p>
-      Role:
-      <span id="adminRole">—</span>
-    </p>
+    <div class="status-box">
 
-    <p>
-      User ID:
-      <span id="adminId">—</span>
-    </p>
+      <div class="status-title">
+        System Status
+      </div>
 
-  </div>
-
-
-  <!-- USERS -->
-
-  <div class="users-section">
-
-    <h2>
-      👥 Registered Users
-    </h2>
-
-    <div class="user-controls">
-
-      <input
-        type="text"
-        id="userSearch"
-        class="search-box"
-        placeholder="🔎 Search by name or email..."
-      >
-
-      <select
-        id="roleFilter"
-        class="role-filter"
-      >
-        <option value="ALL">
-          All Roles
-        </option>
-
-        <option value="USER">
-          Users
-        </option>
-
-        <option value="ADMIN">
-          Admins
-        </option>
-      </select>
+      <div id="statusText" class="status-text">
+        Starting...
+      </div>
 
     </div>
 
+    <div class="cards">
 
-    <div
-      id="userResult"
-      class="user-result"
-    >
-      Loading users...
+      <div class="card">
+        <div class="card-icon">👥</div>
+        <div class="card-title">Users</div>
+        <div id="userCount" class="card-value">—</div>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">🎮</div>
+        <div class="card-title">Games</div>
+        <div class="card-value">0</div>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">🎁</div>
+        <div class="card-title">Promotions</div>
+        <div class="card-value">0</div>
+      </div>
+
     </div>
 
+    <div class="panel">
 
-    <table>
+      <h2>Admin Information</h2>
 
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Name</th>
-          <th>Email</th>
-          <th>Role</th>
-          <th>Joined</th>
-          <th>Action</th>
-        </tr>
-      </thead>
+      <div class="info">
+        Email: <span id="adminEmail">—</span><br>
+        Role: <span id="adminRole">—</span><br>
+        User ID: <span id="adminId">—</span>
+      </div>
 
-      <tbody id="usersTable">
+    </div>
 
-        <tr>
-          <td
-            colspan="6"
-            class="status-text"
-          >
-            Loading users...
-          </td>
-        </tr>
+    <div class="panel">
 
-      </tbody>
+      <h2>👥 Registered Users</h2>
 
-    </table>
+      <div class="controls">
 
-  </div>
+        <input
+          id="searchInput"
+          type="text"
+          placeholder="🔎 Search by name or email..."
+        >
 
-</main>
+        <select id="roleFilter">
+          <option value="ALL">All Roles</option>
+          <option value="USER">USER</option>
+          <option value="ADMIN">ADMIN</option>
+        </select>
 
+      </div>
 
-<script>
+      <div class="table-wrap">
 
-  // =====================================
-  // API
-  // =====================================
+        <table>
 
-  const API =
-    "https://nova88-backend.onrender.com/api";
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Role</th>
+              <th>Joined</th>
+              <th>Action</th>
+            </tr>
+          </thead>
 
+          <tbody id="usersTableBody">
 
-  // =====================================
-  // TOKEN
-  // =====================================
+            <tr>
+              <td colspan="6" class="empty">
+                Loading users...
+              </td>
+            </tr>
 
-  const token =
-    localStorage.getItem("nova88_token");
+          </tbody>
 
+        </table>
 
-  let allUsers = [];
+      </div>
 
+    </div>
 
-  // =====================================
-  // ELEMENTS
-  // =====================================
+  </main>
+  <script>
 
-  const statusText =
-    document.getElementById("statusText");
+    // =====================================
+    // CONFIG
+    // =====================================
 
-  const usersTable =
-    document.getElementById("usersTable");
-
-  const userResult =
-    document.getElementById("userResult");
-
-  const userSearch =
-    document.getElementById("userSearch");
-
-  const roleFilter =
-    document.getElementById("roleFilter");
-
-  const logoutButton =
-    document.getElementById("logoutButton");
+    const API =
+      "https://nova88-backend.onrender.com/api";
 
 
-  // =====================================
-  // LOGOUT
-  // =====================================
+    // =====================================
+    // ELEMENTS
+    // =====================================
 
-  logoutButton.addEventListener(
-    "click",
-    function () {
+    const token =
+      localStorage.getItem("nova88_token");
 
-      localStorage.removeItem(
-        "nova88_token"
-      );
+    const statusText =
+      document.getElementById("statusText");
 
-      window.location.href =
-        "index.html";
+    const userCount =
+      document.getElementById("userCount");
 
-    }
-  );
+    const adminEmail =
+      document.getElementById("adminEmail");
 
+    const adminRole =
+      document.getElementById("adminRole");
 
-  // =====================================
-  // CHECK TOKEN
-  // =====================================
+    const adminId =
+      document.getElementById("adminId");
 
-  if (!token) {
+    const usersTableBody =
+      document.getElementById("usersTableBody");
 
-    statusText.textContent =
-      "No login session found.";
+    const searchInput =
+      document.getElementById("searchInput");
 
-    statusText.className =
-      "status-text error";
+    const roleFilter =
+      document.getElementById("roleFilter");
 
-    setTimeout(function () {
-
-      window.location.href =
-        "index.html";
-
-    }, 1000);
-
-  }
+    const logoutButton =
+      document.getElementById("logoutButton");
 
 
-  // =====================================
-  // LOAD DASHBOARD
-  // =====================================
-
-  async function loadDashboard() {
-
-    if (!token) {
-      return;
-    }
+    let users = [];
 
 
-    statusText.textContent =
-      "Connecting to backend...";
+    // =====================================
+    // LOGOUT
+    // =====================================
 
-    statusText.className =
-      "status-text";
+    logoutButton.addEventListener("click", function () {
+
+      localStorage.removeItem("nova88_token");
+
+      window.location.href = "index.html";
+
+    });
 
 
-    try {
+    // =====================================
+    // START
+    // =====================================
 
-      const response =
-        await fetch(
+    async function startAdminPanel() {
+
+      if (!token) {
+
+        statusText.textContent =
+          "No login session found.";
+
+        statusText.className =
+          "status-text error";
+
+        return;
+      }
+
+
+      statusText.textContent =
+        "Connecting to backend...";
+
+
+      try {
+
+        const response = await fetch(
           `${API}/admin/dashboard`,
           {
             method: "GET",
 
             headers: {
-              "Authorization":
-                `Bearer ${token}`,
-
-              "Accept":
-                "application/json"
+              "Authorization": `Bearer ${token}`,
+              "Accept": "application/json"
             }
           }
         );
 
 
-      const data =
-        await response.json();
+        const data =
+          await response.json();
 
 
-      if (!response.ok) {
+        if (!response.ok) {
 
-        if (
-          response.status === 401 ||
-          response.status === 403
-        ) {
-
-          localStorage.removeItem(
-            "nova88_token"
+          throw new Error(
+            data.error ||
+            "Authentication failed."
           );
-
-          statusText.textContent =
-            "Admin authentication failed.";
-
-          statusText.className =
-            "status-text error";
-
-          setTimeout(function () {
-
-            window.location.href =
-              "index.html";
-
-          }, 1200);
-
-          return;
         }
 
 
-        throw new Error(
-          data.error ||
-          "Failed to load dashboard."
-        );
+        statusText.textContent =
+          "Backend connected successfully.";
+
+        statusText.className =
+          "status-text success";
+
+
+        const admin =
+          data.admin || {};
+
+        const stats =
+          data.stats || {};
+
+
+        adminEmail.textContent =
+          admin.email || "—";
+
+        adminRole.textContent =
+          admin.role || "—";
+
+        adminId.textContent =
+          admin.id || "—";
+
+        userCount.textContent =
+          stats.users ?? 0;
+
+
+        await loadUsers();
+
+
+      } catch (error) {
+
+        console.error(error);
+
+        statusText.textContent =
+          error.message ||
+          "Unable to connect to backend.";
+
+        statusText.className =
+          "status-text error";
 
       }
-
-
-      // =================================
-      // SUCCESS
-      // =================================
-
-      statusText.textContent =
-        "Backend connected successfully.";
-
-      statusText.className =
-        "status-text success";
-
-
-      // =================================
-      // ADMIN
-      // =================================
-
-      const admin =
-        data.admin || {};
-
-
-      document.getElementById(
-        "adminEmail"
-      ).textContent =
-        admin.email || "—";
-
-
-      document.getElementById(
-        "adminRole"
-      ).textContent =
-        admin.role || "—";
-
-
-      document.getElementById(
-        "adminId"
-      ).textContent =
-        admin.id ?? "—";
-
-
-      // =================================
-      // STATS
-      // =================================
-
-      const stats =
-        data.stats || {};
-
-
-      if (
-        typeof stats.games !== "undefined"
-      ) {
-
-        document.getElementById(
-          "gameCount"
-        ).textContent =
-          stats.games;
-
-      }
-
-
-      if (
-        typeof stats.promotions !== "undefined"
-      ) {
-
-        document.getElementById(
-          "promoCount"
-        ).textContent =
-          stats.promotions;
-
-      }
-
-
-      // =================================
-      // LOAD USERS
-      // =================================
-
-      await loadUsers();
 
     }
 
-    catch (error) {
 
-      console.error(
-        "DASHBOARD ERROR:",
-        error
-      );
+    // =====================================
+    // LOAD USERS
+    // =====================================
 
+    async function loadUsers() {
 
-      statusText.textContent =
-        error.message ||
-        "Unable to connect to backend.";
+      try {
 
-      statusText.className =
-        "status-text error";
-
-    }
-
-  }
-
-
-  // =====================================
-  // LOAD USERS
-  // =====================================
-
-  async function loadUsers() {
-
-    try {
-
-      const response =
-        await fetch(
+        const response = await fetch(
           `${API}/admin/users`,
           {
             method: "GET",
 
             headers: {
-              "Authorization":
-                `Bearer ${token}`,
-
-              "Accept":
-                "application/json"
+              "Authorization": `Bearer ${token}`,
+              "Accept": "application/json"
             }
           }
         );
 
 
-      const data =
-        await response.json();
+        const data =
+          await response.json();
 
 
-      if (!response.ok) {
+        if (!response.ok) {
 
-        throw new Error(
-          data.error ||
-          "Failed to load users."
-        );
-
-      }
-
-
-      allUsers =
-        Array.isArray(data.users)
-          ? data.users
-          : [];
-
-
-      document.getElementById(
-        "userCount"
-      ).textContent =
-        allUsers.length;
-
-
-      filterUsers();
-
-    }
-
-    catch (error) {
-
-      console.error(
-        "USERS ERROR:",
-        error
-      );
-
-
-      usersTable.innerHTML = `
-        <tr>
-          <td
-            colspan="6"
-            class="error"
-          >
-            ${escapeHtml(error.message)}
-          </td>
-        </tr>
-      `;
-
-      userResult.textContent =
-        "Failed to load users.";
-
-    }
-
-  }
-
-
-  // =====================================
-  // SEARCH + FILTER
-  // =====================================
-
-  function filterUsers() {
-
-    const search =
-      userSearch.value
-        .trim()
-        .toLowerCase();
-
-
-    const selectedRole =
-      roleFilter.value;
-
-
-    const filteredUsers =
-      allUsers.filter(function (user) {
-
-        const name =
-          String(
-            user.name || ""
-          ).toLowerCase();
-
-
-        const email =
-          String(
-            user.email || ""
-          ).toLowerCase();
-
-
-        const role =
-          String(
-            user.role || ""
-          ).toUpperCase();
-
-
-        const searchMatch =
-          name.includes(search) ||
-          email.includes(search);
-
-
-        const roleMatch =
-          selectedRole === "ALL" ||
-          role === selectedRole;
-
-
-        return (
-          searchMatch &&
-          roleMatch
-        );
-
-      });
-
-
-    renderUsers(filteredUsers);
-
-
-    userResult.textContent =
-      `Showing ${filteredUsers.length} of ${allUsers.length} users`;
-
-  }
-
-
-  // =====================================
-  // RENDER USERS
-  // =====================================
-
-  function renderUsers(users) {
-
-    if (!users.length) {
-
-      usersTable.innerHTML = `
-        <tr>
-          <td
-            colspan="6"
-            class="status-text"
-          >
-            No matching users found.
-          </td>
-        </tr>
-      `;
-
-      return;
-
-    }
-
-
-    usersTable.innerHTML =
-      users.map(function (user) {
-
-        const role =
-          String(
-            user.role || "USER"
-          ).toUpperCase();
-
-
-        const roleClass =
-          role === "ADMIN"
-            ? "admin-role"
-            : "user-role";
-
-
-        const currentAdminId =
-          getCurrentAdminId();
-
-
-        const isCurrentUser =
-          currentAdminId !== null &&
-          Number(user.id) ===
-          Number(currentAdminId);
-
-
-        let actions;
-
-
-        if (isCurrentUser) {
-
-          actions = `
-            <span class="current-user">
-              Current Admin
-            </span>
-          `;
-
-        }
-
-        else {
-
-          const nextRole =
-            role === "ADMIN"
-              ? "USER"
-              : "ADMIN";
-
-
-          const buttonText =
-            role === "ADMIN"
-              ? "Make User"
-              : "Make Admin";
-
-
-          actions = `
-            <div class="actions">
-
-              <button
-                class="action-btn role-btn"
-                onclick="changeRole(${Number(user.id)}, '${nextRole}')"
-              >
-                ${buttonText}
-              </button>
-
-              <button
-                class="action-btn delete-btn"
-                onclick="deleteUser(${Number(user.id)})"
-              >
-                Delete
-              </button>
-
-            </div>
-          `;
+          throw new Error(
+            data.error ||
+            "Failed to load users."
+          );
 
         }
 
 
-        return `
+        users =
+          Array.isArray(data.users)
+            ? data.users
+            : [];
+
+
+        userCount.textContent =
+          users.length;
+
+
+        filterUsers();
+
+
+      } catch (error) {
+
+        console.error(error);
+
+        usersTableBody.innerHTML = `
           <tr>
-
-            <td>
-              ${escapeHtml(user.id)}
+            <td colspan="6" class="empty">
+              Failed to load users.
             </td>
-
-            <td>
-              ${escapeHtml(user.name || "—")}
-            </td>
-
-            <td>
-              ${escapeHtml(user.email || "—")}
-            </td>
-
-            <td class="${roleClass}">
-              ${escapeHtml(role)}
-            </td>
-
-            <td class="joined-date">
-              ${formatDate(user.createdAt)}
-            </td>
-
-            <td>
-              ${actions}
-            </td>
-
           </tr>
         `;
 
-      }).join("");
-
-  }
-
-
-  // =====================================
-  // DATE
-  // =====================================
-
-  function formatDate(date) {
-
-    if (!date) {
-      return "—";
-    }
-
-
-    const parsed =
-      new Date(date);
-
-
-    if (
-      Number.isNaN(
-        parsed.getTime()
-      )
-    ) {
-
-      return "—";
-
-    }
-
-
-    return parsed.toLocaleString(
-      "en-US",
-      {
-        year: "numeric",
-        month: "short",
-        day: "numeric",
-        hour: "2-digit",
-        minute: "2-digit"
-      }
-    );
-
-  }
-
-
-  // =====================================
-  // CURRENT ADMIN ID
-  // =====================================
-
-  function getCurrentAdminId() {
-
-    try {
-
-      if (!token) {
-        return null;
       }
 
-
-      const parts =
-        token.split(".");
+    }
 
 
-      if (parts.length !== 3) {
-        return null;
+    // =====================================
+    // FILTER
+    // =====================================
+
+    function filterUsers() {
+
+      const search =
+        searchInput.value
+          .trim()
+          .toLowerCase();
+
+
+      const role =
+        roleFilter.value;
+
+
+      const filtered =
+        users.filter(function (user) {
+
+          const name =
+            String(user.name || "")
+              .toLowerCase();
+
+          const email =
+            String(user.email || "")
+              .toLowerCase();
+
+
+          const searchMatch =
+            name.includes(search) ||
+            email.includes(search);
+
+
+          const roleMatch =
+            role === "ALL" ||
+            user.role === role;
+
+
+          return searchMatch && roleMatch;
+
+        });
+
+
+      renderUsers(filtered);
+
+    }
+
+
+    // =====================================
+    // RENDER USERS
+    // =====================================
+
+    function renderUsers(list) {
+
+      if (!list.length) {
+
+        usersTableBody.innerHTML = `
+          <tr>
+            <td colspan="6" class="empty">
+              No users found.
+            </td>
+          </tr>
+        `;
+
+        return;
       }
 
 
-      const base64 =
-        parts[1]
-          .replace(/-/g, "+")
-          .replace(/_/g, "/");
+      usersTableBody.innerHTML =
+        list.map(function (user) {
+
+          const roleClass =
+            user.role === "ADMIN"
+              ? "role-admin"
+              : "role-user";
 
 
-      const padded =
-        base64 +
-        "=".repeat(
-          (4 - base64.length % 4) % 4
-        );
+          return `
+            <tr>
 
+              <td>
+                ${escapeHtml(user.id)}
+              </td>
 
-      const payload =
-        JSON.parse(
-          atob(padded)
-        );
+              <td>
+                ${escapeHtml(user.name)}
+              </td>
 
+              <td>
+                ${escapeHtml(user.email)}
+              </td>
 
-      return payload.id ?? null;
+              <td>
+                <span class="${roleClass}">
+                  ${escapeHtml(user.role)}
+                </span>
+              </td>
+
+              <td>
+                ${formatDate(user.createdAt)}
+              </td>
+
+              <td>
+
+                <button
+                  class="action-btn"
+                  onclick="changeRole(${user.id}, '${user.role}')"
+                >
+                  Change Role
+                </button>
+
+                <button
+                  class="delete-btn"
+                  onclick="deleteUser(${user.id})"
+                >
+                  Delete
+                </button>
+
+              </td>
+
+            </tr>
+          `;
+
+        }).join("");
 
     }
 
-    catch (error) {
 
-      return null;
+    // =====================================
+    // DATE
+    // =====================================
 
-    }
+    function formatDate(value) {
 
-  }
+      if (!value) {
+        return "—";
+      }
 
 
-  // =====================================
-  // CHANGE ROLE
-  // =====================================
+      const date =
+        new Date(value);
 
-  async function changeRole(
-    userId,
-    newRole
-  ) {
 
-    const confirmed =
-      confirm(
-        newRole === "ADMIN"
-          ? "Make this user an ADMIN?"
-          : "Change this user to USER?"
+      if (isNaN(date.getTime())) {
+        return "—";
+      }
+
+
+      return date.toLocaleString(
+        "en-US",
+        {
+          year: "numeric",
+          month: "short",
+          day: "numeric",
+          hour: "2-digit",
+          minute: "2-digit"
+        }
       );
 
-
-    if (!confirmed) {
-      return;
     }
 
 
-    try {
+    // =====================================
+    // ESCAPE HTML
+    // =====================================
 
-      const response =
-        await fetch(
+    function escapeHtml(value) {
+
+      return String(value ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+    }
+
+
+    // =====================================
+    // SEARCH EVENTS
+    // =====================================
+
+    searchInput.addEventListener(
+      "input",
+      filterUsers
+    );
+
+
+    roleFilter.addEventListener(
+      "change",
+      filterUsers
+    );
+
+
+    // =====================================
+    // CHANGE ROLE
+    // =====================================
+
+    async function changeRole(
+      userId,
+      currentRole
+    ) {
+
+      const newRole =
+        currentRole === "ADMIN"
+          ? "USER"
+          : "ADMIN";
+
+
+      if (
+        !confirm(
+          `Change role to ${newRole}?`
+        )
+      ) {
+        return;
+      }
+
+
+      try {
+
+        const response = await fetch(
           `${API}/admin/users/${userId}/role`,
           {
             method: "PATCH",
 
             headers: {
-              "Authorization":
-                `Bearer ${token}`,
-
-              "Content-Type":
-                "application/json",
-
-              "Accept":
-                "application/json"
+              "Authorization": `Bearer ${token}`,
+              "Content-Type": "application/json",
+              "Accept": "application/json"
             },
 
             body: JSON.stringify({
@@ -1175,524 +817,111 @@
         );
 
 
-      const data =
-        await response.json();
+        const data =
+          await response.json();
 
 
-      if (!response.ok) {
+        if (!response.ok) {
 
-        throw new Error(
-          data.error ||
-          "Failed to update role."
+          throw new Error(
+            data.error ||
+            "Failed to change role."
+          );
+
+        }
+
+
+        alert(
+          "User role changed successfully."
+        );
+
+
+        await loadUsers();
+
+
+      } catch (error) {
+
+        alert(
+          error.message ||
+          "Failed to change role."
         );
 
       }
 
-
-      alert(
-        data.message ||
-        "User role updated successfully."
-      );
-
-
-      await loadUsers();
-
-    }
-
-    catch (error) {
-
-      alert(
-        error.message
-      );
-
-    }
-
-  }
-
-
-  // =====================================
-  // DELETE USER
-  // =====================================
-
-  async function deleteUser(userId) {
-
-    const confirmed =
-      confirm(
-        "Are you sure you want to delete this user?"
-      );
-
-
-    if (!confirmed) {
-      return;
     }
 
 
-    try {
+    // =====================================
+    // DELETE USER
+    // =====================================
 
-      const response =
-        await fetch(
+    async function deleteUser(userId) {
+
+      if (
+        !confirm(
+          "Are you sure you want to delete this user?"
+        )
+      ) {
+        return;
+      }
+
+
+      try {
+
+        const response = await fetch(
           `${API}/admin/users/${userId}`,
           {
             method: "DELETE",
 
             headers: {
-              "Authorization":
-                `Bearer ${token}`,
-
-              "Accept":
-                "application/json"
+              "Authorization": `Bearer ${token}`,
+              "Accept": "application/json"
             }
           }
         );
 
 
-      const data =
-        await response.json();
+        const data =
+          await response.json();
 
 
-      if (!response.ok) {
+        if (!response.ok) {
 
-        throw new Error(
-          data.error ||
+          throw new Error(
+            data.error ||
+            "Failed to delete user."
+          );
+
+        }
+
+
+        alert(
+          "User deleted successfully."
+        );
+
+
+        await loadUsers();
+
+
+      } catch (error) {
+
+        alert(
+          error.message ||
           "Failed to delete user."
         );
 
       }
 
-
-      alert(
-        data.message ||
-        "User deleted successfully."
-      );
-
-
-      await loadUsers();
-
     }
 
-    catch (error) {
 
-      alert(
-        error.message
-      );
+    // =====================================
+    // RUN
+    // =====================================
 
-    }
+    startAdminPanel();
 
-  }
-
-
-  // =====================================
-  // ESCAPE HTML
-  // =====================================
-
-  function escapeHtml(value) {
-
-    return String(value ?? "")
-       .replace(/</g, "&lt;")
-       .replace(/>/g, "&gt;")
-       .replace(/"/g, "&quot;")
-       .replace(/'/g, "&#039;");
-  }
-  // =====================================
-// LOGOUT
-// =====================================
-
-logoutButton.addEventListener("click", function () {
-  localStorage.removeItem("nova88_token");
-  window.location.href = "index.html";
-});
-
-
-// =====================================
-// LOAD DASHBOARD
-// =====================================
-
-async function loadDashboard() {
-  if (!token) {
-    statusText.textContent = "No login session found.";
-    statusText.className = "status-text error";
-
-    setTimeout(() => {
-      window.location.href = "index.html";
-    }, 1000);
-
-    return;
-  }
-
-  statusText.textContent = "Connecting to backend...";
-  statusText.className = "status-text";
-console.log("ADMIN TOKEN:", token);
-console.log("API:", `${API}/admin/dashboard`);
-  try {
-    const response = await fetch console.log("RESPONSE STATUS:", response.status);(`${API}/admin/dashboard`, {
-      method: "GET",
-      headers: {
-        "Authorization": `Bearer ${token}`,
-        "Accept": "application/json"
-      }
-    });
-
-    const data = await response.json();
-
-    if (!response.ok) {
-      if (response.status === 401 || response.status === 403) {
-        localStorage.removeItem("nova88_token");
-
-        statusText.textContent = "Admin authentication failed.";
-        statusText.className = "status-text error";
-
-        setTimeout(() => {
-          window.location.href = "index.html";
-        }, 1200);
-
-        return;
-      }
-
-      throw new Error(
-        data.error || "Failed to load dashboard."
-      );
-    }
-
-    statusText.textContent = "Backend connected successfully.";
-    statusText.className = "status-text success";
-
-    const admin = data.admin || {};
-    const stats = data.stats || {};
-
-    adminName.textContent =
-      admin.name || "Admin";
-
-    adminEmail.textContent =
-      admin.email || "-";
-
-    adminRole.textContent =
-      admin.role || "ADMIN";
-
-    userCount.textContent =
-      stats.users ?? 0;
-
-    await loadUsers();
-
-  } catch (error) {
-
-    console.error(error);
-
-    statusText.textContent =
-      error.message || "Unable to connect to backend.";
-
-    statusText.className = "status-text error";
-  }
-}
-  // =====================================
-// LOAD USERS
-// =====================================
-
-async function loadUsers() {
-  try {
-    const response = await fetch(`${API}/admin/users`, {
-      method: "GET",
-      headers: {
-        "Authorization": `Bearer ${token}`,
-        "Accept": "application/json"
-      }
-    });
-
-    const data = await response.json();
-
-    if (!response.ok) {
-      throw new Error(
-        data.error || "Failed to load users."
-      );
-    }
-
-    users = Array.isArray(data.users)
-      ? data.users
-      : [];
-
-    userCount.textContent = users.length;
-
-    filterUsers();
-
-  } catch (error) {
-
-    console.error(error);
-
-    usersTableBody.innerHTML = `
-      <tr>
-        <td colspan="6" class="empty">
-          Failed to load users.
-        </td>
-      </tr>
-    `;
-  }
-}
-
-
-// =====================================
-// FILTER USERS
-// =====================================
-
-function filterUsers() {
-
-  const searchValue =
-    searchInput.value.trim().toLowerCase();
-
-  const roleValue =
-    roleFilter.value;
-
-  const filteredUsers = users.filter(user => {
-
-    const matchesSearch =
-      String(user.name || "")
-        .toLowerCase()
-        .includes(searchValue) ||
-
-      String(user.email || "")
-        .toLowerCase()
-        .includes(searchValue);
-
-    const matchesRole =
-      roleValue === "ALL" ||
-      user.role === roleValue;
-
-    return matchesSearch && matchesRole;
-  });
-
-  renderUsers(filteredUsers);
-}
-  // =====================================
-// RENDER USERS
-// =====================================
-
-function renderUsers(list) {
-
-  if (!list.length) {
-    usersTableBody.innerHTML = `
-      <tr>
-        <td colspan="6" class="empty">
-          No users found.
-        </td>
-      </tr>
-    `;
-    return;
-  }
-
-  usersTableBody.innerHTML = list.map(user => {
-
-    const roleClass =
-      user.role === "ADMIN"
-        ? "role-admin"
-        : "role-user";
-
-    return `
-      <tr>
-
-        <td>
-          ${user.id}
-        </td>
-
-        <td>
-          ${escapeHtml(user.name)}
-        </td>
-
-        <td>
-          ${escapeHtml(user.email)}
-        </td>
-
-        <td>
-          <span class="${roleClass}">
-            ${escapeHtml(user.role)}
-          </span>
-        </td>
-
-        <td>
-          ${formatDate(user.createdAt)}
-        </td>
-
-        <td>
-
-          <button
-            class="action-btn"
-            onclick="changeRole(${user.id}, '${user.role}')"
-          >
-            Change Role
-          </button>
-
-          <button
-            class="delete-btn"
-            onclick="deleteUser(${user.id})"
-          >
-            Delete
-          </button>
-
-        </td>
-
-      </tr>
-    `;
-
-  }).join("");
-}
-
-
-// =====================================
-// FORMAT REGISTRATION DATE
-// =====================================
-
-function formatDate(dateValue) {
-
-  if (!dateValue) {
-    return "-";
-  }
-
-  const date = new Date(dateValue);
-
-  if (isNaN(date.getTime())) {
-    return "-";
-  }
-
-  return date.toLocaleString("en-US", {
-    year: "numeric",
-    month: "short",
-    day: "numeric",
-    hour: "2-digit",
-    minute: "2-digit"
-  });
-    }
-  // =====================================
-// CHANGE USER ROLE
-// =====================================
-
-async function changeRole(userId, currentRole) {
-
-  const newRole =
-    currentRole === "ADMIN"
-      ? "USER"
-      : "ADMIN";
-
-  const confirmed = confirm(
-    `Change this user role from ${currentRole} to ${newRole}?`
-  );
-
-  if (!confirmed) {
-    return;
-  }
-
-  try {
-
-    const response = await fetch(
-      `${API}/admin/users/${userId}/role`,
-      {
-        method: "PATCH",
-
-        headers: {
-          "Authorization": `Bearer ${token}`,
-          "Content-Type": "application/json",
-          "Accept": "application/json"
-        },
-
-        body: JSON.stringify({
-          role: newRole
-        })
-      }
-    );
-
-    const data = await response.json();
-
-    if (!response.ok) {
-      throw new Error(
-        data.error || "Failed to change user role."
-      );
-    }
-
-    alert("User role changed successfully.");
-
-    await loadUsers();
-
-  } catch (error) {
-
-    console.error(error);
-
-    alert(
-      error.message ||
-      "Failed to change user role."
-    );
-  }
-}
-
-
-// =====================================
-// DELETE USER
-// =====================================
-
-async function deleteUser(userId) {
-
-  const confirmed = confirm(
-    "Are you sure you want to delete this user?"
-  );
-
-  if (!confirmed) {
-    return;
-  }
-
-  try {
-
-    const response = await fetch(
-      `${API}/admin/users/${userId}`,
-      {
-        method: "DELETE",
-
-        headers: {
-          "Authorization": `Bearer ${token}`,
-          "Accept": "application/json"
-        }
-      }
-    );
-
-    const data = await response.json();
-
-    if (!response.ok) {
-      throw new Error(
-        data.error || "Failed to delete user."
-      );
-    }
-
-    alert("User deleted successfully.");
-
-    await loadUsers();
-
-  } catch (error) {
-
-    console.error(error);
-
-    alert(
-      error.message ||
-      "Failed to delete user."
-    );
-  }
-}
-  // =====================================
-// SEARCH
-// =====================================
-
-searchInput.addEventListener("input", function () {
-  filterUsers();
-});
-
-
-// =====================================
-// ROLE FILTER
-// =====================================
-
-roleFilter.addEventListener("change", function () {
-  filterUsers();
-});
-
-
-// =====================================
-// START ADMIN PANEL
-// =====================================
-
-loadDashboard();
   </script>
+
 </body>
 </html>
