@@ -565,6 +565,131 @@
 
   </section>
 
+<!-- ===============================
+     ADD GAME MODAL
+================================ -->
+
+<div
+  id="gameModal"
+  class="game-modal"
+  style="display: none;"
+>
+
+  <div class="game-modal-box">
+
+    <div class="game-modal-header">
+
+      <div>
+        <h2>Add New Game</h2>
+        <p>Create a new game for NOVA88.</p>
+      </div>
+
+      <button
+        type="button"
+        class="game-modal-close"
+        onclick="closeGameModal()"
+      >
+        ×
+      </button>
+
+    </div>
+
+    <form id="gameForm">
+
+      <div class="game-form-group">
+        <label>Game Name</label>
+        <input
+          type="text"
+          id="gameName"
+          placeholder="Example: Golden Spin"
+          required
+        >
+      </div>
+
+      <div class="game-form-group">
+        <label>Category</label>
+
+        <select id="gameCategory" required>
+          <option value="">Select category</option>
+          <option value="slots">Slots</option>
+          <option value="cards">Cards</option>
+          <option value="arcade">Arcade</option>
+          <option value="casino">Casino</option>
+          <option value="sports">Sports</option>
+        </select>
+
+      </div>
+
+      <div class="game-form-group">
+        <label>Icon</label>
+
+        <input
+          type="text"
+          id="gameIcon"
+          placeholder="🎰"
+        >
+
+      </div>
+
+      <div class="game-form-group">
+        <label>Description</label>
+
+        <textarea
+          id="gameDescription"
+          placeholder="Enter game description"
+          rows="3"
+        ></textarea>
+
+      </div>
+
+      <div class="game-form-group">
+        <label>Image URL</label>
+
+        <input
+          type="url"
+          id="gameImage"
+          placeholder="https://example.com/game.jpg"
+        >
+
+      </div>
+
+      <div class="game-form-group game-status-row">
+
+        <label>
+          <input
+            type="checkbox"
+            id="gameStatus"
+            checked
+          >
+          Active Game
+        </label>
+
+      </div>
+
+      <div class="game-modal-actions">
+
+        <button
+          type="button"
+          class="game-cancel-btn"
+          onclick="closeGameModal()"
+        >
+          Cancel
+        </button>
+
+        <button
+          type="submit"
+          class="game-save-btn"
+        >
+          Save Game
+        </button>
+
+      </div>
+
+    </form>
+
+  </div>
+
+</div>
     
   </main>
   <script>
