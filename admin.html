@@ -1,12 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>NOVA88 - Admin Panel</title>
-
-  <style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">  <title>NOVA88 - Admin Panel</title>  <style>
     * {
       box-sizing: border-box;
       margin: 0;
@@ -164,6 +159,56 @@
       margin-top: 6px;
     }
 
+    /* USERS */
+
+    .users-section {
+      margin-top: 25px;
+      background: #11131a;
+      border: 1px solid #292d38;
+      border-radius: 16px;
+      padding: 20px;
+      overflow-x: auto;
+    }
+
+    .users-section h2 {
+      color: #ffae2b;
+      margin-bottom: 18px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 600px;
+    }
+
+    th,
+    td {
+      padding: 14px;
+      text-align: left;
+      border-bottom: 1px solid #292d38;
+    }
+
+    th {
+      color: #ffae2b;
+      font-size: 14px;
+    }
+
+    td {
+      color: #d8dbe3;
+    }
+
+    .role {
+      font-weight: bold;
+    }
+
+    .admin-role {
+      color: #ffae2b;
+    }
+
+    .user-role {
+      color: #52d273;
+    }
+
     .loading {
       color: #ffae2b;
     }
@@ -189,160 +234,169 @@
         padding: 9px 13px;
       }
     }
-  </style>
-</head>
+  </style></head><body>  <header><div>
+  <div class="logo">
+    NOVA<span>88</span>
+  </div>
 
-<body>
+  <div class="admin-badge">
+    ADMIN PANEL
+  </div>
+</div>
 
-  <header>
+<button class="logout" onclick="logout()">
+  Logout
+</button>
 
-    <div>
-      <div class="logo">
-        NOVA<span>88</span>
-      </div>
+  </header>  <main><div class="page-title">
+  <h1>Admin Dashboard</h1>
 
-      <div class="admin-badge">
-        ADMIN PANEL
-      </div>
+  <p>
+    Manage your NOVA88 demo platform.
+  </p>
+</div>
+
+
+<div class="status">
+
+  <div class="status-title">
+    System Status
+  </div>
+
+  <div
+    class="status-text loading"
+    id="statusText"
+  >
+    Connecting to backend...
+  </div>
+
+</div>
+
+
+<div class="cards">
+
+  <div class="card">
+
+    <div class="card-icon">
+      👥
     </div>
 
-    <button class="logout" onclick="logout()">
-      Logout
-    </button>
+    <h2>Users</h2>
 
-  </header>
+    <p>
+      Manage registered demo users.
+    </p>
 
-
-  <main>
-
-    <div class="page-title">
-      <h1>Admin Dashboard</h1>
-
-      <p>
-        Manage your NOVA88 demo platform.
-      </p>
+    <div
+      class="card-value"
+      id="userCount"
+    >
+      —
     </div>
 
+  </div>
 
-    <div class="status">
 
-      <div class="status-title">
-        System Status
-      </div>
+  <div class="card">
 
-      <div
-        class="status-text loading"
-        id="statusText"
-      >
-        Connecting to backend...
-      </div>
-
+    <div class="card-icon">
+      🎮
     </div>
 
+    <h2>Games</h2>
 
-    <div class="cards">
+    <p>
+      View and manage available demo games.
+    </p>
 
-      <!-- USERS -->
-
-      <div class="card">
-
-        <div class="card-icon">
-          👥
-        </div>
-
-        <h2>Users</h2>
-
-        <p>
-          Manage registered demo users.
-        </p>
-
-        <div
-          class="card-value"
-          id="userCount"
-        >
-          —
-        </div>
-
-      </div>
-
-
-      <!-- GAMES -->
-
-      <div class="card">
-
-        <div class="card-icon">
-          🎮
-        </div>
-
-        <h2>Games</h2>
-
-        <p>
-          View and manage available demo games.
-        </p>
-
-        <div
-          class="card-value"
-          id="gameCount"
-        >
-          —
-        </div>
-
-      </div>
-
-
-      <!-- PROMOTIONS -->
-
-      <div class="card">
-
-        <div class="card-icon">
-          🎁
-        </div>
-
-        <h2>Promotions</h2>
-
-        <p>
-          Manage demo promotional content.
-        </p>
-
-        <div
-          class="card-value"
-          id="promoCount"
-        >
-          —
-        </div>
-
-      </div>
-
+    <div
+      class="card-value"
+      id="gameCount"
+    >
+      —
     </div>
 
+  </div>
 
-    <!-- ADMIN INFORMATION -->
 
-    <div class="admin-info">
+  <div class="card">
 
-      <h3>Admin Information</h3>
-
-      <p>
-        Email:
-        <span id="adminEmail">—</span>
-      </p>
-
-      <p>
-        Role:
-        <span id="adminRole">—</span>
-      </p>
-
-      <p>
-        User ID:
-        <span id="adminId">—</span>
-      </p>
-
+    <div class="card-icon">
+      🎁
     </div>
 
-  </main>
+    <h2>Promotions</h2>
+
+    <p>
+      Manage demo promotional content.
+    </p>
+
+    <div
+      class="card-value"
+      id="promoCount"
+    >
+      —
+    </div>
+
+  </div>
+
+</div>
 
 
-  <script>
+<div class="admin-info">
+
+  <h3>Admin Information</h3>
+
+  <p>
+    Email:
+    <span id="adminEmail">—</span>
+  </p>
+
+  <p>
+    Role:
+    <span id="adminRole">—</span>
+  </p>
+
+  <p>
+    User ID:
+    <span id="adminId">—</span>
+  </p>
+
+</div>
+
+
+<!-- USERS LIST -->
+
+<div class="users-section">
+
+  <h2>👥 Registered Users</h2>
+
+  <table>
+
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Role</th>
+      </tr>
+    </thead>
+
+    <tbody id="usersTable">
+
+      <tr>
+        <td colspan="4" class="loading">
+          Loading users...
+        </td>
+      </tr>
+
+    </tbody>
+
+  </table>
+
+</div>
+
+  </main>  <script>
 
     const API =
       "https://nova88-backend.onrender.com/api";
@@ -351,11 +405,6 @@
     const token =
       localStorage.getItem("nova88_token");
 
-
-    /*
-      If there is no login token,
-      send user back to login page.
-    */
 
     if (!token) {
 
@@ -368,9 +417,7 @@
     async function loadAdminDashboard() {
 
       const statusText =
-        document.getElementById(
-          "statusText"
-        );
+        document.getElementById("statusText");
 
 
       try {
@@ -392,10 +439,6 @@
         const data =
           await response.json();
 
-
-        /*
-          Authentication / Admin error
-        */
 
         if (!response.ok) {
 
@@ -427,20 +470,12 @@
         }
 
 
-        /*
-          Backend connected
-        */
-
         statusText.textContent =
           "Backend connected successfully.";
 
         statusText.className =
           "status-text success";
 
-
-        /*
-          Dashboard statistics
-        */
 
         const stats =
           data.stats || {};
@@ -464,10 +499,6 @@
           stats.promotions ?? 0;
 
 
-        /*
-          Admin information
-        */
-
         const admin =
           data.admin || {};
 
@@ -490,6 +521,11 @@
           admin.id || "—";
 
 
+        // Load users
+
+        await loadUsers();
+
+
       } catch (error) {
 
         console.error(
@@ -508,9 +544,117 @@
     }
 
 
-    /*
-      Logout
-    */
+    async function loadUsers() {
+
+      const table =
+        document.getElementById(
+          "usersTable"
+        );
+
+
+      try {
+
+        const response =
+          await fetch(
+            `${API}/admin/users`,
+            {
+              method: "GET",
+
+              headers: {
+                "Authorization":
+                  `Bearer ${token}`
+              }
+            }
+          );
+
+
+        const data =
+          await response.json();
+
+
+        if (!response.ok) {
+
+          throw new Error(
+            data.error ||
+            "Failed to load users."
+          );
+
+        }
+
+
+        const users =
+          data.users || [];
+
+
+        if (users.length === 0) {
+
+          table.innerHTML = `
+            <tr>
+              <td colspan="4">
+                No users found.
+              </td>
+            </tr>
+          `;
+
+          return;
+
+        }
+
+
+        table.innerHTML =
+          users.map(user => {
+
+            const roleClass =
+              user.role === "ADMIN"
+                ? "admin-role"
+                : "user-role";
+
+
+            return `
+              <tr>
+
+                <td>
+                  ${user.id}
+                </td>
+
+                <td>
+                  ${user.name}
+                </td>
+
+                <td>
+                  ${user.email}
+                </td>
+
+                <td class="role ${roleClass}">
+                  ${user.role}
+                </td>
+
+              </tr>
+            `;
+
+          }).join("");
+
+
+      } catch (error) {
+
+        console.error(
+          "USERS ERROR:",
+          error
+        );
+
+
+        table.innerHTML = `
+          <tr>
+            <td colspan="4" class="error">
+              ${error.message}
+            </td>
+          </tr>
+        `;
+
+      }
+
+    }
+
 
     function logout() {
 
@@ -524,13 +668,7 @@
     }
 
 
-    /*
-      Load dashboard
-    */
-
     loadAdminDashboard();
 
-  </script>
-
-</body>
+  </script></body>
 </html>
