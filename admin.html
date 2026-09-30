@@ -185,7 +185,7 @@
     table {
       width: 100%;
       border-collapse: collapse;
-      min-width: 850px;
+      min-width: 1000px;
     }
 
     th,
@@ -259,6 +259,12 @@
       color: #777d8c;
       font-size: 12px;
       font-weight: bold;
+    }
+
+    .joined-date {
+      color: #a5aab8;
+      font-size: 13px;
+      white-space: nowrap;
     }
 
     @media (max-width: 800px) {
@@ -454,6 +460,7 @@
             <th>Name</th>
             <th>Email</th>
             <th>Role</th>
+            <th>Joined</th>
             <th>Action</th>
           </tr>
 
@@ -464,7 +471,7 @@
           <tr>
 
             <td
-              colspan="5"
+              colspan="6"
               class="loading"
             >
               Loading users...
@@ -613,8 +620,6 @@
           admin.id || "—";
 
 
-        // Load users
-
         await loadUsers();
 
       }
@@ -629,7 +634,7 @@
 
         statusText.innerHTML =
           `<span class="error">
-            ${error.message}
+            ${escapeHtml(error.message)}
           </span>`;
 
       }
@@ -687,7 +692,7 @@
 
           table.innerHTML = `
             <tr>
-              <td colspan="5">
+              <td colspan="6">
                 No users found.
               </td>
             </tr>
@@ -781,6 +786,10 @@
                   ${user.role}
                 </td>
 
+                <td class="joined-date">
+                  ${formatDate(user.createdAt)}
+                </td>
+
                 <td>
                   ${actions}
                 </td>
@@ -803,15 +812,51 @@
         table.innerHTML = `
           <tr>
             <td
-              colspan="5"
+              colspan="6"
               class="error"
             >
-              ${error.message}
+              ${escapeHtml(error.message)}
             </td>
           </tr>
         `;
 
       }
+
+    }
+
+
+    // ===============================
+    // FORMAT DATE
+    // ===============================
+
+    function formatDate(date) {
+
+      if (!date) {
+        return "—";
+      }
+
+
+      const parsedDate =
+        new Date(date);
+
+
+      if (Number.isNaN(
+        parsedDate.getTime()
+      )) {
+
+        return "—";
+
+      }
+
+
+      return parsedDate.toLocaleDateString(
+        "en-US",
+        {
+          year: "numeric",
+          month: "short",
+          day: "numeric"
+        }
+      );
 
     }
 
@@ -833,6 +878,7 @@
             )
           );
 
+
         return payload.id;
 
       }
@@ -843,6 +889,7 @@
           "TOKEN READ ERROR:",
           error
         );
+
 
         return null;
 
@@ -999,8 +1046,6 @@
           "User deleted successfully."
         );
 
-
-        // Update user count
 
         const currentCount =
           Number(
