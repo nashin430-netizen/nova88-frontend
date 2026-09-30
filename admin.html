@@ -175,6 +175,61 @@
       margin-bottom: 18px;
     }
 
+    /* SEARCH + FILTER */
+
+    .user-controls {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    .search-box {
+      flex: 1;
+      min-width: 240px;
+      background: #08090d;
+      border: 1px solid #292d38;
+      color: #fff;
+      padding: 12px 14px;
+      border-radius: 9px;
+      outline: none;
+      font-size: 14px;
+    }
+
+    .search-box:focus {
+      border-color: #ffae2b;
+    }
+
+    .search-box::placeholder {
+      color: #777d8c;
+    }
+
+    .role-filter {
+      background: #08090d;
+      border: 1px solid #292d38;
+      color: #fff;
+      padding: 12px 14px;
+      border-radius: 9px;
+      outline: none;
+      min-width: 150px;
+      cursor: pointer;
+    }
+
+    .role-filter:focus {
+      border-color: #ffae2b;
+    }
+
+    .role-filter option {
+      background: #11131a;
+      color: #fff;
+    }
+
+    .user-result {
+      color: #777d8c;
+      font-size: 13px;
+      margin-bottom: 15px;
+    }
+
     table {
       width: 100%;
       border-collapse: collapse;
@@ -280,6 +335,16 @@
 
       .logout {
         padding: 9px 13px;
+      }
+
+      .user-controls {
+        flex-direction: column;
+      }
+
+      .search-box,
+      .role-filter {
+        width: 100%;
+        min-width: 100%;
       }
 
     }
@@ -431,6 +496,51 @@
     👥 Registered Users
   </h2>
 
+
+  <!-- SEARCH AND FILTER -->
+
+  <div class="user-controls">
+
+    <input
+      type="text"
+      id="userSearch"
+      class="search-box"
+      placeholder="🔎 Search by name or email..."
+      oninput="filterUsers()"
+    >
+
+
+    <select
+      id="roleFilter"
+      class="role-filter"
+      onchange="filterUsers()"
+    >
+
+      <option value="ALL">
+        All Roles
+      </option>
+
+      <option value="USER">
+        Users
+      </option>
+
+      <option value="ADMIN">
+        Admins
+      </option>
+
+    </select>
+
+  </div>
+
+
+  <div
+    id="userResult"
+    class="user-result"
+  >
+    Loading users...
+  </div>
+
+
   <table>
 
     <thead>
@@ -473,6 +583,9 @@
 
     const token =
       localStorage.getItem("nova88_token");
+
+
+    let allUsers = [];
 
 
     if (!token) {
@@ -661,120 +774,11 @@
         }
 
 
-        const users =
+        allUsers =
           data.users || [];
 
 
-        if (users.length === 0) {
-
-          table.innerHTML = `
-            <tr>
-              <td colspan="6">
-                No users found.
-              </td>
-            </tr>
-          `;
-
-          return;
-
-        }
-
-
-        table.innerHTML =
-          users.map(user => {
-
-            const roleClass =
-              user.role === "ADMIN"
-                ? "admin-role"
-                : "user-role";
-
-
-            const isCurrentUser =
-              Number(user.id) ===
-              Number(getCurrentAdminId());
-
-
-            let actions = "";
-
-
-            if (isCurrentUser) {
-
-              actions = `
-                <span class="current-user">
-                  Current Admin
-                </span>
-              `;
-
-            }
-
-            else {
-
-              const nextRole =
-                user.role === "ADMIN"
-                  ? "USER"
-                  : "ADMIN";
-
-
-              const roleButtonText =
-                user.role === "ADMIN"
-                  ? "Make User"
-                  : "Make Admin";
-
-
-              actions = `
-                <div class="actions">
-
-                  <button
-                    class="action-btn role-btn"
-                    onclick="changeRole(${user.id}, '${nextRole}')"
-                  >
-                    ${roleButtonText}
-                  </button>
-
-                  <button
-                    class="action-btn delete-btn"
-                    onclick="deleteUser(${user.id}, '${escapeHtml(user.name)}')"
-                  >
-                    Delete
-                  </button>
-
-                </div>
-              `;
-
-            }
-
-
-            return `
-              <tr>
-
-                <td>
-                  ${user.id}
-                </td>
-
-                <td>
-                  ${escapeHtml(user.name)}
-                </td>
-
-                <td>
-                  ${escapeHtml(user.email)}
-                </td>
-
-                <td class="role ${roleClass}">
-                  ${user.role}
-                </td>
-
-                <td class="joined-date">
-                  ${formatDate(user.createdAt)}
-                </td>
-
-                <td>
-                  ${actions}
-                </td>
-
-              </tr>
-            `;
-
-          }).join("");
+        filterUsers();
 
       }
 
@@ -797,13 +801,233 @@
           </tr>
         `;
 
+
+        document.getElementById(
+          "userResult"
+        ).textContent =
+          "Failed to load users.";
+
       }
 
     }
 
 
     // ===============================
-    // FORMAT REGISTRATION DATE + TIME
+    // FILTER USERS
+    // ===============================
+
+    function filterUsers() {
+
+      const searchInput =
+        document.getElementById(
+          "userSearch"
+        );
+
+
+      const roleFilter =
+        document.getElementById(
+          "roleFilter"
+        );
+
+
+      const search =
+        searchInput.value
+          .trim()
+          .toLowerCase();
+
+
+      const selectedRole =
+        roleFilter.value;
+
+
+      const filteredUsers =
+        allUsers.filter(user => {
+
+          const name =
+            String(user.name || "")
+              .toLowerCase();
+
+
+          const email =
+            String(user.email || "")
+              .toLowerCase();
+
+
+          const matchesSearch =
+            name.includes(search) ||
+            email.includes(search);
+
+
+          const matchesRole =
+            selectedRole === "ALL" ||
+            user.role === selectedRole;
+
+
+          return (
+            matchesSearch &&
+            matchesRole
+          );
+
+        });
+
+
+      renderUsers(filteredUsers);
+
+
+      const resultText =
+        document.getElementById(
+          "userResult"
+        );
+
+
+      if (allUsers.length === 0) {
+
+        resultText.textContent =
+          "No registered users.";
+
+      }
+
+      else {
+
+        resultText.textContent =
+          `Showing ${filteredUsers.length} of ${allUsers.length} users`;
+
+      }
+
+    }
+
+
+    // ===============================
+    // RENDER USERS
+    // ===============================
+
+    function renderUsers(users) {
+
+      const table =
+        document.getElementById(
+          "usersTable"
+        );
+
+
+      if (users.length === 0) {
+
+        table.innerHTML = `
+          <tr>
+            <td
+              colspan="6"
+              class="loading"
+            >
+              No matching users found.
+            </td>
+          </tr>
+        `;
+
+        return;
+
+      }
+
+
+      table.innerHTML =
+        users.map(user => {
+
+          const roleClass =
+            user.role === "ADMIN"
+              ? "admin-role"
+              : "user-role";
+
+
+          const isCurrentUser =
+            Number(user.id) ===
+            Number(getCurrentAdminId());
+
+
+          let actions = "";
+
+
+          if (isCurrentUser) {
+
+            actions = `
+              <span class="current-user">
+                Current Admin
+              </span>
+            `;
+
+          }
+
+          else {
+
+            const nextRole =
+              user.role === "ADMIN"
+                ? "USER"
+                : "ADMIN";
+
+
+            const roleButtonText =
+              user.role === "ADMIN"
+                ? "Make User"
+                : "Make Admin";
+
+
+            actions = `
+              <div class="actions">
+
+                <button
+                  class="action-btn role-btn"
+                  onclick="changeRole(${user.id}, '${nextRole}')"
+                >
+                  ${roleButtonText}
+                </button>
+
+                <button
+                  class="action-btn delete-btn"
+                  onclick="deleteUser(${user.id}, '${escapeHtml(user.name)}')"
+                >
+                  Delete
+                </button>
+
+              </div>
+            `;
+
+          }
+
+
+          return `
+            <tr>
+
+              <td>
+                ${user.id}
+              </td>
+
+              <td>
+                ${escapeHtml(user.name)}
+              </td>
+
+              <td>
+                ${escapeHtml(user.email)}
+              </td>
+
+              <td class="role ${roleClass}">
+                ${user.role}
+              </td>
+
+              <td class="joined-date">
+                ${formatDate(user.createdAt)}
+              </td>
+
+              <td>
+                ${actions}
+              </td>
+
+            </tr>
+          `;
+
+        }).join("");
+
+    }
+
+
+    // ===============================
+    // FORMAT DATE + TIME
     // ===============================
 
     function formatDate(date) {
@@ -951,7 +1175,7 @@
         );
 
 
-        await loadUsers();
+        await loadAdminDashboard();
 
       }
 
@@ -1028,24 +1252,7 @@
         );
 
 
-        const currentCount =
-          Number(
-            document.getElementById(
-              "userCount"
-            ).textContent
-          );
-
-
-        document.getElementById(
-          "userCount"
-        ).textContent =
-          Math.max(
-            0,
-            currentCount - 1
-          );
-
-
-        await loadUsers();
+        await loadAdminDashboard();
 
       }
 
@@ -1079,29 +1286,4 @@
         .replace(/"/g, "&quot;")
         .replace(/'/g, "&#039;");
 
-    }
-
-
-    // ===============================
-    // LOGOUT
-    // ===============================
-
-    function logout() {
-
-      localStorage.removeItem(
-        "nova88_token"
-      );
-
-      window.location.href =
-        "index.html";
-
-    }
-
-
-    // ===============================
-    // START
-    // ===============================
-
-    loadAdminDashboard();
-
-  </script></body></html>
+ 
