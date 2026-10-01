@@ -722,7 +722,58 @@
   </div>
 
   </section>
+<!-- ===============================
+     PROMOTIONS MANAGEMENT
+================================ -->
 
+<section class="admin-section">
+
+  <div class="section-header">
+
+    <div>
+      <h2>🎁 Promotions Management</h2>
+      <p>Manage NOVA88 promotions.</p>
+    </div>
+
+    <button
+      class="primary-btn"
+      onclick="openPromotionModal()"
+    >
+      + Add Promotion
+    </button>
+
+  </div>
+
+  <div class="table-wrap">
+
+    <table>
+
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Title</th>
+          <th>Description</th>
+          <th>Status</th>
+          <th>Created</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+
+      <tbody id="promotionsTableBody">
+
+        <tr>
+          <td colspan="6" class="empty">
+            Loading promotions...
+          </td>
+        </tr>
+
+      </tbody>
+
+    </table>
+
+  </div>
+
+</section>
 <!-- ===============================
      ADD GAME MODAL
 ================================ -->
