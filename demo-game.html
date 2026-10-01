@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>NOVA88 - Demo Game</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #08090d;
+      color: #fff;
+      min-height: 100vh;
+    }
+
+    header {
+      padding: 18px 20px;
+      border-bottom: 1px solid #252832;
+
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 28px;
+      font-weight: 800;
+    }
+
+    .logo span {
+      color: #ffae2b;
+    }
+
+    .back {
+      background: #ff9f1c;
+      color: #111;
+      border: none;
+      padding: 11px 18px;
+      border-radius: 10px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    main {
+      max-width: 700px;
+      margin: auto;
+      padding: 40px 20px;
+    }
+
+    .game-box {
+      background: #11131a;
+      border: 1px solid #292d38;
+      border-radius: 18px;
+      padding: 35px 25px;
+      text-align: center;
+    }
+
+    .icon {
+      font-size: 70px;
+      margin-bottom: 15px;
+    }
+
+    h1 {
+      color: #ffae2b;
+      margin-bottom: 10px;
+    }
+
+    .description {
+      color: #9da3b2;
+      margin-bottom: 30px;
+    }
+
+    .screen {
+      background: #08090d;
+      border: 1px solid #292d38;
+      border-radius: 14px;
+      padding: 35px 20px;
+      margin-bottom: 25px;
+    }
+
+    .number {
+      font-size: 60px;
+      font-weight: bold;
+      color: #ffae2b;
+      margin-bottom: 10px;
+    }
+
+    .result {
+      color: #a5aab8;
+      min-height: 24px;
+    }
+
+    .play {
+      background: #ffae2b;
+      color: #111;
+      border: none;
+      padding: 14px 35px;
+      border-radius: 10px;
+      font-size: 17px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .play:hover {
+      opacity: 0.9;
+      transform: translateY(-1px);
+    }
+
+    .info {
+      margin-top: 20px;
+      color: #707687;
+      font-size: 13px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+
+    <div class="logo">
+      NOVA<span>88</span>
+    </div>
+
+    <button
+      class="back"
+      id="backBtn"
+    >
+      ← Games
+    </button>
+
+  </header>
+
+
+  <main>
+
+    <div class="game-box">
+
+      <div class="icon">
+        🎮
+      </div>
+
+      <h1>
+        Demo Game
+      </h1>
+
+      <p class="description">
+        Welcome to the NOVA88 demo game.
+      </p>
+
+
+      <div class="screen">
+
+        <div
+          class="number"
+          id="number"
+        >
+          ?
+        </div>
+
+        <div
+          class="result"
+          id="result"
+        >
+          Press Play to start the demo.
+        </div>
+
+      </div>
+
+
+      <button
+        class="play"
+        id="playBtn"
+      >
+        ▶ Play Demo
+      </button>
+
+
+      <p class="info">
+        Demo only — no real-money betting or prizes.
+      </p>
+
+    </div>
+
+  </main>
+
+
+  <script>
+
+    const token =
+      localStorage.getItem("nova88_token");
+
+
+    if (!token) {
+
+      window.location.href =
+        "index.html";
+
+    }
+
+
+    document
+      .getElementById("backBtn")
+      .addEventListener(
+        "click",
+        () => {
+
+          window.location.href =
+            "game.html";
+
+        }
+      );
+
+
+    document
+      .getElementById("playBtn")
+      .addEventListener(
+        "click",
+        () => {
+
+          const number =
+            Math.floor(
+              Math.random() * 100
+            ) + 1;
+
+
+          document
+            .getElementById("number")
+            .textContent = number;
+
+
+          document
+            .getElementById("result")
+            .textContent =
+            "Demo round completed.";
+
+        }
+      );
+
+  </script>
+
+</body>
+
+</html>
