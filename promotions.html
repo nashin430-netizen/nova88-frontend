@@ -1,12 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
 
   <title>NOVA88 - Promotions</title>
 
   <style>
+
     * {
       box-sizing: border-box;
       margin: 0;
@@ -15,22 +21,39 @@
 
     body {
       font-family: Arial, sans-serif;
-      background: #08090d;
+      background:
+        radial-gradient(
+          circle at top,
+          #151820 0%,
+          #08090d 45%,
+          #05060a 100%
+        );
       color: #fff;
       min-height: 100vh;
     }
 
+    /* =========================
+       HEADER
+    ========================= */
+
     header {
-      padding: 20px;
+      height: 76px;
+      padding: 0 24px;
       border-bottom: 1px solid #252832;
+      background: rgba(8, 9, 13, 0.92);
       display: flex;
       justify-content: space-between;
       align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(12px);
     }
 
     .logo {
       font-size: 28px;
-      font-weight: 800;
+      font-weight: 900;
+      letter-spacing: 1px;
     }
 
     .logo span {
@@ -38,19 +61,34 @@
     }
 
     .back {
-      background: #ff9f1c;
+      background: linear-gradient(
+        135deg,
+        #ffae2b,
+        #ff791c
+      );
       color: #111;
       border: none;
-      padding: 12px 20px;
+      padding: 11px 18px;
       border-radius: 10px;
-      font-weight: bold;
+      font-weight: 800;
       cursor: pointer;
+      transition: 0.2s ease;
     }
 
+    .back:hover {
+      transform: translateY(-2px);
+      filter: brightness(1.08);
+    }
+
+    /* =========================
+       MAIN
+    ========================= */
+
     main {
+      width: 100%;
       max-width: 1100px;
       margin: auto;
-      padding: 40px 20px;
+      padding: 42px 20px 60px;
     }
 
     .title {
@@ -60,11 +98,17 @@
     .title h1 {
       font-size: 36px;
       margin-bottom: 10px;
+      font-weight: 900;
     }
 
     .title p {
       color: #9da3b2;
+      line-height: 1.6;
     }
+
+    /* =========================
+       PROMOTIONS GRID
+    ========================= */
 
     .promotions {
       display: grid;
@@ -73,22 +117,53 @@
     }
 
     .promo {
-      background: #11131a;
+      position: relative;
+      overflow: hidden;
+      background:
+        linear-gradient(
+          145deg,
+          #151821,
+          #0e1016
+        );
       border: 1px solid #292d38;
-      border-radius: 16px;
-      padding: 30px;
-      transition: 0.25s ease;
+      border-radius: 18px;
+      padding: 28px;
+      transition:
+        transform 0.25s ease,
+        border-color 0.25s ease,
+        box-shadow 0.25s ease;
+    }
+
+    .promo::before {
+      content: "";
+      position: absolute;
+      width: 120px;
+      height: 120px;
+      right: -45px;
+      top: -45px;
+      border-radius: 50%;
+      background: rgba(255, 174, 43, 0.07);
+      pointer-events: none;
     }
 
     .promo:hover {
       transform: translateY(-5px);
       border-color: #ffae2b;
-      box-shadow: 0 15px 35px rgba(255, 174, 43, 0.08);
+      box-shadow:
+        0 18px 45px rgba(255, 174, 43, 0.08);
     }
 
     .promo-icon {
-      font-size: 45px;
-      margin-bottom: 15px;
+      width: 62px;
+      height: 62px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #1b1e27;
+      border: 1px solid #343945;
+      border-radius: 16px;
+      font-size: 34px;
+      margin-bottom: 18px;
     }
 
     .promo h3 {
@@ -99,19 +174,24 @@
 
     .promo p {
       color: #a5aab8;
-      line-height: 1.6;
+      line-height: 1.65;
+      min-height: 52px;
     }
 
     .claim {
-      margin-top: 20px;
-      background: #ff9f1c;
+      margin-top: 22px;
+      background: linear-gradient(
+        135deg,
+        #ffae2b,
+        #ff791c
+      );
       color: #111;
       border: none;
       padding: 12px 20px;
       border-radius: 10px;
-      font-weight: bold;
+      font-weight: 800;
       cursor: pointer;
-      transition: 0.2s;
+      transition: 0.2s ease;
     }
 
     .claim:hover {
@@ -119,18 +199,39 @@
       filter: brightness(1.08);
     }
 
-    /* MODAL */
+    /* =========================
+       DEMO NOTICE
+    ========================= */
+
+    .demo-notice {
+      margin-top: 30px;
+      padding: 18px 20px;
+      background: rgba(255, 174, 43, 0.05);
+      border: 1px solid rgba(255, 174, 43, 0.18);
+      border-radius: 14px;
+      color: #aeb3c0;
+      line-height: 1.6;
+      text-align: center;
+    }
+
+    .demo-notice strong {
+      color: #ffae2b;
+    }
+
+    /* =========================
+       MODAL
+    ========================= */
 
     .modal {
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.78);
+      background: rgba(0, 0, 0, 0.80);
       display: none;
       align-items: center;
       justify-content: center;
       padding: 20px;
       z-index: 9999;
-      backdrop-filter: blur(5px);
+      backdrop-filter: blur(7px);
     }
 
     .modal.open {
@@ -140,46 +241,70 @@
     .modal-card {
       width: 100%;
       max-width: 480px;
-      background: #11131a;
+      background:
+        linear-gradient(
+          145deg,
+          #151821,
+          #0d0f14
+        );
       border: 1px solid #343945;
       border-radius: 20px;
       padding: 30px;
       position: relative;
-      box-shadow: 0 25px 80px rgba(0, 0, 0, 0.6);
+      box-shadow:
+        0 25px 80px rgba(0, 0, 0, 0.7);
       animation: modalIn 0.2s ease;
     }
 
     @keyframes modalIn {
+
       from {
         opacity: 0;
-        transform: translateY(15px) scale(0.98);
+        transform:
+          translateY(15px)
+          scale(0.97);
       }
 
       to {
         opacity: 1;
-        transform: translateY(0) scale(1);
+        transform:
+          translateY(0)
+          scale(1);
       }
+
     }
 
     .close {
       position: absolute;
       right: 18px;
       top: 15px;
-      background: transparent;
-      border: none;
+      width: 38px;
+      height: 38px;
+      background: #1b1e27;
+      border: 1px solid #30343f;
+      border-radius: 10px;
       color: #a5aab8;
-      font-size: 32px;
+      font-size: 27px;
       cursor: pointer;
       line-height: 1;
     }
 
     .close:hover {
       color: #fff;
+      border-color: #ffae2b;
     }
 
     .modal-icon {
-      font-size: 50px;
-      margin-bottom: 15px;
+      width: 70px;
+      height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #1b1e27;
+      border: 1px solid #343945;
+      border-radius: 18px;
+      font-size: 40px;
+      margin-bottom: 18px;
     }
 
     .modal-card h2 {
@@ -190,7 +315,7 @@
 
     .modal-card p {
       color: #9da3b2;
-      line-height: 1.6;
+      line-height: 1.65;
     }
 
     .modal-button {
@@ -199,7 +324,11 @@
       padding: 14px;
       border: none;
       border-radius: 10px;
-      background: linear-gradient(135deg, #ffae2b, #ff6b1a);
+      background: linear-gradient(
+        135deg,
+        #ffae2b,
+        #ff6b1a
+      );
       color: #111;
       font-size: 16px;
       font-weight: 800;
@@ -210,18 +339,15 @@
       filter: brightness(1.08);
     }
 
+    /* =========================
+       MOBILE
+    ========================= */
+
     @media (max-width: 700px) {
 
-      .promotions {
-        grid-template-columns: 1fr;
-      }
-
-      .title h1 {
-        font-size: 28px;
-      }
-
       header {
-        padding: 16px;
+        height: 68px;
+        padding: 0 16px;
       }
 
       .logo {
@@ -230,16 +356,45 @@
 
       .back {
         padding: 10px 14px;
+        font-size: 13px;
+      }
+
+      main {
+        padding:
+          30px 16px 50px;
+      }
+
+      .title h1 {
+        font-size: 28px;
+      }
+
+      .promotions {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+
+      .promo {
+        padding: 23px;
+      }
+
+      .promo h3 {
+        font-size: 20px;
       }
 
       .modal-card {
         padding: 25px;
       }
+
     }
+
   </style>
+
 </head>
 
+
 <body>
+
+  <!-- HEADER -->
 
   <header>
 
@@ -247,122 +402,192 @@
       NOVA<span>88</span>
     </div>
 
-    <button class="back" onclick="goBack()">
+    <button
+      class="back"
+      onclick="goBack()"
+    >
       ← Dashboard
     </button>
 
   </header>
 
 
+  <!-- MAIN -->
+
   <main>
 
     <div class="title">
+
       <h1>🎁 Promotions</h1>
-      <p>Check out our latest promotions and offers.</p>
+
+      <p>
+        Explore current NOVA88 promotional areas
+        and demo offers.
+      </p>
+
     </div>
 
 
     <div class="promotions">
 
+
+      <!-- WELCOME BONUS -->
+
       <div class="promo">
 
-        <div class="promo-icon">🎁</div>
+        <div class="promo-icon">
+          🎁
+        </div>
 
-        <h3>Welcome Bonus</h3>
+        <h3>
+          Welcome Bonus
+        </h3>
 
         <p>
-          New members can check available welcome offers
-          and promotional rewards.
+          Explore the NOVA88 welcome promotion
+          area for new members.
         </p>
 
         <button
           class="claim"
-          onclick="openPromo('Welcome Bonus', '🎁')">
-          Claim Offer
-        </button>
-
-      </div>
-
-
-      <div class="promo">
-
-        <div class="promo-icon">🔥</div>
-
-        <h3>Special Offer</h3>
-
-        <p>
-          Limited-time promotional offer.
-          Check your account for available details.
-        </p>
-
-        <button
-          class="claim"
-          onclick="openPromo('Special Offer', '🔥')">
+          onclick="openPromo(
+            'Welcome Bonus',
+            '🎁'
+          )"
+        >
           View Offer
         </button>
 
       </div>
 
 
+      <!-- SPECIAL OFFER -->
+
       <div class="promo">
 
-        <div class="promo-icon">⚡</div>
+        <div class="promo-icon">
+          🔥
+        </div>
 
-        <h3>VIP Rewards</h3>
+        <h3>
+          Special Offer
+        </h3>
 
         <p>
-          Demo VIP promotion area for future account
-          features.
+          Check this section for future
+          limited-time promotional content.
         </p>
 
         <button
           class="claim"
-          onclick="openPromo('VIP Rewards', '⭐')">
+          onclick="openPromo(
+            'Special Offer',
+            '🔥'
+          )"
+        >
+          View Offer
+        </button>
+
+      </div>
+
+
+      <!-- VIP REWARDS -->
+
+      <div class="promo">
+
+        <div class="promo-icon">
+          ⭐
+        </div>
+
+        <h3>
+          VIP Rewards
+        </h3>
+
+        <p>
+          Demo VIP rewards area for future
+          account and membership features.
+        </p>
+
+        <button
+          class="claim"
+          onclick="openPromo(
+            'VIP Rewards',
+            '⭐'
+          )"
+        >
           View Details
         </button>
 
       </div>
 
 
+      <!-- DAILY REWARDS -->
+
       <div class="promo">
 
-        <div class="promo-icon">🏆</div>
+        <div class="promo-icon">
+          🏆
+        </div>
 
-        <h3>Daily Rewards</h3>
+        <h3>
+          Daily Rewards
+        </h3>
 
         <p>
-          Demo rewards section for future account
-          features and achievements.
+          Demo daily rewards area for future
+          achievements and account features.
         </p>
 
         <button
           class="claim"
-          onclick="openPromo('Daily Rewards', '🏆')">
+          onclick="openPromo(
+            'Daily Rewards',
+            '🏆'
+          )"
+        >
           View Details
         </button>
 
       </div>
+
+
+    </div>
+
+
+    <!-- DEMO NOTICE -->
+
+    <div class="demo-notice">
+
+      <strong>Demo Mode:</strong>
+      Promotions shown here are for demonstration
+      purposes only. No real-money transactions or
+      real-money rewards are available.
 
     </div>
 
   </main>
 
 
-  <!-- CUSTOM MODAL -->
+  <!-- PROMOTION MODAL -->
 
-  <div class="modal" id="promoModal">
+  <div
+    class="modal"
+    id="promoModal"
+  >
 
     <div class="modal-card">
 
       <button
         class="close"
-        onclick="closePromo()">
+        onclick="closePromo()"
+      >
         ×
       </button>
 
       <div
         class="modal-icon"
-        id="promoIcon">
+        id="promoIcon"
+      >
         🎁
       </div>
 
@@ -372,12 +597,14 @@
 
       <p id="promoMessage">
         This is a demo promotion area.
-        No real-money transactions or rewards are available.
+        No real-money transactions or
+        rewards are available.
       </p>
 
       <button
         class="modal-button"
-        onclick="closePromo()">
+        onclick="closePromo()"
+      >
         Continue
       </button>
 
@@ -388,62 +615,118 @@
 
   <script>
 
+    /* =========================
+       AUTH CHECK
+    ========================= */
+
     const token =
       localStorage.getItem("nova88_token");
 
     if (!token) {
-      window.location.href = "index.html";
+
+      window.location.href =
+        "index.html";
+
     }
 
+
+    /* =========================
+       BACK TO DASHBOARD
+    ========================= */
 
     function goBack() {
-      window.location.href = "dashboard.html";
+
+      window.location.href =
+        "dashboard.html";
+
     }
 
 
-    function openPromo(title, icon) {
+    /* =========================
+       OPEN PROMOTION
+    ========================= */
 
-      document.getElementById("promoTitle")
-        .textContent = title;
+    function openPromo(
+      title,
+      icon
+    ) {
 
-      document.getElementById("promoIcon")
-        .textContent = icon;
+      document.getElementById(
+        "promoTitle"
+      ).textContent = title;
 
-      document.getElementById("promoMessage")
-        .textContent =
+      document.getElementById(
+        "promoIcon"
+      ).textContent = icon;
+
+      document.getElementById(
+        "promoMessage"
+      ).textContent =
         "This is a demo promotion area. No real-money transactions or rewards are available.";
 
-      document.getElementById("promoModal")
-        .classList.add("open");
+      document.getElementById(
+        "promoModal"
+      ).classList.add("open");
+
     }
 
+
+    /* =========================
+       CLOSE PROMOTION
+    ========================= */
 
     function closePromo() {
 
-      document.getElementById("promoModal")
-        .classList.remove("open");
+      document.getElementById(
+        "promoModal"
+      ).classList.remove("open");
+
     }
 
 
-    document.getElementById("promoModal")
-      .addEventListener("click", function(event) {
+    /* =========================
+       CLICK OUTSIDE MODAL
+    ========================= */
 
-        if (event.target === this) {
+    document
+      .getElementById("promoModal")
+      .addEventListener(
+        "click",
+        function(event) {
+
+          if (
+            event.target === this
+          ) {
+
+            closePromo();
+
+          }
+
+        }
+      );
+
+
+    /* =========================
+       ESCAPE KEY
+    ========================= */
+
+    document.addEventListener(
+      "keydown",
+      function(event) {
+
+        if (
+          event.key === "Escape"
+        ) {
+
           closePromo();
+
         }
 
-      });
-
-
-    document.addEventListener("keydown", function(event) {
-
-      if (event.key === "Escape") {
-        closePromo();
       }
-
-    });
+    );
 
   </script>
 
 </body>
+
 </html>
