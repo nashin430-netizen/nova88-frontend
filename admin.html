@@ -1309,6 +1309,131 @@ if (promotionForm) {
 
     let users = [];
 
+    // =====================================
+// LOAD PROMOTIONS
+// =====================================
+
+async function loadPromotions() {
+
+  const token =
+    localStorage.getItem("nova88_token");
+
+  if (!token) {
+    return;
+  }
+
+  try {
+
+    const response = await fetch(
+      `${API}/promotions`,
+      {
+        headers: {
+          "Authorization":
+            "Bearer " + token
+        }
+      }
+    );
+
+    const data =
+      await response.json();
+
+    if (!response.ok) {
+
+      throw new Error(
+        data.error ||
+        "Failed to load promotions"
+      );
+
+    }
+
+    const tbody =
+      document.getElementById(
+        "promotionsTableBody"
+      );
+
+    if (!tbody) return;
+
+    if (
+      !Array.isArray(data) ||
+      data.length === 0
+    ) {
+
+      tbody.innerHTML = `
+        <tr>
+          <td colspan="6" class="empty">
+            No promotions found.
+          </td>
+        </tr>
+      `;
+
+      return;
+    }
+
+    tbody.innerHTML =
+      data.map(promotion => `
+
+        <tr>
+
+          <td>
+            ${promotion.id}
+          </td>
+
+          <td>
+            ${escapeHtml(
+              promotion.title
+            )}
+          </td>
+
+          <td>
+            ${escapeHtml(
+              promotion.description
+            )}
+          </td>
+
+          <td>
+            ${
+              promotion.status
+                ? "🟢 Active"
+                : "🔴 Inactive"
+            }
+          </td>
+
+          <td>
+            ${formatDate(
+              promotion.createdAt
+            )}
+          </td>
+
+          <td>
+
+            <button
+              onclick="editPromotion(${promotion.id})"
+            >
+              Edit
+            </button>
+
+            <button
+              onclick="deletePromotion(${promotion.id})"
+            >
+              Delete
+            </button>
+
+          </td>
+
+        </tr>
+
+      `).join("");
+
+  } catch (error) {
+
+    console.error(
+      "Promotions error:",
+      error
+    );
+
+  }
+
+}
 
     // =====================================
     // LOGOUT
