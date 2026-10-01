@@ -50,59 +50,114 @@
     }
 
     main {
-      max-width: 700px;
+      max-width: 850px;
       margin: auto;
-      padding: 40px 20px;
+      padding: 35px 20px;
+    }
+
+    .top {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    .top h1 {
+      color: #ffae2b;
+      margin-bottom: 8px;
+    }
+
+    .top p {
+      color: #9da3b2;
+    }
+
+    .balance {
+      background: #11131a;
+      border: 1px solid #292d38;
+      border-radius: 14px;
+      padding: 18px;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .balance-title {
+      color: #9da3b2;
+      font-size: 14px;
+      margin-bottom: 7px;
+    }
+
+    .balance-value {
+      color: #ffae2b;
+      font-size: 30px;
+      font-weight: bold;
     }
 
     .game-box {
       background: #11131a;
       border: 1px solid #292d38;
       border-radius: 18px;
-      padding: 35px 25px;
-      text-align: center;
-    }
-
-    .icon {
-      font-size: 70px;
-      margin-bottom: 15px;
-    }
-
-    h1 {
-      color: #ffae2b;
-      margin-bottom: 10px;
-    }
-
-    .description {
-      color: #9da3b2;
-      margin-bottom: 30px;
+      padding: 28px;
     }
 
     .screen {
       background: #08090d;
       border: 1px solid #292d38;
       border-radius: 14px;
-      padding: 35px 20px;
+      padding: 30px 20px;
+      text-align: center;
       margin-bottom: 25px;
     }
 
     .number {
-      font-size: 60px;
+      font-size: 70px;
       font-weight: bold;
       color: #ffae2b;
       margin-bottom: 10px;
     }
 
     .result {
+      min-height: 25px;
       color: #a5aab8;
-      min-height: 24px;
+    }
+
+    .selection-title {
+      text-align: center;
+      color: #9da3b2;
+      margin-bottom: 15px;
+    }
+
+    .numbers {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 10px;
+      margin-bottom: 22px;
+    }
+
+    .number-btn {
+      background: #191c25;
+      color: #fff;
+      border: 1px solid #303542;
+      border-radius: 10px;
+      padding: 14px 5px;
+      font-size: 17px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .number-btn:hover {
+      border-color: #ffae2b;
+    }
+
+    .number-btn.selected {
+      background: #ffae2b;
+      color: #111;
+      border-color: #ffae2b;
     }
 
     .play {
+      width: 100%;
       background: #ffae2b;
       color: #111;
       border: none;
-      padding: 14px 35px;
+      padding: 15px;
       border-radius: 10px;
       font-size: 17px;
       font-weight: bold;
@@ -111,13 +166,111 @@
 
     .play:hover {
       opacity: 0.9;
-      transform: translateY(-1px);
+    }
+
+    .play:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .reset {
+      width: 100%;
+      margin-top: 10px;
+      background: transparent;
+      color: #9da3b2;
+      border: 1px solid #303542;
+      padding: 12px;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    .history {
+      margin-top: 25px;
+      background: #11131a;
+      border: 1px solid #292d38;
+      border-radius: 18px;
+      padding: 22px;
+    }
+
+    .history h2 {
+      font-size: 20px;
+      margin-bottom: 15px;
+    }
+
+    .history-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .history-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #191c25;
+      border-radius: 9px;
+      padding: 12px;
+      color: #b9bfcc;
+      font-size: 14px;
+    }
+
+    .win {
+      color: #5ee58b;
+      font-weight: bold;
+    }
+
+    .lose {
+      color: #ff6b6b;
+      font-weight: bold;
+    }
+
+    .empty {
+      color: #707687;
+      text-align: center;
+      padding: 15px;
     }
 
     .info {
-      margin-top: 20px;
-      color: #707687;
-      font-size: 13px;
+      text-align: center;
+      color: #626979;
+      font-size: 12px;
+      margin-top: 18px;
+    }
+
+    @media (max-width: 600px) {
+
+      header {
+        padding: 15px;
+      }
+
+      .logo {
+        font-size: 23px;
+      }
+
+      .back {
+        padding: 9px 12px;
+      }
+
+      main {
+        padding: 25px 15px;
+      }
+
+      .game-box {
+        padding: 20px;
+      }
+
+      .numbers {
+        grid-template-columns: repeat(5, 1fr);
+      }
+
+      .number-btn {
+        padding: 12px 3px;
+        font-size: 15px;
+      }
+
+      .number {
+        font-size: 55px;
+      }
     }
   </style>
 </head>
@@ -142,58 +295,116 @@
 
   <main>
 
-    <div class="game-box">
+    <div class="top">
 
-      <div class="icon">
-        🎮
-      </div>
+      <h1>🎮 Demo Game</h1>
 
-      <h1>
-        Demo Game
-      </h1>
-
-      <p class="description">
-        Welcome to the NOVA88 demo game.
+      <p>
+        Pick a number and play a demo round.
       </p>
 
+    </div>
+
+
+    <div class="balance">
+
+      <div class="balance-title">
+        Demo Balance
+      </div>
+
+      <div
+        class="balance-value"
+        id="balance"
+      >
+        1000
+      </div>
+
+    </div>
+
+
+    <div class="game-box">
 
       <div class="screen">
 
         <div
           class="number"
-          id="number"
+          id="resultNumber"
         >
           ?
         </div>
 
         <div
           class="result"
-          id="result"
+          id="resultText"
         >
-          Press Play to start the demo.
+          Select a number to start.
         </div>
 
       </div>
 
 
+      <div class="selection-title">
+        Select a number
+      </div>
+
+
+      <div
+        class="numbers"
+        id="numberButtons"
+      ></div>
+
+
       <button
         class="play"
         id="playBtn"
+        disabled
       >
-        ▶ Play Demo
+        ▶ Play Round
       </button>
 
 
-      <p class="info">
-        Demo only — no real-money betting or prizes.
-      </p>
+      <button
+        class="reset"
+        id="resetBtn"
+      >
+        Reset Demo
+      </button>
 
+    </div>
+
+
+    <div class="history">
+
+      <h2>📜 Recent Rounds</h2>
+
+      <div
+        class="history-list"
+        id="historyList"
+      >
+
+        <div class="empty">
+          No rounds played yet.
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="info">
+      Demo mode only — virtual credits with no real-money value.
     </div>
 
   </main>
 
 
   <script>
+
+    /*
+      ============================
+      LOGIN PROTECTION
+      ============================
+    */
 
     const token =
       localStorage.getItem("nova88_token");
@@ -207,43 +418,402 @@
     }
 
 
-    document
-      .getElementById("backBtn")
-      .addEventListener(
+    /*
+      ============================
+      GAME VARIABLES
+      ============================
+    */
+
+    let balance = 1000;
+
+    let selectedNumber = null;
+
+    let roundNumber = 0;
+
+
+    /*
+      ============================
+      ELEMENTS
+      ============================
+    */
+
+    const balanceElement =
+      document.getElementById("balance");
+
+    const resultNumber =
+      document.getElementById("resultNumber");
+
+    const resultText =
+      document.getElementById("resultText");
+
+    const numberButtons =
+      document.getElementById("numberButtons");
+
+    const playBtn =
+      document.getElementById("playBtn");
+
+    const resetBtn =
+      document.getElementById("resetBtn");
+
+    const historyList =
+      document.getElementById("historyList");
+
+    const backBtn =
+      document.getElementById("backBtn");
+
+
+    /*
+      ============================
+      BACK BUTTON
+      ============================
+    */
+
+    backBtn.addEventListener(
+      "click",
+      () => {
+
+        window.location.href =
+          "game.html";
+
+      }
+    );
+
+
+    /*
+      ============================
+      CREATE NUMBER BUTTONS
+      ============================
+    */
+
+    for (let i = 1; i <= 10; i++) {
+
+      const button =
+        document.createElement("button");
+
+      button.className =
+        "number-btn";
+
+      button.textContent =
+        i;
+
+      button.addEventListener(
         "click",
         () => {
 
-          window.location.href =
-            "game.html";
+          selectNumber(
+            i,
+            button
+          );
 
         }
       );
 
+      numberButtons.appendChild(
+        button
+      );
 
-    document
-      .getElementById("playBtn")
-      .addEventListener(
-        "click",
-        () => {
-
-          const number =
-            Math.floor(
-              Math.random() * 100
-            ) + 1;
+    }
 
 
-          document
-            .getElementById("number")
-            .textContent = number;
+    /*
+      ============================
+      SELECT NUMBER
+      ============================
+    */
+
+    function selectNumber(
+      number,
+      button
+    ) {
+
+      selectedNumber =
+        number;
 
 
-          document
-            .getElementById("result")
-            .textContent =
-            "Demo round completed.";
+      document
+        .querySelectorAll(".number-btn")
+        .forEach(
+          btn => {
+
+            btn.classList.remove(
+              "selected"
+            );
+
+          }
+        );
+
+
+      button.classList.add(
+        "selected"
+      );
+
+
+      resultText.textContent =
+        "Number " +
+        number +
+        " selected.";
+
+
+      playBtn.disabled =
+        false;
+
+    }
+
+
+    /*
+      ============================
+      PLAY ROUND
+      ============================
+    */
+
+    playBtn.addEventListener(
+      "click",
+      () => {
+
+        if (
+          selectedNumber === null
+        ) {
+
+          return;
 
         }
+
+
+        playBtn.disabled =
+          true;
+
+
+        resultText.textContent =
+          "Generating result...";
+
+
+        resultNumber.textContent =
+          "...";
+
+
+        setTimeout(
+          () => {
+
+            const winningNumber =
+              Math.floor(
+                Math.random() * 10
+              ) + 1;
+
+
+            roundNumber++;
+
+
+            resultNumber.textContent =
+              winningNumber;
+
+
+            let result;
+
+
+            if (
+              selectedNumber ===
+              winningNumber
+            ) {
+
+              balance += 100;
+
+              result =
+                "🎉 You won +100 demo credits!";
+
+              resultText.className =
+                "result win";
+
+            } else {
+
+              balance -= 20;
+
+              result =
+                "❌ You lost 20 demo credits.";
+
+              resultText.className =
+                "result lose";
+
+            }
+
+
+            balanceElement.textContent =
+              balance;
+
+
+            addHistory(
+              roundNumber,
+              selectedNumber,
+              winningNumber,
+              result
+            );
+
+
+            selectedNumber =
+              null;
+
+
+            document
+              .querySelectorAll(
+                ".number-btn"
+              )
+              .forEach(
+                btn => {
+
+                  btn.classList.remove(
+                    "selected"
+                  );
+
+                }
+              );
+
+
+            playBtn.disabled =
+              true;
+
+          },
+          700
+        );
+
+      }
+    );
+
+
+    /*
+      ============================
+      ADD HISTORY
+      ============================
+    */
+
+    function addHistory(
+      round,
+      selected,
+      winning,
+      result
+    ) {
+
+      const empty =
+        historyList.querySelector(
+          ".empty"
+        );
+
+
+      if (empty) {
+
+        empty.remove();
+
+      }
+
+
+      const item =
+        document.createElement(
+          "div"
+        );
+
+
+      item.className =
+        "history-item";
+
+
+      const status =
+        selected === winning
+          ? "WIN"
+          : "LOSE";
+
+
+      const statusClass =
+        selected === winning
+          ? "win"
+          : "lose";
+
+
+      item.innerHTML = `
+
+        <span>
+          Round ${round}
+        </span>
+
+        <span>
+          Pick: ${selected}
+          |
+          Result: ${winning}
+        </span>
+
+        <span class="${statusClass}">
+          ${status}
+        </span>
+
+      `;
+
+
+      historyList.prepend(
+        item
       );
+
+    }
+
+
+    /*
+      ============================
+      RESET DEMO
+      ============================
+    */
+
+    resetBtn.addEventListener(
+      "click",
+      () => {
+
+        balance = 1000;
+
+        selectedNumber = null;
+
+        roundNumber = 0;
+
+
+        balanceElement.textContent =
+          balance;
+
+
+        resultNumber.textContent =
+          "?";
+
+
+        resultText.textContent =
+          "Select a number to start.";
+
+
+        resultText.className =
+          "result";
+
+
+        playBtn.disabled =
+          true;
+
+
+        document
+          .querySelectorAll(
+            ".number-btn"
+          )
+          .forEach(
+            btn => {
+
+              btn.classList.remove(
+                "selected"
+              );
+
+            }
+          );
+
+
+        historyList.innerHTML = `
+
+          <div class="empty">
+            No rounds played yet.
+          </div>
+
+        `;
+
+      }
+    );
 
   </script>
 
