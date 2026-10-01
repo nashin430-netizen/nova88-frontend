@@ -27,7 +27,6 @@
         );
 
       color: #fff;
-
       min-height: 100vh;
     }
 
@@ -41,15 +40,12 @@
       border-bottom: 1px solid #252832;
 
       display: flex;
-
       justify-content: space-between;
-
       align-items: center;
 
       background: rgba(8, 9, 13, 0.92);
 
       position: sticky;
-
       top: 0;
 
       z-index: 100;
@@ -59,9 +55,7 @@
 
     .logo {
       font-size: 28px;
-
       font-weight: 900;
-
       letter-spacing: 1px;
     }
 
@@ -683,6 +677,7 @@
     <button
       class="back"
       id="backBtn"
+      type="button"
     >
       ← Games
     </button>
@@ -783,6 +778,7 @@
       <button
         class="play"
         id="playBtn"
+        type="button"
         disabled
       >
         ▶ Play Round
@@ -794,6 +790,7 @@
       <button
         class="reset"
         id="resetBtn"
+        type="button"
       >
         Reset Demo
       </button>
@@ -920,7 +917,7 @@
 
     /*
       ============================
-      BACK BUTTON
+      BACK TO GAMES
       ============================
     */
 
@@ -1080,7 +1077,7 @@
 
 
         /*
-          Small animation
+          Small result animation
         */
 
         let animationCount =
@@ -1135,23 +1132,22 @@
               winningNumber;
 
 
-            let result;
-
-
-            if (
+            const won =
               selectedNumber ===
-              winningNumber
-            ) {
+              winningNumber;
+
+
+            if (won) {
 
               balance += 100;
 
 
-              result =
-                "🎉 You won +100 demo credits!";
-
-
               resultText.className =
                 "result win";
+
+
+              resultText.textContent =
+                "🎉 You won +100 demo credits!";
 
             } else {
 
@@ -1163,12 +1159,12 @@
               }
 
 
-              result =
-                "❌ You lost 20 demo credits.";
-
-
               resultText.className =
                 "result lose";
+
+
+              resultText.textContent =
+                "❌ You lost 20 demo credits.";
 
             }
 
@@ -1186,8 +1182,7 @@
               roundNumber,
               selectedNumber,
               winningNumber,
-              selectedNumber ===
-                winningNumber
+              won
             );
 
 
@@ -1210,17 +1205,12 @@
               );
 
 
-            resultText.textContent =
-              result;
-
-
             isPlaying =
               false;
 
 
             playBtn.disabled =
               true;
-
 
           },
           750
@@ -1383,7 +1373,6 @@
 
       }
     );
-
 
   </script>
 
