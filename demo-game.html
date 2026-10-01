@@ -8,6 +8,7 @@
   <title>NOVA88 - Demo Game</title>
 
   <style>
+
     * {
       box-sizing: border-box;
       margin: 0;
@@ -16,23 +17,52 @@
 
     body {
       font-family: Arial, sans-serif;
-      background: #08090d;
+
+      background:
+        radial-gradient(
+          circle at top,
+          #171a22 0%,
+          #08090d 45%,
+          #050609 100%
+        );
+
       color: #fff;
+
       min-height: 100vh;
     }
 
+    /* =========================
+       HEADER
+    ========================= */
+
     header {
-      padding: 18px 20px;
+      padding: 17px 24px;
+
       border-bottom: 1px solid #252832;
 
       display: flex;
+
       justify-content: space-between;
+
       align-items: center;
+
+      background: rgba(8, 9, 13, 0.92);
+
+      position: sticky;
+
+      top: 0;
+
+      z-index: 100;
+
+      backdrop-filter: blur(10px);
     }
 
     .logo {
       font-size: 28px;
-      font-weight: 800;
+
+      font-weight: 900;
+
+      letter-spacing: 1px;
     }
 
     .logo span {
@@ -40,207 +70,532 @@
     }
 
     .back {
-      background: #ff9f1c;
+      background:
+        linear-gradient(
+          135deg,
+          #ffbd4a,
+          #ff9418
+        );
+
       color: #111;
+
       border: none;
+
       padding: 11px 18px;
+
       border-radius: 10px;
-      font-weight: bold;
+
+      font-weight: 800;
+
       cursor: pointer;
+
+      transition: 0.2s ease;
     }
 
+    .back:hover {
+      transform: translateY(-2px);
+
+      box-shadow:
+        0 7px 20px
+        rgba(255, 174, 43, 0.18);
+    }
+
+    /* =========================
+       MAIN
+    ========================= */
+
     main {
-      max-width: 850px;
+      max-width: 900px;
+
       margin: auto;
-      padding: 35px 20px;
+
+      padding: 42px 20px 60px;
     }
 
     .top {
       text-align: center;
-      margin-bottom: 25px;
+
+      margin-bottom: 28px;
     }
 
     .top h1 {
+      font-size: 34px;
+
       color: #ffae2b;
-      margin-bottom: 8px;
+
+      margin-bottom: 9px;
     }
 
     .top p {
       color: #9da3b2;
+
+      font-size: 14px;
     }
 
+    /* =========================
+       BALANCE
+    ========================= */
+
     .balance {
-      background: #11131a;
+      position: relative;
+
+      overflow: hidden;
+
+      background:
+        linear-gradient(
+          145deg,
+          #181b23,
+          #0e1016
+        );
+
       border: 1px solid #292d38;
-      border-radius: 14px;
-      padding: 18px;
+
+      border-radius: 18px;
+
+      padding: 20px;
+
       text-align: center;
+
       margin-bottom: 20px;
+
+      box-shadow:
+        0 12px 35px
+        rgba(0, 0, 0, 0.22);
+    }
+
+    .balance::before {
+      content: "";
+
+      position: absolute;
+
+      width: 180px;
+      height: 180px;
+
+      top: -100px;
+      left: 50%;
+
+      transform: translateX(-50%);
+
+      background:
+        radial-gradient(
+          circle,
+          rgba(255, 174, 43, 0.13),
+          transparent 70%
+        );
     }
 
     .balance-title {
+      position: relative;
+
       color: #9da3b2;
-      font-size: 14px;
+
+      font-size: 13px;
+
       margin-bottom: 7px;
+
+      text-transform: uppercase;
+
+      letter-spacing: 1px;
     }
 
     .balance-value {
+      position: relative;
+
       color: #ffae2b;
-      font-size: 30px;
-      font-weight: bold;
+
+      font-size: 34px;
+
+      font-weight: 900;
     }
+
+    .balance-unit {
+      color: #777e8e;
+
+      font-size: 12px;
+
+      margin-left: 5px;
+    }
+
+    /* =========================
+       GAME BOX
+    ========================= */
 
     .game-box {
-      background: #11131a;
+      background:
+        linear-gradient(
+          145deg,
+          #151820,
+          #0e1016
+        );
+
       border: 1px solid #292d38;
-      border-radius: 18px;
+
+      border-radius: 20px;
+
       padding: 28px;
+
+      box-shadow:
+        0 18px 45px
+        rgba(0, 0, 0, 0.3);
     }
 
+    /* =========================
+       GAME SCREEN
+    ========================= */
+
     .screen {
-      background: #08090d;
+      background:
+        radial-gradient(
+          circle at center,
+          #171b24,
+          #08090d 72%
+        );
+
       border: 1px solid #292d38;
-      border-radius: 14px;
-      padding: 30px 20px;
+
+      border-radius: 16px;
+
+      padding: 35px 20px;
+
       text-align: center;
-      margin-bottom: 25px;
+
+      margin-bottom: 27px;
+
+      min-height: 185px;
+
+      display: flex;
+
+      flex-direction: column;
+
+      justify-content: center;
+
+      align-items: center;
+    }
+
+    .screen-label {
+      color: #6f7685;
+
+      font-size: 11px;
+
+      text-transform: uppercase;
+
+      letter-spacing: 2px;
+
+      margin-bottom: 8px;
     }
 
     .number {
-      font-size: 70px;
-      font-weight: bold;
+      font-size: 76px;
+
+      line-height: 1;
+
+      font-weight: 900;
+
       color: #ffae2b;
-      margin-bottom: 10px;
+
+      margin-bottom: 14px;
+
+      text-shadow:
+        0 0 25px
+        rgba(255, 174, 43, 0.14);
+
+      transition: 0.2s ease;
     }
 
     .result {
-      min-height: 25px;
+      min-height: 24px;
+
       color: #a5aab8;
+
+      font-size: 14px;
     }
+
+    .result.win {
+      color: #5ee58b;
+
+      font-weight: 800;
+    }
+
+    .result.lose {
+      color: #ff6b6b;
+
+      font-weight: 800;
+    }
+
+    /* =========================
+       SELECTION
+    ========================= */
 
     .selection-title {
       text-align: center;
+
       color: #9da3b2;
+
+      font-size: 13px;
+
       margin-bottom: 15px;
     }
 
     .numbers {
       display: grid;
-      grid-template-columns: repeat(5, 1fr);
+
+      grid-template-columns:
+        repeat(5, 1fr);
+
       gap: 10px;
+
       margin-bottom: 22px;
     }
 
     .number-btn {
-      background: #191c25;
+      background:
+        linear-gradient(
+          145deg,
+          #1b1e27,
+          #15171e
+        );
+
       color: #fff;
+
       border: 1px solid #303542;
-      border-radius: 10px;
+
+      border-radius: 11px;
+
       padding: 14px 5px;
+
       font-size: 17px;
-      font-weight: bold;
+
+      font-weight: 800;
+
       cursor: pointer;
+
+      transition: 0.2s ease;
     }
 
     .number-btn:hover {
       border-color: #ffae2b;
+
+      transform: translateY(-2px);
     }
 
     .number-btn.selected {
-      background: #ffae2b;
+      background:
+        linear-gradient(
+          135deg,
+          #ffbd4a,
+          #ff9418
+        );
+
       color: #111;
+
       border-color: #ffae2b;
+
+      box-shadow:
+        0 5px 18px
+        rgba(255, 174, 43, 0.16);
+
+      transform: translateY(-2px);
     }
+
+    /* =========================
+       PLAY BUTTON
+    ========================= */
 
     .play {
       width: 100%;
-      background: #ffae2b;
+
+      background:
+        linear-gradient(
+          135deg,
+          #ffbd4a,
+          #ff9418
+        );
+
       color: #111;
+
       border: none;
+
       padding: 15px;
-      border-radius: 10px;
-      font-size: 17px;
-      font-weight: bold;
+
+      border-radius: 11px;
+
+      font-size: 16px;
+
+      font-weight: 900;
+
       cursor: pointer;
+
+      transition: 0.2s ease;
+
+      box-shadow:
+        0 7px 20px
+        rgba(255, 174, 43, 0.1);
     }
 
-    .play:hover {
-      opacity: 0.9;
+    .play:hover:not(:disabled) {
+      transform: translateY(-2px);
+
+      box-shadow:
+        0 10px 25px
+        rgba(255, 174, 43, 0.18);
     }
 
     .play:disabled {
-      opacity: 0.5;
+      opacity: 0.45;
+
       cursor: not-allowed;
+
+      box-shadow: none;
     }
+
+    /* =========================
+       RESET
+    ========================= */
 
     .reset {
       width: 100%;
+
       margin-top: 10px;
+
       background: transparent;
-      color: #9da3b2;
+
+      color: #9299a8;
+
       border: 1px solid #303542;
+
       padding: 12px;
-      border-radius: 10px;
+
+      border-radius: 11px;
+
       cursor: pointer;
+
+      transition: 0.2s ease;
     }
+
+    .reset:hover {
+      color: #fff;
+
+      border-color: #555b6b;
+
+      background: #171a21;
+    }
+
+    /* =========================
+       HISTORY
+    ========================= */
 
     .history {
       margin-top: 25px;
-      background: #11131a;
+
+      background:
+        linear-gradient(
+          145deg,
+          #151820,
+          #0e1016
+        );
+
       border: 1px solid #292d38;
+
       border-radius: 18px;
+
       padding: 22px;
     }
 
     .history h2 {
-      font-size: 20px;
+      font-size: 19px;
+
       margin-bottom: 15px;
     }
 
     .history-list {
       display: flex;
+
       flex-direction: column;
+
       gap: 8px;
+
+      max-height: 330px;
+
+      overflow-y: auto;
     }
 
     .history-item {
-      display: flex;
-      justify-content: space-between;
+      display: grid;
+
+      grid-template-columns:
+        1fr 2fr auto;
+
+      gap: 10px;
+
       align-items: center;
+
       background: #191c25;
+
+      border: 1px solid #242834;
+
       border-radius: 9px;
+
       padding: 12px;
+
       color: #b9bfcc;
-      font-size: 14px;
+
+      font-size: 13px;
+    }
+
+    .history-round {
+      color: #777e8e;
+    }
+
+    .history-details {
+      text-align: center;
     }
 
     .win {
       color: #5ee58b;
-      font-weight: bold;
+
+      font-weight: 800;
     }
 
     .lose {
       color: #ff6b6b;
-      font-weight: bold;
+
+      font-weight: 800;
     }
 
     .empty {
       color: #707687;
+
       text-align: center;
+
       padding: 15px;
+
+      font-size: 13px;
     }
+
+    /* =========================
+       INFO
+    ========================= */
 
     .info {
       text-align: center;
+
       color: #626979;
+
       font-size: 12px;
+
       margin-top: 18px;
+
+      line-height: 1.5;
     }
+
+    /* =========================
+       MOBILE
+    ========================= */
 
     @media (max-width: 600px) {
 
       header {
-        padding: 15px;
+        padding: 15px 16px;
       }
 
       .logo {
@@ -248,34 +603,76 @@
       }
 
       .back {
-        padding: 9px 12px;
+        padding: 9px 13px;
+
+        font-size: 12px;
       }
 
       main {
-        padding: 25px 15px;
+        padding: 30px 15px 45px;
+      }
+
+      .top h1 {
+        font-size: 29px;
       }
 
       .game-box {
-        padding: 20px;
+        padding: 19px;
+      }
+
+      .screen {
+        min-height: 165px;
+
+        padding: 28px 15px;
+      }
+
+      .number {
+        font-size: 60px;
       }
 
       .numbers {
-        grid-template-columns: repeat(5, 1fr);
+        gap: 8px;
       }
 
       .number-btn {
         padding: 12px 3px;
+
         font-size: 15px;
       }
 
-      .number {
-        font-size: 55px;
+      .history {
+        padding: 18px;
       }
+
+      .history-item {
+        grid-template-columns:
+          1fr auto;
+
+        font-size: 12px;
+      }
+
+      .history-details {
+        text-align: right;
+      }
+
+      .history-item .status {
+        grid-column: 1 / -1;
+
+        text-align: right;
+      }
+
     }
+
   </style>
 </head>
 
+
 <body>
+
+
+  <!-- =========================
+       HEADER
+  ========================= -->
 
   <header>
 
@@ -293,11 +690,18 @@
   </header>
 
 
+  <!-- =========================
+       MAIN
+  ========================= -->
+
   <main>
+
 
     <div class="top">
 
-      <h1>🎮 Demo Game</h1>
+      <h1>
+        🎮 Demo Game
+      </h1>
 
       <p>
         Pick a number and play a demo round.
@@ -305,6 +709,10 @@
 
     </div>
 
+
+    <!-- =========================
+         BALANCE
+    ========================= -->
 
     <div class="balance">
 
@@ -317,14 +725,28 @@
         id="balance"
       >
         1000
+        <span class="balance-unit">
+          credits
+        </span>
       </div>
 
     </div>
 
 
+    <!-- =========================
+         GAME
+    ========================= -->
+
     <div class="game-box">
 
+
+      <!-- GAME SCREEN -->
+
       <div class="screen">
+
+        <div class="screen-label">
+          Result
+        </div>
 
         <div
           class="number"
@@ -343,8 +765,10 @@
       </div>
 
 
+      <!-- NUMBER SELECTION -->
+
       <div class="selection-title">
-        Select a number
+        Select a number from 1 to 10
       </div>
 
 
@@ -353,6 +777,8 @@
         id="numberButtons"
       ></div>
 
+
+      <!-- PLAY -->
 
       <button
         class="play"
@@ -363,6 +789,8 @@
       </button>
 
 
+      <!-- RESET -->
+
       <button
         class="reset"
         id="resetBtn"
@@ -370,12 +798,19 @@
         Reset Demo
       </button>
 
+
     </div>
 
 
+    <!-- =========================
+         HISTORY
+    ========================= -->
+
     <div class="history">
 
-      <h2>📜 Recent Rounds</h2>
+      <h2>
+        📜 Recent Rounds
+      </h2>
 
       <div
         class="history-list"
@@ -395,6 +830,7 @@
       Demo mode only — virtual credits with no real-money value.
     </div>
 
+
   </main>
 
 
@@ -407,7 +843,9 @@
     */
 
     const token =
-      localStorage.getItem("nova88_token");
+      localStorage.getItem(
+        "nova88_token"
+      );
 
 
     if (!token) {
@@ -430,6 +868,8 @@
 
     let roundNumber = 0;
 
+    let isPlaying = false;
+
 
     /*
       ============================
@@ -438,28 +878,44 @@
     */
 
     const balanceElement =
-      document.getElementById("balance");
+      document.getElementById(
+        "balance"
+      );
 
     const resultNumber =
-      document.getElementById("resultNumber");
+      document.getElementById(
+        "resultNumber"
+      );
 
     const resultText =
-      document.getElementById("resultText");
+      document.getElementById(
+        "resultText"
+      );
 
     const numberButtons =
-      document.getElementById("numberButtons");
+      document.getElementById(
+        "numberButtons"
+      );
 
     const playBtn =
-      document.getElementById("playBtn");
+      document.getElementById(
+        "playBtn"
+      );
 
     const resetBtn =
-      document.getElementById("resetBtn");
+      document.getElementById(
+        "resetBtn"
+      );
 
     const historyList =
-      document.getElementById("historyList");
+      document.getElementById(
+        "historyList"
+      );
 
     const backBtn =
-      document.getElementById("backBtn");
+      document.getElementById(
+        "backBtn"
+      );
 
 
     /*
@@ -485,13 +941,22 @@
       ============================
     */
 
-    for (let i = 1; i <= 10; i++) {
+    for (
+      let i = 1;
+      i <= 10;
+      i++
+    ) {
 
       const button =
-        document.createElement("button");
+        document.createElement(
+          "button"
+        );
 
       button.className =
         "number-btn";
+
+      button.type =
+        "button";
 
       button.textContent =
         i;
@@ -499,6 +964,10 @@
       button.addEventListener(
         "click",
         () => {
+
+          if (isPlaying) {
+            return;
+          }
 
           selectNumber(
             i,
@@ -531,7 +1000,9 @@
 
 
       document
-        .querySelectorAll(".number-btn")
+        .querySelectorAll(
+          ".number-btn"
+        )
         .forEach(
           btn => {
 
@@ -546,6 +1017,14 @@
       button.classList.add(
         "selected"
       );
+
+
+      resultNumber.textContent =
+        "?";
+
+
+      resultText.className =
+        "result";
 
 
       resultText.textContent =
@@ -571,7 +1050,8 @@
       () => {
 
         if (
-          selectedNumber === null
+          selectedNumber === null ||
+          isPlaying
         ) {
 
           return;
@@ -579,8 +1059,16 @@
         }
 
 
+        isPlaying =
+          true;
+
+
         playBtn.disabled =
           true;
+
+
+        resultText.className =
+          "result";
 
 
         resultText.textContent =
@@ -589,6 +1077,46 @@
 
         resultNumber.textContent =
           "...";
+
+
+        /*
+          Small animation
+        */
+
+        let animationCount =
+          0;
+
+
+        const animation =
+          setInterval(
+            () => {
+
+              const randomDisplay =
+                Math.floor(
+                  Math.random() * 10
+                ) + 1;
+
+
+              resultNumber.textContent =
+                randomDisplay;
+
+
+              animationCount++;
+
+
+              if (
+                animationCount >= 6
+              ) {
+
+                clearInterval(
+                  animation
+                );
+
+              }
+
+            },
+            90
+          );
 
 
         setTimeout(
@@ -617,8 +1145,10 @@
 
               balance += 100;
 
+
               result =
                 "🎉 You won +100 demo credits!";
+
 
               resultText.className =
                 "result win";
@@ -627,8 +1157,15 @@
 
               balance -= 20;
 
+
+              if (balance < 0) {
+                balance = 0;
+              }
+
+
               result =
                 "❌ You lost 20 demo credits.";
+
 
               resultText.className =
                 "result lose";
@@ -636,15 +1173,21 @@
             }
 
 
-            balanceElement.textContent =
-              balance;
+            balanceElement.innerHTML =
+              balance +
+              `
+                <span class="balance-unit">
+                  credits
+                </span>
+              `;
 
 
             addHistory(
               roundNumber,
               selectedNumber,
               winningNumber,
-              result
+              selectedNumber ===
+                winningNumber
             );
 
 
@@ -667,11 +1210,20 @@
               );
 
 
+            resultText.textContent =
+              result;
+
+
+            isPlaying =
+              false;
+
+
             playBtn.disabled =
               true;
 
+
           },
-          700
+          750
         );
 
       }
@@ -688,7 +1240,7 @@
       round,
       selected,
       winning,
-      result
+      won
     ) {
 
       const empty =
@@ -715,30 +1267,32 @@
 
 
       const status =
-        selected === winning
+        won
           ? "WIN"
           : "LOSE";
 
 
       const statusClass =
-        selected === winning
+        won
           ? "win"
           : "lose";
 
 
       item.innerHTML = `
 
-        <span>
+        <span class="history-round">
           Round ${round}
         </span>
 
-        <span>
+        <span class="history-details">
           Pick: ${selected}
-          |
+          &nbsp;•&nbsp;
           Result: ${winning}
         </span>
 
-        <span class="${statusClass}">
+        <span
+          class="status ${statusClass}"
+        >
           ${status}
         </span>
 
@@ -762,27 +1316,42 @@
       "click",
       () => {
 
-        balance = 1000;
-
-        selectedNumber = null;
-
-        roundNumber = 0;
+        if (isPlaying) {
+          return;
+        }
 
 
-        balanceElement.textContent =
-          balance;
+        balance =
+          1000;
+
+
+        selectedNumber =
+          null;
+
+
+        roundNumber =
+          0;
+
+
+        balanceElement.innerHTML =
+          `
+            1000
+            <span class="balance-unit">
+              credits
+            </span>
+          `;
 
 
         resultNumber.textContent =
           "?";
 
 
-        resultText.textContent =
-          "Select a number to start.";
-
-
         resultText.className =
           "result";
+
+
+        resultText.textContent =
+          "Select a number to start.";
 
 
         playBtn.disabled =
@@ -814,6 +1383,7 @@
 
       }
     );
+
 
   </script>
 
