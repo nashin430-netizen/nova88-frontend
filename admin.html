@@ -915,6 +915,10 @@ if (gameForm) {
         return;
       }
 
+      const editingId =
+        gameForm.dataset.editingId;
+
+
       const gameData = {
 
         name:
@@ -940,19 +944,57 @@ if (gameForm) {
 
       try {
 
-        const response = await fetch(
-          API + "/admin/games",
-          {
-            method: "POST",
+        let response;
 
-            headers: {
-              "Content-Type": "application/json",
-              "Authorization": "Bearer " + token
-            },
 
-            body: JSON.stringify(gameData)
-          }
-        );
+        // =====================================
+        // EDIT EXISTING GAME
+        // =====================================
+
+        if (editingId) {
+
+          response = await fetch(
+            API + "/admin/games/" + editingId,
+            {
+              method: "PATCH",
+
+              headers: {
+                "Content-Type": "application/json",
+                "Authorization":
+                  "Bearer " + token
+              },
+
+              body:
+                JSON.stringify(gameData)
+            }
+          );
+
+        }
+
+
+        // =====================================
+        // CREATE NEW GAME
+        // =====================================
+
+        else {
+
+          response = await fetch(
+            API + "/admin/games",
+            {
+              method: "POST",
+
+              headers: {
+                "Content-Type": "application/json",
+                "Authorization":
+                  "Bearer " + token
+              },
+
+              body:
+                JSON.stringify(gameData)
+            }
+          );
+
+        }
 
 
         const data =
@@ -962,13 +1004,51 @@ if (gameForm) {
         if (!response.ok) {
 
           throw new Error(
-            data.error || "Failed to create game"
+            data.error ||
+            "Failed to save game"
           );
 
         }
 
 
-        alert("Game created successfully!");
+        if (editingId) {
+
+          alert(
+            "Game updated successfully!"
+          );
+
+        } else {
+
+          alert(
+            "Game created successfully!"
+          );
+
+        }
+
+
+        // Reset edit mode
+
+        delete gameForm.dataset.editingId;
+
+
+        // Reset modal title
+
+        document.getElementById(
+          "gameModalTitle"
+        ).textContent =
+          "Add New Game";
+
+
+        document.getElementById(
+          "gameModalDescription"
+        ).textContent =
+          "Create a new game for NOVA88.";
+
+
+        document.getElementById(
+          "gameSaveButton"
+        ).textContent =
+          "Save Game";
 
 
         closeGameModal();
@@ -980,13 +1060,13 @@ if (gameForm) {
       } catch (error) {
 
         console.error(
-          "Create game error:",
+          "Save game error:",
           error
         );
 
         alert(
           error.message ||
-          "Failed to create game"
+          "Failed to save game"
         );
 
       }
@@ -994,8 +1074,10 @@ if (gameForm) {
     }
   );
 
-}
+  }
+      
 
+      
     // =====================================
     // ELEMENTS
     // =====================================
