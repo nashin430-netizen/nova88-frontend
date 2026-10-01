@@ -1911,8 +1911,64 @@ async function deleteGame(id) {
     // RUN
     // =====================================
 
+    async function checkAdminAccess() {
+
+  const token =
+    localStorage.getItem("nova88_token");
+
+  if (!token) {
+    window.location.href = "index.html";
+    return;
+  }
+
+  try {
+
+    const response = await fetch(
+      `${API}/auth/me`,
+      {
+        method: "GET",
+        headers: {
+          "Authorization": `Bearer ${token}`,
+          "Accept": "application/json"
+        }
+      }
+    );
+
+    const data =
+      await response.json();
+
+    if (!response.ok) {
+      localStorage.removeItem("nova88_token");
+      window.location.href = "index.html";
+      return;
+    }
+
+    const user =
+      data.user || {};
+
+    if (user.role !== "ADMIN") {
+      window.location.href = "dashboard.html";
+      return;
+    }
+
     startAdminPanel();
     loadGames();
+
+  } catch (error) {
+
+    console.error(
+      "Admin access check error:",
+      error
+    );
+
+    localStorage.removeItem("nova88_token");
+    window.location.href = "index.html";
+
+  }
+
+}
+
+checkAdminAccess();
 
   </script>
 
