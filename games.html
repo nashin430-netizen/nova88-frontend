@@ -503,12 +503,16 @@
 
     function openGame(gameName) {
 
-      alert(
-        gameName +
-        " game will be available soon."
-      );
+  if (gameName === "Demo Game") {
+    window.location.href = "demo-game.html";
+    return;
+  }
 
-    }
+  alert(
+    gameName +
+    " game will be available soon."
+  );
+            }
 
 
     /*
