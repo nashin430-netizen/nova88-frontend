@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+
   <meta charset="UTF-8">
 
   <meta
@@ -23,25 +24,34 @@
       font-family: Arial, sans-serif;
       background:
         radial-gradient(
-          circle at top,
-          #171b2d 0%,
-          #08090d 55%
+          circle at 50% 0%,
+          #20263d 0%,
+          #0c0e15 45%,
+          #07080c 100%
         );
       color: #fff;
       min-height: 100vh;
+      overflow-x: hidden;
     }
 
     header {
       height: 70px;
+      padding: 0 22px;
+
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0 22px;
-      border-bottom: 1px solid rgba(255,255,255,0.08);
-      background: rgba(8,9,13,0.92);
+
+      background: rgba(7,8,12,0.94);
+
+      border-bottom:
+        1px solid rgba(255,255,255,0.08);
+
       position: sticky;
       top: 0;
-      z-index: 10;
+      z-index: 20;
+
+      backdrop-filter: blur(12px);
     }
 
     .logo {
@@ -52,19 +62,36 @@
     }
 
     .back-btn {
-      border: 1px solid rgba(255,189,74,0.35);
-      background: rgba(255,189,74,0.08);
+      background:
+        rgba(255,189,74,0.08);
+
       color: #ffbd4a;
+
+      border:
+        1px solid rgba(255,189,74,0.35);
+
       padding: 10px 16px;
+
       border-radius: 9px;
-      cursor: pointer;
+
       font-weight: 800;
+
+      cursor: pointer;
+
+      transition: 0.2s ease;
+    }
+
+    .back-btn:hover {
+      background:
+        rgba(255,189,74,0.16);
+
+      transform: translateY(-1px);
     }
 
     .container {
       width: min(900px, 94%);
       margin: auto;
-      padding: 30px 0 50px;
+      padding: 32px 0 55px;
     }
 
     .game-header {
@@ -73,169 +100,530 @@
     }
 
     .diamond-icon {
-      font-size: 55px;
-      margin-bottom: 10px;
+      font-size: 60px;
+
+      filter:
+        drop-shadow(
+          0 0 18px
+          rgba(77,194,255,0.45)
+        );
+
+      animation:
+        diamondFloat 2.5s ease-in-out infinite;
+    }
+
+    @keyframes diamondFloat {
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-7px);
+      }
+
     }
 
     .game-title {
-      font-size: 30px;
+      margin-top: 8px;
+
+      font-size: 31px;
+
       font-weight: 900;
-      margin-bottom: 7px;
+
+      letter-spacing: 0.5px;
     }
 
     .game-subtitle {
-      color: #a9adba;
+      margin-top: 7px;
+
+      color: #a5aab8;
+
       font-size: 14px;
     }
 
     .demo-badge {
       display: inline-block;
+
       margin-top: 12px;
-      padding: 6px 12px;
-      border-radius: 20px;
-      background: rgba(255,189,74,0.12);
+
+      padding: 7px 14px;
+
+      border-radius: 30px;
+
+      background:
+        rgba(255,189,74,0.10);
+
+      border:
+        1px solid rgba(255,189,74,0.18);
+
       color: #ffbd4a;
-      font-size: 11px;
+
+      font-size: 10px;
+
       font-weight: 900;
-      letter-spacing: 1px;
+
+      letter-spacing: 1.5px;
     }
 
     .game-panel {
-      background: rgba(18,20,29,0.95);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 18px;
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(24,27,40,0.97),
+          rgba(12,14,22,0.97)
+        );
+
+      border:
+        1px solid rgba(255,255,255,0.08);
+
+      border-radius: 20px;
+
       padding: 22px;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+
+      box-shadow:
+        0 25px 70px
+        rgba(0,0,0,0.45);
+
     }
 
     .stats {
+
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+
+      grid-template-columns:
+        repeat(3, 1fr);
+
       gap: 12px;
+
       margin-bottom: 20px;
     }
 
     .stat {
-      background: #0d0f16;
-      border: 1px solid rgba(255,255,255,0.07);
-      border-radius: 12px;
-      padding: 14px;
+
+      background:
+        rgba(7,9,14,0.8);
+
+      border:
+        1px solid rgba(255,255,255,0.07);
+
+      border-radius: 13px;
+
+      padding: 15px 10px;
+
       text-align: center;
     }
 
     .stat-label {
-      color: #8f94a3;
-      font-size: 11px;
-      margin-bottom: 6px;
+
+      color: #858b9c;
+
+      font-size: 10px;
+
+      font-weight: 800;
+
+      letter-spacing: 1px;
+
       text-transform: uppercase;
+
+      margin-bottom: 7px;
     }
 
     .stat-value {
-      font-size: 20px;
+
+      font-size: 21px;
+
       font-weight: 900;
+
       color: #fff;
+
+      transition:
+        transform 0.2s ease;
     }
 
-    .board {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 10px;
-      max-width: 520px;
-      margin: 0 auto 22px;
-    }
-
-    .tile {
-      aspect-ratio: 1;
-      border: none;
-      border-radius: 14px;
-      background:
-        linear-gradient(
-          145deg,
-          #252a3d,
-          #111521
-        );
-      border: 1px solid rgba(255,255,255,0.08);
-      color: #ffbd4a;
-      font-size: 30px;
-      cursor: pointer;
-      transition: 0.18s ease;
-      box-shadow:
-        inset 0 1px 0 rgba(255,255,255,0.05);
-    }
-
-    .tile:hover {
-      transform: translateY(-2px);
-      border-color: rgba(255,189,74,0.45);
-    }
-
-    .tile.revealed {
-      background:
-        linear-gradient(
-          145deg,
-          #332711,
-          #1a150c
-        );
-      border-color: rgba(255,189,74,0.5);
-      cursor: default;
-    }
-
-    .tile.empty {
-      color: #73798a;
+    .stat-value.bump {
+      transform: scale(1.15);
     }
 
     .message {
+
       text-align: center;
-      min-height: 25px;
-      color: #aeb2bf;
+
+      min-height: 24px;
+
+      color: #b4b8c5;
+
       font-size: 14px;
+
       margin-bottom: 18px;
+
+      line-height: 1.5;
+    }
+
+    .board {
+
+      display: grid;
+
+      grid-template-columns:
+        repeat(4, 1fr);
+
+      gap: 10px;
+
+      width: min(520px, 100%);
+
+      margin:
+        0 auto 23px;
+    }
+
+    .tile {
+
+      position: relative;
+
+      aspect-ratio: 1;
+
+      border: none;
+
+      border-radius: 15px;
+
+      background:
+        linear-gradient(
+          145deg,
+          #292f45,
+          #121624
+        );
+
+      border:
+        1px solid
+        rgba(255,255,255,0.08);
+
+      color: #ffbd4a;
+
+      font-size: 28px;
+
+      cursor: pointer;
+
+      transition:
+        transform 0.18s ease,
+        background 0.18s ease,
+        border-color 0.18s ease,
+        box-shadow 0.18s ease;
+
+      box-shadow:
+        inset 0 1px 0
+        rgba(255,255,255,0.05);
+    }
+
+    .tile:hover {
+
+      transform:
+        translateY(-3px)
+        scale(1.015);
+
+      border-color:
+        rgba(255,189,74,0.45);
+
+      box-shadow:
+        0 8px 25px
+        rgba(0,0,0,0.25);
+    }
+
+    .tile:active {
+      transform: scale(0.94);
+    }
+
+    .tile.revealed {
+
+      cursor: default;
+
+      animation:
+        tileReveal 0.3s ease;
+    }
+
+    @keyframes tileReveal {
+
+      0% {
+        transform:
+          rotateY(90deg)
+          scale(0.8);
+      }
+
+      100% {
+        transform:
+          rotateY(0)
+          scale(1);
+      }
+
+    }
+
+    .tile.diamond {
+
+      background:
+        radial-gradient(
+          circle,
+          #17384e,
+          #101c2a
+        );
+
+      border-color:
+        rgba(77,194,255,0.6);
+
+      box-shadow:
+        0 0 22px
+        rgba(77,194,255,0.16);
+    }
+
+    .tile.empty {
+
+      background:
+        linear-gradient(
+          145deg,
+          #171a25,
+          #0e1018
+        );
+
+      color: #606677;
+
+      border-color:
+        rgba(255,255,255,0.04);
     }
 
     .controls {
+
       display: flex;
+
       justify-content: center;
+
       gap: 12px;
+
       flex-wrap: wrap;
     }
 
     .control-btn {
+
       border: none;
-      padding: 13px 24px;
+
+      padding: 13px 25px;
+
       border-radius: 10px;
-      font-weight: 900;
-      cursor: pointer;
+
       font-size: 13px;
-      transition: 0.2s ease;
+
+      font-weight: 900;
+
+      cursor: pointer;
+
+      transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
     }
 
     .start-btn {
-      background: linear-gradient(
-        135deg,
-        #ffbd4a,
-        #ff9418
-      );
+
+      background:
+        linear-gradient(
+          135deg,
+          #ffbd4a,
+          #ff9418
+        );
+
       color: #111;
+
+      box-shadow:
+        0 8px 22px
+        rgba(255,174,43,0.15);
     }
 
     .reset-btn {
+
       background: #242836;
+
       color: #fff;
-      border: 1px solid rgba(255,255,255,0.08);
+
+      border:
+        1px solid
+        rgba(255,255,255,0.08);
     }
 
     .control-btn:hover {
-      transform: translateY(-2px);
+
+      transform:
+        translateY(-2px);
+
     }
 
     .instructions {
+
       margin-top: 22px;
-      background: #0d0f16;
+
+      padding: 17px;
+
+      background:
+        rgba(7,9,14,0.65);
+
+      border:
+        1px solid
+        rgba(255,255,255,0.05);
+
       border-radius: 12px;
-      padding: 16px;
-      color: #9297a6;
-      font-size: 13px;
-      line-height: 1.7;
+
+      color: #858b9a;
+
+      font-size: 12px;
+
+      line-height: 1.8;
+
       text-align: center;
+    }
+
+    .instructions b {
+      color: #c9cdd7;
+    }
+
+    /* =========================
+       WIN SCREEN
+    ========================= */
+
+    .win-screen {
+
+      display: none;
+
+      text-align: center;
+
+      padding: 30px 15px 35px;
+
+      animation:
+        winAppear 0.4s ease;
+    }
+
+    @keyframes winAppear {
+
+      from {
+        opacity: 0;
+        transform:
+          translateY(15px)
+          scale(0.96);
+      }
+
+      to {
+        opacity: 1;
+        transform:
+          translateY(0)
+          scale(1);
+      }
+
+    }
+
+    .win-icon {
+
+      font-size: 65px;
+
+      margin-bottom: 12px;
+
+      animation:
+        winBounce 1s ease infinite;
+    }
+
+    @keyframes winBounce {
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-8px);
+      }
+
+    }
+
+    .win-title {
+
+      font-size: 29px;
+
+      font-weight: 900;
+
+      color: #ffbd4a;
+
+      margin-bottom: 9px;
+    }
+
+    .win-text {
+
+      color: #a9adba;
+
+      font-size: 14px;
+
+      line-height: 1.6;
+
+      margin-bottom: 22px;
+    }
+
+    .win-score {
+
+      display: inline-block;
+
+      padding: 13px 22px;
+
+      border-radius: 12px;
+
+      background:
+        rgba(255,189,74,0.08);
+
+      border:
+        1px solid
+        rgba(255,189,74,0.18);
+
+      margin-bottom: 22px;
+    }
+
+    .win-score span {
+
+      display: block;
+
+      color: #858b9a;
+
+      font-size: 10px;
+
+      font-weight: 800;
+
+      letter-spacing: 1px;
+
+      text-transform: uppercase;
+
+      margin-bottom: 5px;
+    }
+
+    .win-score strong {
+
+      font-size: 27px;
+
+      color: #fff;
+    }
+
+    .play-again {
+
+      background:
+        linear-gradient(
+          135deg,
+          #ffbd4a,
+          #ff9418
+        );
+
+      color: #111;
+
+      border: none;
+
+      padding: 13px 27px;
+
+      border-radius: 10px;
+
+      font-weight: 900;
+
+      cursor: pointer;
+
+      font-size: 13px;
     }
 
     @media (max-width: 600px) {
@@ -248,20 +636,28 @@
         font-size: 19px;
       }
 
+      .container {
+        padding-top: 25px;
+      }
+
+      .game-title {
+        font-size: 27px;
+      }
+
       .game-panel {
         padding: 15px;
       }
 
       .stats {
-        gap: 8px;
+        gap: 7px;
       }
 
       .stat {
-        padding: 11px 6px;
+        padding: 12px 5px;
       }
 
       .stat-value {
-        font-size: 17px;
+        font-size: 18px;
       }
 
       .board {
@@ -269,16 +665,23 @@
       }
 
       .tile {
-        font-size: 24px;
-        border-radius: 11px;
+        font-size: 23px;
+        border-radius: 12px;
+      }
+
+      .win-title {
+        font-size: 25px;
       }
 
     }
 
   </style>
+
 </head>
 
+
 <body>
+
 
   <header>
 
@@ -297,6 +700,7 @@
 
 
   <main class="container">
+
 
     <div class="game-header">
 
@@ -321,317 +725,112 @@
 
     <section class="game-panel">
 
-      <div class="stats">
 
-        <div class="stat">
+      <!-- GAME AREA -->
 
-          <div class="stat-label">
-            Score
+      <div id="gameArea">
+
+
+        <div class="stats">
+
+
+          <div class="stat">
+
+            <div class="stat-label">
+              Score
+            </div>
+
+            <div
+              class="stat-value"
+              id="score"
+            >
+              0
+            </div>
+
           </div>
 
-          <div
-            class="stat-value"
-            id="score"
-          >
-            0
+
+          <div class="stat">
+
+            <div class="stat-label">
+              Diamonds
+            </div>
+
+            <div
+              class="stat-value"
+              id="diamonds"
+            >
+              0 / 5
+            </div>
+
           </div>
+
+
+          <div class="stat">
+
+            <div class="stat-label">
+              Moves
+            </div>
+
+            <div class="stat-value"
+              id="moves"
+            >
+              0
+            </div>
+
+          </div>
+
 
         </div>
 
 
-        <div class="stat">
-
-          <div class="stat-label">
-            Diamonds
-          </div>
-
-          <div
-            class="stat-value"
-            id="diamonds"
-          >
-            0
-          </div>
-
+        <div
+          class="message"
+          id="message"
+        >
+          Press START GAME to begin.
         </div>
 
 
-        <div class="stat">
+        <div
+          class="board"
+          id="board"
+        >
+        </div>
 
-          <div class="stat-label">
-            Moves
-          </div>
 
-          <div
-            class="stat-value"
-            id="moves"
+        <div class="controls">
+
+          <button
+            class="control-btn start-btn"
+            onclick="startGame()"
           >
-            0
-          </div>
+            START GAME
+          </button>
+
+          <button
+            class="control-btn reset-btn"
+            onclick="resetGame()"
+          >
+            RESET
+          </button>
 
         </div>
+
 
       </div>
 
+
+      <!-- WIN SCREEN -->
 
       <div
-        class="message"
-        id="message"
+        class="win-screen"
+        id="winScreen"
       >
-        Press START GAME to begin.
-      </div>
 
+        <div class="win-icon">
+          🏆
+        </div>
 
-      <div
-        class="board"
-        id="board"
-      >
-      </div>
-
-
-      <div class="controls">
-
-        <button
-          class="control-btn start-btn"
-          onclick="startGame()"
-        >
-          START GAME
-        </button>
-
-        <button
-          class="control-btn reset-btn"
-          onclick="resetGame()"
-        >
-          RESET
-        </button>
-
-      </div>
-
-
-      <div class="instructions">
-
-        💎 Tap the tiles to search for diamonds.<br>
-
-        Each diamond gives you <b>10 points</b>.<br>
-
-        This is a front-end demo and does not use real money.
-
-      </div>
-
-    </section>
-
-  </main>
-
-
-  <script>
-
-    const boardElement =
-      document.getElementById("board");
-
-    const scoreElement =
-      document.getElementById("score");
-
-    const diamondsElement =
-      document.getElementById("diamonds");
-
-    const movesElement =
-      document.getElementById("moves");
-
-    const messageElement =
-      document.getElementById("message");
-
-
-    let diamondPositions = [];
-
-    let revealed = [];
-
-    let score = 0;
-
-    let diamonds = 0;
-
-    let moves = 0;
-
-    let gameStarted = false;
-
-
-    function createBoard() {
-
-      boardElement.innerHTML = "";
-
-      for (let i = 0; i < 16; i++) {
-
-        const tile =
-          document.createElement("button");
-
-        tile.className = "tile";
-
-        tile.textContent = "❔";
-
-        tile.dataset.index = i;
-
-        tile.onclick = function () {
-          revealTile(i, tile);
-        };
-
-        boardElement.appendChild(tile);
-
-      }
-
-    }
-
-
-    function startGame() {
-
-      score = 0;
-
-      diamonds = 0;
-
-      moves = 0;
-
-      revealed = [];
-
-      diamondPositions = [];
-
-      gameStarted = true;
-
-
-      while (diamondPositions.length < 5) {
-
-        const position =
-          Math.floor(Math.random() * 16);
-
-        if (
-          !diamondPositions.includes(position)
-        ) {
-          diamondPositions.push(position);
-        }
-
-      }
-
-
-      updateStats();
-
-      createBoard();
-
-
-      messageElement.textContent =
-        "Find the hidden diamonds! 💎";
-
-    }
-
-
-    function revealTile(index, tile) {
-
-      if (!gameStarted) {
-
-        messageElement.textContent =
-          "Press START GAME first.";
-
-        return;
-
-      }
-
-
-      if (revealed.includes(index)) {
-        return;
-      }
-
-
-      revealed.push(index);
-
-      moves++;
-
-
-      if (
-        diamondPositions.includes(index)
-      ) {
-
-        tile.textContent = "💎";
-
-        tile.classList.add("revealed");
-
-        score += 10;
-
-        diamonds++;
-
-
-        messageElement.textContent =
-          "Diamond found! +10 points 💎";
-
-      } else {
-
-        tile.textContent = "✦";
-
-        tile.classList.add(
-          "revealed",
-          "empty"
-        );
-
-
-        messageElement.textContent =
-          "Nothing here. Keep searching.";
-
-      }
-
-
-      updateStats();
-
-
-      if (diamonds === 5) {
-
-        messageElement.textContent =
-          "🎉 All diamonds found! Great job!";
-
-        gameStarted = false;
-
-      }
-
-    }
-
-
-    function updateStats() {
-
-      scoreElement.textContent =
-        score;
-
-      diamondsElement.textContent =
-        diamonds + " / 5";
-
-      movesElement.textContent =
-        moves;
-
-    }
-
-
-    function resetGame() {
-
-      score = 0;
-
-      diamonds = 0;
-
-      moves = 0;
-
-      revealed = [];
-
-      diamondPositions = [];
-
-      gameStarted = false;
-
-      createBoard();
-
-      updateStats();
-
-      messageElement.textContent =
-        "Press START GAME to begin.";
-
-    }
-
-
-    createBoard();
-
-    updateStats();
-
-  </script>
-
-</body>
-
-</html>
+        <div class="win-title">
+          Diamond Rush Complete
