@@ -825,6 +825,59 @@
 
     }
 
+        async function loadBalance() {
+
+      try {
+
+        const response = await fetch(
+          `${API}/deposits/my`,
+          {
+            method: "GET",
+            headers: {
+              "Authorization": `Bearer ${token}`
+            }
+          }
+        );
+
+        const data = await response.json();
+
+        if (!response.ok) {
+          throw new Error(
+            data.error || "Failed to load balance"
+          );
+        }
+
+        const balance =
+          Number(data.balance || 0).toFixed(2);
+
+        const balanceElement =
+          document.getElementById("userBalance");
+
+        balanceElement.textContent =
+          `${balance} Demo Credits`;
+
+        balanceElement.classList.remove("loading");
+
+      } catch (error) {
+
+        console.error(
+          "Balance loading error:",
+          error
+        );
+
+        const balanceElement =
+          document.getElementById("userBalance");
+
+        balanceElement.textContent =
+          "Unable to load";
+
+        balanceElement.classList.remove("loading");
+
+        balanceElement.classList.add("error");
+
+      }
+
+        }
 
     /* =========================
        BACK TO DASHBOARD
