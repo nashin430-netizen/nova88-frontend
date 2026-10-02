@@ -424,6 +424,47 @@
     }
 
     /* =========================
+       COMING SOON BUTTON
+    ========================= */
+
+    .coming-back {
+      background:
+        linear-gradient(
+          135deg,
+          #ffbd4a,
+          #ff9418
+        );
+
+      color: #111;
+
+      border: none;
+
+      padding: 12px 24px;
+
+      border-radius: 10px;
+
+      font-weight: 900;
+
+      cursor: pointer;
+
+      font-size: 13px;
+
+      transition: 0.2s ease;
+
+      box-shadow:
+        0 7px 20px
+        rgba(255, 174, 43, 0.12);
+    }
+
+    .coming-back:hover {
+      transform: translateY(-2px);
+
+      box-shadow:
+        0 10px 25px
+        rgba(255, 174, 43, 0.2);
+    }
+
+    /* =========================
        RESPONSIVE
     ========================= */
 
@@ -912,10 +953,9 @@
       gameName
     ) {
 
-      /*
-        Demo Game
-        opens the demo-game page
-      */
+      /* =========================
+         DEMO GAME
+      ========================= */
 
       if (
         gameName ===
@@ -930,16 +970,74 @@
       }
 
 
-      /*
-        Other games
-        will be connected
-        in Step 3
-      */
+      /* =========================
+         GAME COMING SOON SCREEN
+      ========================= */
 
-      alert(
-        gameName +
-        " game will be available soon."
-      );
+      const container =
+        document.getElementById(
+          "gamesContainer"
+        );
+
+
+      container.innerHTML = `
+
+        <div class="message">
+
+          <div
+            class="message-icon"
+            style="
+              font-size: 58px;
+              margin-bottom: 18px;
+            "
+          >
+            🎮
+          </div>
+
+
+          <h3
+            style="
+              font-size: 24px;
+              margin-bottom: 12px;
+            "
+          >
+            ${gameName}
+          </h3>
+
+
+          <p
+            style="
+              margin-bottom: 24px;
+              line-height: 1.7;
+            "
+          >
+            This game is currently under development.
+            <br>
+            Stay tuned — it will be available soon.
+          </p>
+
+
+          <button
+            type="button"
+            class="coming-back"
+            onclick="loadGames()"
+          >
+            ← BACK TO GAMES
+          </button>
+
+        </div>
+
+      `;
+
+
+      /* =========================
+         SCROLL TO TOP
+      ========================= */
+
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
 
     }
 
