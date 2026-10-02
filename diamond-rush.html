@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>NOVA88 - Diamond Rush</title>
+
+  <style>
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background:
+        radial-gradient(
+          circle at top,
+          #171b2d 0%,
+          #08090d 55%
+        );
+      color: #fff;
+      min-height: 100vh;
+    }
+
+    header {
+      height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 22px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      background: rgba(8,9,13,0.92);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .logo {
+      font-size: 23px;
+      font-weight: 900;
+      letter-spacing: 2px;
+      color: #ffbd4a;
+    }
+
+    .back-btn {
+      border: 1px solid rgba(255,189,74,0.35);
+      background: rgba(255,189,74,0.08);
+      color: #ffbd4a;
+      padding: 10px 16px;
+      border-radius: 9px;
+      cursor: pointer;
+      font-weight: 800;
+    }
+
+    .container {
+      width: min(900px, 94%);
+      margin: auto;
+      padding: 30px 0 50px;
+    }
+
+    .game-header {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    .diamond-icon {
+      font-size: 55px;
+      margin-bottom: 10px;
+    }
+
+    .game-title {
+      font-size: 30px;
+      font-weight: 900;
+      margin-bottom: 7px;
+    }
+
+    .game-subtitle {
+      color: #a9adba;
+      font-size: 14px;
+    }
+
+    .demo-badge {
+      display: inline-block;
+      margin-top: 12px;
+      padding: 6px 12px;
+      border-radius: 20px;
+      background: rgba(255,189,74,0.12);
+      color: #ffbd4a;
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: 1px;
+    }
+
+    .game-panel {
+      background: rgba(18,20,29,0.95);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 18px;
+      padding: 22px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .stat {
+      background: #0d0f16;
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 12px;
+      padding: 14px;
+      text-align: center;
+    }
+
+    .stat-label {
+      color: #8f94a3;
+      font-size: 11px;
+      margin-bottom: 6px;
+      text-transform: uppercase;
+    }
+
+    .stat-value {
+      font-size: 20px;
+      font-weight: 900;
+      color: #fff;
+    }
+
+    .board {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      max-width: 520px;
+      margin: 0 auto 22px;
+    }
+
+    .tile {
+      aspect-ratio: 1;
+      border: none;
+      border-radius: 14px;
+      background:
+        linear-gradient(
+          145deg,
+          #252a3d,
+          #111521
+        );
+      border: 1px solid rgba(255,255,255,0.08);
+      color: #ffbd4a;
+      font-size: 30px;
+      cursor: pointer;
+      transition: 0.18s ease;
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.05);
+    }
+
+    .tile:hover {
+      transform: translateY(-2px);
+      border-color: rgba(255,189,74,0.45);
+    }
+
+    .tile.revealed {
+      background:
+        linear-gradient(
+          145deg,
+          #332711,
+          #1a150c
+        );
+      border-color: rgba(255,189,74,0.5);
+      cursor: default;
+    }
+
+    .tile.empty {
+      color: #73798a;
+    }
+
+    .message {
+      text-align: center;
+      min-height: 25px;
+      color: #aeb2bf;
+      font-size: 14px;
+      margin-bottom: 18px;
+    }
+
+    .controls {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .control-btn {
+      border: none;
+      padding: 13px 24px;
+      border-radius: 10px;
+      font-weight: 900;
+      cursor: pointer;
+      font-size: 13px;
+      transition: 0.2s ease;
+    }
+
+    .start-btn {
+      background: linear-gradient(
+        135deg,
+        #ffbd4a,
+        #ff9418
+      );
+      color: #111;
+    }
+
+    .reset-btn {
+      background: #242836;
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .control-btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .instructions {
+      margin-top: 22px;
+      background: #0d0f16;
+      border-radius: 12px;
+      padding: 16px;
+      color: #9297a6;
+      font-size: 13px;
+      line-height: 1.7;
+      text-align: center;
+    }
+
+    @media (max-width: 600px) {
+
+      header {
+        padding: 0 14px;
+      }
+
+      .logo {
+        font-size: 19px;
+      }
+
+      .game-panel {
+        padding: 15px;
+      }
+
+      .stats {
+        gap: 8px;
+      }
+
+      .stat {
+        padding: 11px 6px;
+      }
+
+      .stat-value {
+        font-size: 17px;
+      }
+
+      .board {
+        gap: 7px;
+      }
+
+      .tile {
+        font-size: 24px;
+        border-radius: 11px;
+      }
+
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <header>
+
+    <div class="logo">
+      NOVA88
+    </div>
+
+    <button
+      class="back-btn"
+      onclick="window.location.href='games.html'"
+    >
+      ← Games
+    </button>
+
+  </header>
+
+
+  <main class="container">
+
+    <div class="game-header">
+
+      <div class="diamond-icon">
+        💎
+      </div>
+
+      <div class="game-title">
+        Diamond Rush
+      </div>
+
+      <div class="game-subtitle">
+        Find the hidden diamonds
+      </div>
+
+      <div class="demo-badge">
+        DEMO MODE
+      </div>
+
+    </div>
+
+
+    <section class="game-panel">
+
+      <div class="stats">
+
+        <div class="stat">
+
+          <div class="stat-label">
+            Score
+          </div>
+
+          <div
+            class="stat-value"
+            id="score"
+          >
+            0
+          </div>
+
+        </div>
+
+
+        <div class="stat">
+
+          <div class="stat-label">
+            Diamonds
+          </div>
+
+          <div
+            class="stat-value"
+            id="diamonds"
+          >
+            0
+          </div>
+
+        </div>
+
+
+        <div class="stat">
+
+          <div class="stat-label">
+            Moves
+          </div>
+
+          <div
+            class="stat-value"
+            id="moves"
+          >
+            0
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div
+        class="message"
+        id="message"
+      >
+        Press START GAME to begin.
+      </div>
+
+
+      <div
+        class="board"
+        id="board"
+      >
+      </div>
+
+
+      <div class="controls">
+
+        <button
+          class="control-btn start-btn"
+          onclick="startGame()"
+        >
+          START GAME
+        </button>
+
+        <button
+          class="control-btn reset-btn"
+          onclick="resetGame()"
+        >
+          RESET
+        </button>
+
+      </div>
+
+
+      <div class="instructions">
+
+        💎 Tap the tiles to search for diamonds.<br>
+
+        Each diamond gives you <b>10 points</b>.<br>
+
+        This is a front-end demo and does not use real money.
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <script>
+
+    const boardElement =
+      document.getElementById("board");
+
+    const scoreElement =
+      document.getElementById("score");
+
+    const diamondsElement =
+      document.getElementById("diamonds");
+
+    const movesElement =
+      document.getElementById("moves");
+
+    const messageElement =
+      document.getElementById("message");
+
+
+    let diamondPositions = [];
+
+    let revealed = [];
+
+    let score = 0;
+
+    let diamonds = 0;
+
+    let moves = 0;
+
+    let gameStarted = false;
+
+
+    function createBoard() {
+
+      boardElement.innerHTML = "";
+
+      for (let i = 0; i < 16; i++) {
+
+        const tile =
+          document.createElement("button");
+
+        tile.className = "tile";
+
+        tile.textContent = "❔";
+
+        tile.dataset.index = i;
+
+        tile.onclick = function () {
+          revealTile(i, tile);
+        };
+
+        boardElement.appendChild(tile);
+
+      }
+
+    }
+
+
+    function startGame() {
+
+      score = 0;
+
+      diamonds = 0;
+
+      moves = 0;
+
+      revealed = [];
+
+      diamondPositions = [];
+
+      gameStarted = true;
+
+
+      while (diamondPositions.length < 5) {
+
+        const position =
+          Math.floor(Math.random() * 16);
+
+        if (
+          !diamondPositions.includes(position)
+        ) {
+          diamondPositions.push(position);
+        }
+
+      }
+
+
+      updateStats();
+
+      createBoard();
+
+
+      messageElement.textContent =
+        "Find the hidden diamonds! 💎";
+
+    }
+
+
+    function revealTile(index, tile) {
+
+      if (!gameStarted) {
+
+        messageElement.textContent =
+          "Press START GAME first.";
+
+        return;
+
+      }
+
+
+      if (revealed.includes(index)) {
+        return;
+      }
+
+
+      revealed.push(index);
+
+      moves++;
+
+
+      if (
+        diamondPositions.includes(index)
+      ) {
+
+        tile.textContent = "💎";
+
+        tile.classList.add("revealed");
+
+        score += 10;
+
+        diamonds++;
+
+
+        messageElement.textContent =
+          "Diamond found! +10 points 💎";
+
+      } else {
+
+        tile.textContent = "✦";
+
+        tile.classList.add(
+          "revealed",
+          "empty"
+        );
+
+
+        messageElement.textContent =
+          "Nothing here. Keep searching.";
+
+      }
+
+
+      updateStats();
+
+
+      if (diamonds === 5) {
+
+        messageElement.textContent =
+          "🎉 All diamonds found! Great job!";
+
+        gameStarted = false;
+
+      }
+
+    }
+
+
+    function updateStats() {
+
+      scoreElement.textContent =
+        score;
+
+      diamondsElement.textContent =
+        diamonds + " / 5";
+
+      movesElement.textContent =
+        moves;
+
+    }
+
+
+    function resetGame() {
+
+      score = 0;
+
+      diamonds = 0;
+
+      moves = 0;
+
+      revealed = [];
+
+      diamondPositions = [];
+
+      gameStarted = false;
+
+      createBoard();
+
+      updateStats();
+
+      messageElement.textContent =
+        "Press START GAME to begin.";
+
+    }
+
+
+    createBoard();
+
+    updateStats();
+
+  </script>
+
+</body>
+
+</html>
