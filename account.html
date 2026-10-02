@@ -234,6 +234,12 @@
       color: #ffae2b;
     }
 
+    .balance {
+  color: #42e695;
+  font-size: 22px;
+  font-weight: 900;
+    }
+    
     .loading {
       color: #ffae2b;
     }
@@ -464,7 +470,185 @@
 
     </div>
 
+    <!-- BALANCE -->
 
+    <div class="account-card">
+
+      <div class="account-header">
+
+        <div class="profile-icon">
+          💰
+        </div>
+
+        <div>
+
+          <h2>
+            Account Balance
+          </h2>
+
+          <p>
+            Your current NOVA88 demo balance.
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <div class="info">
+
+        <div class="row">
+
+          <span class="label">
+            Current Balance
+          </span>
+
+          <span
+            class="value balance loading"
+            id="userBalance"
+          >
+            Loading...
+          </span>
+
+        </div>
+
+      </div>
+
+    </div>
+
+        <!-- DEPOSIT REQUEST -->
+
+    <div class="account-card">
+
+      <div class="account-header">
+
+        <div class="profile-icon">
+          💳
+        </div>
+
+        <div>
+          <h2>Deposit Request</h2>
+          <p>Submit a demo deposit request for admin review.</p>
+        </div>
+
+      </div>
+
+      <div class="info">
+
+        <div class="row">
+          <span class="label">Amount</span>
+
+          <input
+            type="number"
+            id="depositAmount"
+            placeholder="Enter amount"
+            min="1"
+            step="0.01"
+            style="
+              width: 100%;
+              max-width: 300px;
+              padding: 12px;
+              border-radius: 10px;
+              border: 1px solid #333845;
+              background: #0b0d12;
+              color: #fff;
+            "
+          >
+        </div>
+
+        <div class="row">
+          <span class="label">Method</span>
+
+          <select
+            id="depositMethod"
+            style="
+              width: 100%;
+              max-width: 300px;
+              padding: 12px;
+              border-radius: 10px;
+              border: 1px solid #333845;
+              background: #0b0d12;
+              color: #fff;
+            "
+          >
+            <option value="">Select Method</option>
+            <option value="Bank Transfer">Bank Transfer</option>
+            <option value="Mobile Payment">Mobile Payment</option>
+            <option value="Demo Payment">Demo Payment</option>
+          </select>
+        </div>
+
+        <div class="row">
+          <span class="label">Transaction ID</span>
+
+          <input
+            type="text"
+            id="transactionId"
+            placeholder="Optional"
+            style="
+              width: 100%;
+              max-width: 300px;
+              padding: 12px;
+              border-radius: 10px;
+              border: 1px solid #333845;
+              background: #0b0d12;
+              color: #fff;
+            "
+          >
+        </div>
+
+        <div class="row">
+          <span class="label">Note</span>
+
+          <input
+            type="text"
+            id="depositNote"
+            placeholder="Optional note"
+            style="
+              width: 100%;
+              max-width: 300px;
+              padding: 12px;
+              border-radius: 10px;
+              border: 1px solid #333845;
+              background: #0b0d12;
+              color: #fff;
+            "
+          >
+        </div>
+
+        <div class="row">
+
+          <button
+            id="depositSubmit"
+            style="
+              width: 100%;
+              padding: 14px;
+              border: none;
+              border-radius: 10px;
+              background: linear-gradient(135deg,#ffae2b,#ff791c);
+              color: #111;
+              font-weight: 900;
+              cursor: pointer;
+            "
+          >
+            Submit Deposit Request
+          </button>
+
+        </div>
+
+        <div
+          id="depositMessage"
+          style="
+            text-align: center;
+            margin-top: 10px;
+            color: #9da3b2;
+          "
+        ></div>
+
+      </div>
+
+    </div>
+    
     <!-- DEMO STATUS -->
 
     <div class="status-box">
@@ -664,7 +848,107 @@
     ========================= */
 
     loadAccount();
+    loadBalance();
 
+        document
+      .getElementById("depositSubmit")
+      .addEventListener("click", async () => {
+
+        const amount =
+          document.getElementById("depositAmount").value;
+
+        const method =
+          document.getElementById("depositMethod").value;
+
+        const transactionId =
+          document.getElementById("transactionId").value;
+
+        const note =
+          document.getElementById("depositNote").value;
+
+        const message =
+          document.getElementById("depositMessage");
+
+        if (!amount || Number(amount) <= 0) {
+          message.textContent =
+            "Please enter a valid amount.";
+          return;
+        }
+
+        if (!method) {
+          message.textContent =
+            "Please select a deposit method.";
+          return;
+        }
+
+        message.textContent =
+          "Submitting request...";
+
+        try {
+
+          const response = await fetch(
+            `${API}/deposits`,
+            {
+              method: "POST",
+
+              headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+              },
+
+              body: JSON.stringify({
+                amount: Number(amount),
+                method: method,
+                transactionId: transactionId,
+                note: note
+              })
+            }
+          );
+
+          const data =
+            await response.json();
+
+          if (!response.ok) {
+            throw new Error(
+              data.error ||
+              "Failed to submit deposit request"
+            );
+          }
+
+          message.textContent =
+            "Deposit request submitted successfully.";
+
+          document.getElementById(
+            "depositAmount"
+          ).value = "";
+
+          document.getElementById(
+            "depositMethod"
+          ).value = "";
+
+          document.getElementById(
+            "transactionId"
+          ).value = "";
+
+          document.getElementById(
+            "depositNote"
+          ).value = "";
+
+        } catch (error) {
+
+          console.error(
+            "Deposit request error:",
+            error
+          );
+
+          message.textContent =
+            error.message ||
+            "Failed to submit deposit request.";
+
+        }
+
+      });
+    
   </script>
 
 </body>
