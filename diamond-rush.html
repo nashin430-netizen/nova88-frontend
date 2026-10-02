@@ -833,4 +833,463 @@
         </div>
 
         <div class="win-title">
-          Diamond Rush Complete
+          Diamond Rush Complete!
+        </div>
+
+        <div class="win-text">
+          Congratulations! You found all
+          the hidden diamonds.
+        </div>
+
+        <div class="win-score">
+
+          <span>
+            Final Score
+          </span>
+
+          <strong
+            id="finalScore"
+          >
+            0
+          </strong>
+
+        </div>
+
+        <br>
+
+        <button
+          class="play-again"
+          onclick="startGame()"
+        >
+          🔄 PLAY AGAIN
+        </button>
+
+      </div>
+
+
+      <div class="instructions">
+
+        💎 Tap the tiles to search for diamonds.<br>
+
+        Each diamond gives you
+        <b>10 points</b>.<br>
+
+        Find all 5 diamonds to complete
+        the demo game.<br>
+
+        This is a front-end demo and does
+        not use real money.
+
+      </div>
+
+
+    </section>
+
+
+  </main>
+
+
+  <script>
+
+
+    const boardElement =
+      document.getElementById(
+        "board"
+      );
+
+
+    const scoreElement =
+      document.getElementById(
+        "score"
+      );
+
+
+    const diamondsElement =
+      document.getElementById(
+        "diamonds"
+      );
+
+
+    const movesElement =
+      document.getElementById(
+        "moves"
+      );
+
+
+    const messageElement =
+      document.getElementById(
+        "message"
+      );
+
+
+    const gameArea =
+      document.getElementById(
+        "gameArea"
+      );
+
+
+    const winScreen =
+      document.getElementById(
+        "winScreen"
+      );
+
+
+    const finalScore =
+      document.getElementById(
+        "finalScore"
+      );
+
+
+    let diamondPositions = [];
+
+    let revealed = [];
+
+    let score = 0;
+
+    let diamonds = 0;
+
+    let moves = 0;
+
+    let gameStarted = false;
+
+
+    function createBoard() {
+
+      boardElement.innerHTML = "";
+
+      for (
+        let i = 0;
+        i < 16;
+        i++
+      ) {
+
+        const tile =
+          document.createElement(
+            "button"
+          );
+
+
+        tile.className =
+          "tile";
+
+
+        tile.textContent =
+          "❔";
+
+
+        tile.dataset.index =
+          i;
+
+
+        tile.onclick =
+          function () {
+
+            revealTile(
+              i,
+              tile
+            );
+
+          };
+
+
+        boardElement.appendChild(
+          tile
+        );
+
+      }
+
+    }
+
+
+    function startGame() {
+
+      score = 0;
+
+      diamonds = 0;
+
+      moves = 0;
+
+      revealed = [];
+
+      diamondPositions = [];
+
+      gameStarted = true;
+
+
+      winScreen.style.display =
+        "none";
+
+
+      gameArea.style.display =
+        "block";
+
+
+      while (
+        diamondPositions.length < 5
+      ) {
+
+        const position =
+          Math.floor(
+            Math.random() * 16
+          );
+
+
+        if (
+          !diamondPositions.includes(
+            position
+          )
+        ) {
+
+          diamondPositions.push(
+            position
+          );
+
+        }
+
+      }
+
+
+      updateStats();
+
+      createBoard();
+
+
+      messageElement.textContent =
+        "Find the hidden diamonds! 💎";
+
+
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+
+    }
+
+
+    function revealTile(
+      index,
+      tile
+    ) {
+
+
+      if (!gameStarted) {
+
+        messageElement.textContent =
+          "Press START GAME first.";
+
+        return;
+
+      }
+
+
+      if (
+        revealed.includes(index)
+      ) {
+
+        return;
+
+      }
+
+
+      revealed.push(index);
+
+      moves++;
+
+
+      if (
+        diamondPositions.includes(
+          index
+        )
+      ) {
+
+
+        tile.textContent =
+          "💎";
+
+
+        tile.classList.add(
+          "revealed",
+          "diamond"
+        );
+
+
+        score += 10;
+
+        diamonds++;
+
+
+        messageElement.textContent =
+          "Diamond found! +10 points 💎";
+
+
+        bumpValue(
+          scoreElement
+        );
+
+
+        bumpValue(
+          diamondsElement
+        );
+
+
+      } else {
+
+
+        tile.textContent =
+          "✦";
+
+
+        tile.classList.add(
+          "revealed",
+          "empty"
+        );
+
+
+        messageElement.textContent =
+          "Nothing here. Keep searching.";
+
+
+      }
+
+
+      bumpValue(
+        movesElement
+      );
+
+
+      updateStats();
+
+
+      if (
+        diamonds === 5
+      ) {
+
+        finishGame();
+
+      }
+
+    }
+
+
+    function finishGame() {
+
+      gameStarted = false;
+
+
+      finalScore.textContent =
+        score;
+
+
+      setTimeout(
+        function () {
+
+          gameArea.style.display =
+            "none";
+
+
+          winScreen.style.display =
+            "block";
+
+
+          window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+          });
+
+        },
+        500
+      );
+
+    }
+
+
+    function resetGame() {
+
+      score = 0;
+
+      diamonds = 0;
+
+      moves = 0;
+
+      revealed = [];
+
+      diamondPositions = [];
+
+      gameStarted = false;
+
+
+      winScreen.style.display =
+        "none";
+
+
+      gameArea.style.display =
+        "block";
+
+
+      createBoard();
+
+      updateStats();
+
+
+      messageElement.textContent =
+        "Press START GAME to begin.";
+
+    }
+
+
+    function updateStats() {
+
+      scoreElement.textContent =
+        score;
+
+
+      diamondsElement.textContent =
+        diamonds + " / 5";
+
+
+      movesElement.textContent =
+        moves;
+
+    }
+
+
+    function bumpValue(element) {
+
+      element.classList.remove(
+        "bump"
+      );
+
+
+      void element.offsetWidth;
+
+
+      element.classList.add(
+        "bump"
+      );
+
+
+      setTimeout(
+        function () {
+
+          element.classList.remove(
+            "bump"
+          );
+
+        },
+        200
+      );
+
+    }
+
+
+    createBoard();
+
+    updateStats();
+
+
+  </script>
+
+
+</body>
+
+  </html>
