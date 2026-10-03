@@ -1468,87 +1468,7 @@ async function loadPromotions() {
 
     if (!tbody) return;
 
-    if (
-      !Array.isArray(data) ||
-      data.length === 0
-    ) {
 
-      tbody.innerHTML = `
-        <tr>
-          <td colspan="6" class="empty">
-            No promotions found.
-          </td>
-        </tr>
-      `;
-
-      return;
-    }
-
-    tbody.innerHTML =
-      data.map(promotion => `
-
-        <tr>
-
-          <td>
-            ${promotion.id}
-          </td>
-
-          <td>
-            ${escapeHtml(
-              promotion.title
-            )}
-          </td>
-
-          <td>
-            ${escapeHtml(
-              promotion.description
-            )}
-          </td>
-
-          <td>
-            ${
-              promotion.status
-                ? "🟢 Active"
-                : "🔴 Inactive"
-            }
-          </td>
-
-          <td>
-            ${formatDate(
-              promotion.createdAt
-            )}
-          </td>
-
-          <td>
-
-            <button
-              onclick="editPromotion(${promotion.id})"
-            >
-              Edit
-            </button>
-
-            <button
-              onclick="deletePromotion(${promotion.id})"
-            >
-              Delete
-            </button>
-
-          </td>
-
-        </tr>
-
-      `).join("");
-
-  } catch (error) {
-
-    console.error(
-      "Promotions error:",
-      error
-    );
-
-  }
-
-}
 
     // =====================================
     // LOGOUT
@@ -2448,23 +2368,11 @@ async function loadPromotions() {
             <td>
 
               <button
-                class="secondary-btn"
-                onclick="editPromotion(
-                  ${promotion.id},
-                  ${JSON.stringify(
-                    promotion.title || ""
-                  )},
-                  ${JSON.stringify(
-                    promotion.description || ""
-                  )},
-                  ${JSON.stringify(
-                    promotion.image || ""
-                  )},
-                  ${promotion.status}
-                )"
-              >
-                Edit
-              </button>
+  class="secondary-btn"
+  onclick="editPromotion(${promotion.id})"
+>
+  Edit
+</button>
 
               <button
                 class="danger-btn"
