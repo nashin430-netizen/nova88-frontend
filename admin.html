@@ -2473,13 +2473,24 @@ function closePromotionModal() {
 // EDIT PROMOTION
 // =====================================
 
-function editPromotion(
-  id,
-  title,
-  description,
-  image,
-  status
-) {
+function editPromotion(id) {
+
+  const promotions =
+    window.nova88Promotions || [];
+
+  const promotion =
+    promotions.find(
+      item => Number(item.id) === Number(id)
+    );
+
+  if (!promotion) {
+
+    alert(
+      "Promotion data not found."
+    );
+
+    return;
+  }
 
   document.getElementById(
     "promotionModalTitle"
@@ -2489,27 +2500,29 @@ function editPromotion(
   document.getElementById(
     "promotionId"
   ).value =
-    id;
+    promotion.id;
 
   document.getElementById(
     "promotionTitle"
   ).value =
-    title;
+    promotion.title || "";
 
   document.getElementById(
     "promotionDescription"
   ).value =
-    description;
+    promotion.description || "";
 
   document.getElementById(
     "promotionImage"
   ).value =
-    image;
+    promotion.image || "";
 
   document.getElementById(
     "promotionStatus"
   ).value =
-    status ? "true" : "false";
+    promotion.status
+      ? "true"
+      : "false";
 
   document.getElementById(
     "promotionSaveButton"
@@ -2521,8 +2534,7 @@ function editPromotion(
   ).style.display =
     "flex";
 
-}
-
+    }
 
 // =====================================
 // SAVE / UPDATE PROMOTION
