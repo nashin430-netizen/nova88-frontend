@@ -27,220 +27,11 @@
       min-height: 100vh;
     }
 
-    .header {
-      background: #11131a;
-      border-bottom: 1px solid #252936;
-      padding: 18px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .logo {
-      font-size: 22px;
-      font-weight: bold;
-      letter-spacing: 1px;
-    }
-
-    .admin-label {
-      font-size: 12px;
-      color: #999;
-      margin-top: 4px;
-    }
-
-    .logout-btn {
-      background: #e53935;
-      color: white;
-      border: none;
-      padding: 10px 16px;
-      border-radius: 7px;
-      cursor: pointer;
-      font-weight: bold;
-    }
-
-    .container {
-      max-width: 1200px;
-      margin: auto;
-      padding: 22px;
-    }
-
-    h1 {
-      font-size: 28px;
-      margin-bottom: 8px;
-    }
-
-    .subtitle {
-      color: #999;
-      margin-bottom: 25px;
-    }
-
-    .status-box {
-      background: #11131a;
-      border: 1px solid #252936;
-      border-radius: 10px;
-      padding: 16px;
-      margin-bottom: 20px;
-    }
-
-    .status-title {
-      font-size: 13px;
-      color: #aaa;
-      margin-bottom: 7px;
-    }
-
-    .status-text {
-      font-weight: bold;
-    }
-
-    .success {
-      color: #35d07f;
-    }
-
-    .error {
-      color: #ff5252;
-    }
-
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 15px;
-      margin-bottom: 20px;
-    }
-
-    .card {
-      background: #11131a;
-      border: 1px solid #252936;
-      border-radius: 10px;
-      padding: 20px;
-    }
-
-    .card-icon {
-      font-size: 25px;
-      margin-bottom: 12px;
-    }
-
-    .card-title {
-      color: #aaa;
-      font-size: 14px;
-    }
-
-    .card-value {
-      font-size: 28px;
-      font-weight: bold;
-      margin-top: 7px;
-    }
-
-    .panel {
-      background: #11131a;
-      border: 1px solid #252936;
-      border-radius: 10px;
-      padding: 20px;
-      margin-bottom: 20px;
-    }
-
-    .panel h2 {
-      font-size: 19px;
-      margin-bottom: 15px;
-    }
-
-    .info {
-      line-height: 1.9;
-      color: #ccc;
-    }
-
-    .controls {
-      display: flex;
-      gap: 10px;
-      margin-bottom: 15px;
-    }
-
+    button,
     input,
     select,
     textarea {
-      background: #08090d;
-      color: white;
-      border: 1px solid #303442;
-      border-radius: 7px;
-      padding: 11px;
-      outline: none;
-    }
-
-    input {
-      flex: 1;
-    }
-
-    .table-wrap {
-      overflow-x: auto;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      min-width: 750px;
-    }
-
-    th,
-    td {
-      padding: 12px;
-      text-align: left;
-      border-bottom: 1px solid #252936;
-      font-size: 13px;
-    }
-
-    th {
-      color: #aaa;
-      font-weight: normal;
-    }
-
-    .empty {
-      text-align: center;
-      color: #888;
-      padding: 25px;
-    }
-
-    .action-btn,
-    .delete-btn {
-      border: none;
-      border-radius: 6px;
-      padding: 7px 10px;
-      cursor: pointer;
-      margin-right: 5px;
-      font-size: 12px;
-    }
-
-    .action-btn {
-      background: #2d6cdf;
-      color: white;
-    }
-
-    .delete-btn {
-      background: #d83232;
-      color: white;
-    }
-
-    .role-admin {
-      color: #ffca28;
-      font-weight: bold;
-    }
-
-    .role-user {
-      color: #64b5f6;
-    }
-
-    @media (max-width: 700px) {
-
-      .cards {
-        grid-template-columns: 1fr;
-      }
-
-      .controls {
-        flex-direction: column;
-      }
-
-      .container {
-        padding: 14px;
-      }
-
+      font-family: inherit;
     }
 
   </style>
@@ -249,154 +40,115 @@
 
 <body>
 
-  <header class="header">
+  <header>
 
-    <div>
+    <h1>NOVA88</h1>
 
-      <div class="logo">
-        NOVA88
-      </div>
+    <p>ADMIN PANEL</p>
 
-      <div class="admin-label">
-        ADMIN PANEL
-      </div>
-
-    </div>
-
-    <button
-      id="logoutButton"
-      class="logout-btn"
-    >
+    <button id="logoutButton">
       Logout
     </button>
 
   </header>
+    <main>
 
-  <main class="container">
-
-    <h1>
-      Admin Dashboard
-    </h1>
-
-    <p class="subtitle">
-      Manage your NOVA88 demo platform.
-    </p>
-
-    <div class="status-box">
-
-      <div class="status-title">
-        System Status
-      </div>
-
-      <div
-        id="statusText"
-        class="status-text"
-      >
-        Starting...
-      </div>
-
-    </div>
-
-    <div class="cards">
-
-      <div class="card">
-
-        <div class="card-icon">
-          👥
-        </div>
-
-        <div class="card-title">
-          Users
-        </div>
-
-        <div
-          id="userCount"
-          class="card-value"
-        >
-          —
-        </div>
-
-      </div>
-
-      <div class="card">
-
-        <div class="card-icon">
-          🎮
-        </div>
-
-        <div class="card-title">
-          Games
-        </div>
-
-        <div
-          id="gameCount"
-          class="card-value"
-        >
-          —
-        </div>
-
-      </div>
-
-      <div class="card">
-
-        <div class="card-icon">
-          🎁
-        </div>
-
-        <div class="card-title">
-          Promotions
-        </div>
-
-        <div
-          id="promotionCount"
-          class="card-value"
-        >
-          —
-        </div>
-
-      </div>
-
-    </div>
-
-        <div class="panel">
+    <section class="page-title">
 
       <h2>
-        Admin Information
+        Admin Dashboard
       </h2>
 
-      <div class="info">
+      <p>
+        Manage your NOVA88 demo platform.
+      </p>
 
+    </section>
+
+
+    <section class="status-card">
+
+      <h3>
+        System Status
+      </h3>
+
+      <p id="systemStatus">
+        Starting...
+      </p>
+
+    </section>
+
+
+    <section class="stats-grid">
+
+      <div class="stat-card">
+
+        <span>👥</span>
+
+        <h3>Users</h3>
+
+        <strong id="userCount">—</strong>
+
+      </div>
+
+            <div class="stat-card">
+
+        <span>🎮</span>
+
+        <h3>Games</h3>
+
+        <strong id="gameCount">—</strong>
+
+      </div>
+
+
+      <div class="stat-card">
+
+        <span>🎁</span>
+
+        <h3>Promotions</h3>
+
+        <strong id="promotionCount">—</strong>
+
+      </div>
+
+    </section>
+
+
+    <section class="admin-info">
+
+      <h3>
+        Admin Information
+      </h3>
+
+      <p>
         Email:
         <span id="adminEmail">—</span>
-        <br>
+      </p>
 
+      <p>
         Role:
         <span id="adminRole">—</span>
-        <br>
-
+      </p>
+            <p>
         User ID:
-        <span id="adminId">—</span>
+        <span id="adminUserId">—</span>
+      </p>
 
-      </div>
-
-    </div>
+    </section>
 
 
-    <!-- ===============================
-         REGISTERED USERS
-    ================================ -->
+    <section class="panel">
 
-    <div class="panel">
-
-      <h2>
+      <h3>
         👥 Registered Users
-      </h2>
+      </h3>
 
-      <div class="controls">
+      <div class="filters">
 
         <input
-          id="searchInput"
           type="text"
+          id="userSearch"
           placeholder="🔎 Search by name or email..."
         >
 
@@ -406,20 +158,19 @@
             All Roles
           </option>
 
-          <option value="USER">
-            USER
+          <option value="ADMIN">
+            Admin
           </option>
 
-          <option value="ADMIN">
-            ADMIN
+          <option value="USER">
+            User
           </option>
 
         </select>
 
       </div>
 
-
-      <div class="table-wrap">
+            <div class="table-wrap">
 
         <table>
 
@@ -438,18 +189,12 @@
 
           </thead>
 
-
           <tbody id="usersTableBody">
 
             <tr>
-
-              <td
-                colspan="6"
-                class="empty"
-              >
+              <td colspan="6">
                 Loading users...
               </td>
-
             </tr>
 
           </tbody>
@@ -458,22 +203,18 @@
 
       </div>
 
-    </div>
+    </section>
 
 
-    <!-- ===============================
-         GAMES MANAGEMENT
-    ================================ -->
-
-    <section class="admin-section">
+    <section class="panel">
 
       <div class="section-header">
 
         <div>
 
-          <h2>
+          <h3>
             🎮 Games Management
-          </h2>
+          </h3>
 
           <p>
             Manage NOVA88 games.
@@ -481,18 +222,16 @@
 
         </div>
 
-
         <button
-          class="primary-btn"
-          onclick="openGameModal()"
+          id="addGameButton"
+          type="button"
         >
           + Add Game
         </button>
 
       </div>
 
-
-      <div class="table-wrap">
+            <div class="table-wrap">
 
         <table>
 
@@ -511,18 +250,12 @@
 
           </thead>
 
-
           <tbody id="gamesTableBody">
 
             <tr>
-
-              <td
-                colspan="6"
-                class="empty"
-              >
+              <td colspan="6">
                 Loading games...
               </td>
-
             </tr>
 
           </tbody>
@@ -533,19 +266,16 @@
 
     </section>
 
-        <!-- ===============================
-         PROMOTIONS MANAGEMENT
-    ================================ -->
 
-    <section class="admin-section">
+    <section class="panel">
 
       <div class="section-header">
 
         <div>
 
-          <h2>
+          <h3>
             🎁 Promotions Management
-          </h2>
+          </h3>
 
           <p>
             Manage NOVA88 promotions.
@@ -553,18 +283,16 @@
 
         </div>
 
-
         <button
-          class="primary-btn"
-          onclick="openPromotionModal()"
+          id="addPromotionButton"
+          type="button"
         >
           + Add Promotion
         </button>
 
       </div>
 
-
-      <div class="table-wrap">
+            <div class="table-wrap">
 
         <table>
 
@@ -583,18 +311,12 @@
 
           </thead>
 
-
           <tbody id="promotionsTableBody">
 
             <tr>
-
-              <td
-                colspan="6"
-                class="empty"
-              >
+              <td colspan="6">
                 Loading promotions...
               </td>
-
             </tr>
 
           </tbody>
@@ -605,390 +327,235 @@
 
     </section>
 
-
-    <!-- ===============================
-         GAME MODAL
-    ================================ -->
+    </main>
 
     <div
-      id="gameModal"
-      class="game-modal"
-      style="display: none;"
-    >
+    id="gameModal"
+    class="modal"
+  >
 
-      <div class="game-modal-box">
+    <div class="modal-box">
 
-        <div class="game-modal-header">
+      <div class="modal-header">
 
-          <div>
+        <h3 id="gameModalTitle">
+          Add Game
+        </h3>
 
-            <h2 id="gameModalTitle">
-              Add New Game
-            </h2>
+        <button
+          type="button"
+          onclick="closeGameModal()"
+        >
+          ×
+        </button>
 
-            <p id="gameModalDescription">
-              Create a new game for NOVA88.
-            </p>
+      </div>
 
-          </div>
 
+      <form id="gameForm">
+
+        <input
+          type="hidden"
+          id="gameId"
+        >
+
+        <label>
+          Game Name
+        </label>
+
+        <input
+          type="text"
+          id="gameName"
+          required
+        >
+
+        <label>
+          Category
+        </label>
+
+        <input
+          type="text"
+          id="gameCategory"
+          required
+        >
+
+        <label>
+          Icon
+        </label>
+
+        <input
+          type="text"
+          id="gameIcon"
+        >
+
+                <label>
+          Description
+        </label>
+
+        <textarea
+          id="gameDescription"
+          rows="4"
+        ></textarea>
+
+
+        <label>
+          Image URL
+        </label>
+
+        <input
+          type="text"
+          id="gameImage"
+        >
+
+
+        <label>
+          Status
+        </label>
+
+        <select id="gameStatus">
+
+          <option value="true">
+            Active
+          </option>
+
+          <option value="false">
+            Inactive
+          </option>
+
+        </select>
+
+
+        <div class="modal-actions">
 
           <button
             type="button"
-            class="game-modal-close"
             onclick="closeGameModal()"
           >
-            ×
+            Cancel
+          </button>
+
+          <button
+            type="submit"
+            id="gameSaveButton"
+          >
+            Save Game
           </button>
 
         </div>
 
-
-        <form id="gameForm">
-
-          <div class="game-form-group">
-
-            <label>
-              Game Name
-            </label>
-
-            <input
-              type="text"
-              id="gameName"
-              placeholder="Enter game name"
-              required
-            >
-
-          </div>
-
-
-          <div class="game-form-group">
-
-            <label>
-              Category
-            </label>
-
-            <select
-              id="gameCategory"
-              required
-            >
-
-              <option value="">
-                Select category
-              </option>
-
-              <option value="slots">
-                Slots
-              </option>
-
-              <option value="casino">
-                Casino
-              </option>
-
-              <option value="cards">
-                Cards
-              </option>
-
-              <option value="arcade">
-                Arcade
-              </option>
-
-              <option value="other">
-                Other
-              </option>
-
-            </select>
-
-          </div>
-
-
-          <div class="game-form-group">
-
-            <label>
-              Game Icon
-            </label>
-
-            <input
-              type="text"
-              id="gameIcon"
-              placeholder="🎮"
-            >
-
-          </div>
-
-
-          <div class="game-form-group">
-
-            <label>
-              Description
-            </label>
-
-            <textarea
-              id="gameDescription"
-              placeholder="Enter game description"
-            ></textarea>
-
-          </div>
-
-
-          <div class="game-form-group">
-
-            <label>
-              Game Image URL
-            </label>
-
-            <input
-              type="text"
-              id="gameImage"
-              placeholder="https://example.com/game.jpg"
-            >
-
-          </div>
-
-
-          <div class="game-form-group game-status-row">
-
-            <label>
-
-              <input
-                type="checkbox"
-                id="gameStatus"
-                checked
-              >
-
-              Active Game
-
-            </label>
-
-          </div>
-
-
-          <div class="game-modal-actions">
-
-            <button
-              type="button"
-              class="game-cancel-btn"
-              onclick="closeGameModal()"
-            >
-              Cancel
-            </button>
-
-
-            <button
-              type="submit"
-              class="game-save-btn"
-              id="gameSaveButton"
-            >
-              Save Game
-            </button>
-
-          </div>
-
-        </form>
-
-      </div>
+      </form>
 
     </div>
 
-        <!-- ===============================
-         PROMOTION MODAL
-    ================================ -->
+    </div>
 
     <div
-      id="promotionModal"
-      class="game-modal"
-      style="display: none;"
-    >
+    id="promotionModal"
+    class="modal"
+  >
 
-      <div class="game-modal-box">
+    <div class="modal-box">
 
-        <div class="game-modal-header">
+      <div class="modal-header">
 
-          <div>
+        <h3 id="promotionModalTitle">
+          Add Promotion
+        </h3>
 
-            <h2 id="promotionModalTitle">
-              Add New Promotion
-            </h2>
+        <button
+          type="button"
+          onclick="closePromotionModal()"
+        >
+          ×
+        </button>
 
-            <p>
-              Create a promotion for NOVA88.
-            </p>
+      </div>
 
-          </div>
 
+      <form id="promotionForm">
+
+        <input
+          type="hidden"
+          id="promotionId"
+        >
+
+
+        <label>
+          Promotion Title
+        </label>
+
+        <input
+          type="text"
+          id="promotionTitle"
+          required
+        >
+
+
+        <label>
+          Description
+        </label>
+
+        <textarea
+          id="promotionDescription"
+          rows="4"
+        ></textarea>
+
+
+        <label>
+          Image URL
+        </label>
+
+        <input
+          type="text"
+          id="promotionImage"
+        >
+
+                <label>
+          Status
+        </label>
+
+        <select id="promotionStatus">
+
+          <option value="true">
+            Active
+          </option>
+
+          <option value="false">
+            Inactive
+          </option>
+
+        </select>
+
+
+        <div class="modal-actions">
 
           <button
             type="button"
-            class="game-modal-close"
             onclick="closePromotionModal()"
           >
-            ×
+            Cancel
+          </button>
+
+          <button
+            type="submit"
+            id="promotionSaveButton"
+          >
+            Save Promotion
           </button>
 
         </div>
 
-
-        <form id="promotionForm">
-
-          <input
-            type="hidden"
-            id="promotionId"
-          >
-
-
-          <div class="game-form-group">
-
-            <label>
-              Promotion Title
-            </label>
-
-            <input
-              type="text"
-              id="promotionTitle"
-              placeholder="Enter promotion title"
-              required
-            >
-
-          </div>
-
-
-          <div class="game-form-group">
-
-            <label>
-              Promotion Description
-            </label>
-
-            <textarea
-              id="promotionDescription"
-              placeholder="Enter promotion description"
-              required
-            ></textarea>
-
-          </div>
-
-
-          <div class="game-form-group">
-
-            <label>
-              Promotion Image URL
-            </label>
-
-            <input
-              type="text"
-              id="promotionImage"
-              placeholder="https://example.com/promotion.jpg"
-            >
-
-          </div>
-
-
-          <div class="game-form-group">
-
-            <label>
-              Status
-            </label>
-
-            <select id="promotionStatus">
-
-              <option value="true">
-                Active
-              </option>
-
-              <option value="false">
-                Inactive
-              </option>
-
-            </select>
-
-          </div>
-
-
-          <div class="game-modal-actions">
-
-            <button
-              type="button"
-              class="game-cancel-btn"
-              onclick="closePromotionModal()"
-            >
-              Cancel
-            </button>
-
-
-            <button
-              type="submit"
-              class="game-save-btn"
-              id="promotionSaveButton"
-            >
-              Save Promotion
-            </button>
-
-          </div>
-
-        </form>
-
-      </div>
+      </form>
 
     </div>
 
+  </div>
 
-  </main>
 
-    <script>
-
-    // =====================================
-    // CONFIG
-    // =====================================
+  <script>
 
     const API =
       "https://nova88-backend.onrender.com/api";
-
-
-    // =====================================
-    // ELEMENTS
-    // =====================================
-
-    const token =
-      localStorage.getItem("nova88_token");
-
-    const statusText =
-      document.getElementById("statusText");
-
-    const userCount =
-      document.getElementById("userCount");
-
-    const gameCount =
-      document.getElementById("gameCount");
-
-    const promotionCount =
-      document.getElementById("promotionCount");
-
-    const adminEmail =
-      document.getElementById("adminEmail");
-
-    const adminRole =
-      document.getElementById("adminRole");
-
-    const adminId =
-      document.getElementById("adminId");
-
-    const usersTableBody =
-      document.getElementById("usersTableBody");
-
-    const gamesTableBody =
-      document.getElementById("gamesTableBody");
-
-    const promotionsTableBody =
-      document.getElementById("promotionsTableBody");
-
-    const searchInput =
-      document.getElementById("searchInput");
-
-    const roleFilter =
-      document.getElementById("roleFilter");
-
-    const logoutButton =
-      document.getElementById("logoutButton");
-
 
     let users = [];
 
@@ -996,12 +563,7 @@
 
     let promotions = [];
 
-
-    // =====================================
-    // ESCAPE HTML
-    // =====================================
-
-    function escapeHtml(value) {
+        function escapeHtml(value) {
 
       return String(value ?? "")
         .replace(/&/g, "&amp;")
@@ -1013,98 +575,67 @@
     }
 
 
-    // =====================================
-    // DATE FORMAT
-    // =====================================
-
     function formatDate(value) {
 
       if (!value) {
-        return "—";
+        return "-";
       }
 
-      const date =
-        new Date(value);
+      return new Date(value)
+        .toLocaleDateString();
 
-      if (isNaN(date.getTime())) {
-        return "—";
-      }
+    }
 
-      return date.toLocaleString(
-        "en-US",
-        {
-          year: "numeric",
-          month: "short",
-          day: "numeric",
-          hour: "2-digit",
-          minute: "2-digit"
-        }
+
+    function getToken() {
+
+      return localStorage.getItem(
+        "nova88_token"
       );
 
     }
 
 
-    // =====================================
-    // LOGOUT
-    // =====================================
+    document.getElementById(
+      "logoutButton"
+    ).addEventListener(
+      "click",
+      function() {
 
-    if (logoutButton) {
+        localStorage.removeItem(
+          "nova88_token"
+        );
 
-      logoutButton.addEventListener(
-        "click",
-        function () {
+        window.location.href =
+          "index.html";
 
-          localStorage.removeItem(
-            "nova88_token"
-          );
+      }
+    );
 
-          window.location.href =
-            "index.html";
+        async function checkAdminAccess() {
 
-        }
-      );
-
-    }
-
-          // =====================================
-    // START ADMIN PANEL
-    // =====================================
-
-    async function startAdminPanel() {
+      const token = getToken();
 
       if (!token) {
 
-        statusText.textContent =
-          "No login session found.";
-
-        statusText.className =
-          "status-text error";
+        window.location.href =
+          "index.html";
 
         return;
       }
 
 
-      statusText.textContent =
-        "Connecting to backend...";
-
-
       try {
 
-        const response =
-          await fetch(
-            `${API}/admin/dashboard`,
-            {
-              method: "GET",
-
-              headers: {
-                "Authorization":
-                  `Bearer ${token}`,
-
-                "Accept":
-                  "application/json"
-              }
+        const response = await fetch(
+          API + "/admin/dashboard",
+          {
+            headers: {
+              Authorization:
+                "Bearer " + token
             }
-          );
+          }
+        );
 
 
         const data =
@@ -1115,42 +646,56 @@
 
           throw new Error(
             data.error ||
-            "Authentication failed."
+            "Admin access denied"
           );
 
         }
 
 
-        statusText.textContent =
+        const user =
+          data.user || {};
+
+
+        document.getElementById(
+          "systemStatus"
+        ).textContent =
           "Backend connected successfully.";
 
-        statusText.className =
-          "status-text success";
+
+        document.getElementById(
+          "adminEmail"
+        ).textContent =
+          user.email || "—";
 
 
-        const admin =
-          data.admin || {};
+        document.getElementById(
+          "adminRole"
+        ).textContent =
+          user.role || "—";
 
-        const stats =
+
+        document.getElementById(
+          "adminUserId"
+        ).textContent =
+          user.id || "—";
+
+        
+            const stats =
           data.stats || {};
 
-
-        adminEmail.textContent =
-          admin.email || "—";
-
-        adminRole.textContent =
-          admin.role || "—";
-
-        adminId.textContent =
-          admin.id ?? "—";
-
-        userCount.textContent =
+        document.getElementById(
+          "userCount"
+        ).textContent =
           stats.users ?? 0;
 
-        gameCount.textContent =
+        document.getElementById(
+          "gameCount"
+        ).textContent =
           stats.games ?? 0;
 
-        promotionCount.textContent =
+        document.getElementById(
+          "promotionCount"
+        ).textContent =
           stats.promotions ?? 0;
 
 
@@ -1164,47 +709,51 @@
       } catch (error) {
 
         console.error(
-          "Admin panel error:",
+          "Admin access error:",
           error
         );
 
-        statusText.textContent =
-          error.message ||
-          "Unable to connect to backend.";
 
-        statusText.className =
-          "status-text error";
+        document.getElementById(
+          "systemStatus"
+        ).textContent =
+          "Backend connection failed.";
+
+
+        alert(
+          "Admin access failed. Please login again."
+        );
+
+
+        localStorage.removeItem(
+          "nova88_token"
+        );
+
+
+        window.location.href =
+          "index.html";
 
       }
 
-    }
+        }
 
+        async function loadUsers() {
 
-    // =====================================
-    // LOAD USERS
-    // =====================================
-
-    async function loadUsers() {
-
-      if (!token) {
-        return;
-      }
+      const tableBody =
+        document.getElementById(
+          "usersTableBody"
+        );
 
 
       try {
 
         const response =
           await fetch(
-            `${API}/admin/users`,
+            API + "/admin/users",
             {
-              method: "GET",
-
               headers: {
-                "Authorization":
-                  `Bearer ${token}`,
-
-                "Accept":
-                  "application/json"
+                Authorization:
+                  "Bearer " + getToken()
               }
             }
           );
@@ -1218,23 +767,17 @@
 
           throw new Error(
             data.error ||
-            "Failed to load users."
+            "Failed to load users"
           );
 
         }
 
 
         users =
-          Array.isArray(data.users)
-            ? data.users
-            : [];
+          data.users || data || [];
 
 
-        userCount.textContent =
-          users.length;
-
-
-        filterUsers();
+        renderUsers();
 
 
       } catch (error) {
@@ -1244,111 +787,77 @@
           error
         );
 
-        usersTableBody.innerHTML = `
-          <tr>
-            <td
-              colspan="6"
-              class="empty"
-            >
-              Failed to load users.
-            </td>
-          </tr>
-        `;
+
+        tableBody.innerHTML =
+          '<tr><td colspan="6">Failed to load users.</td></tr>';
 
       }
 
-  
-    }
+        }
 
-          // =====================================
-    // FILTER USERS
-    // =====================================
+        function renderUsers() {
 
-    function filterUsers() {
+      const tableBody =
+        document.getElementById(
+          "usersTableBody"
+        );
+
 
       const search =
-        searchInput.value
-          .trim()
-          .toLowerCase();
+        document.getElementById(
+          "userSearch"
+        ).value
+          .toLowerCase()
+          .trim();
 
 
       const role =
-        roleFilter.value;
+        document.getElementById(
+          "roleFilter"
+        ).value;
 
 
       const filtered =
-        users.filter(function (user) {
+        users.filter(function(user) {
 
-          const name =
+          const matchesSearch =
+            !search ||
             String(user.name || "")
-              .toLowerCase();
-
-          const email =
+              .toLowerCase()
+              .includes(search) ||
             String(user.email || "")
-              .toLowerCase();
+              .toLowerCase()
+              .includes(search);
 
 
-          const searchMatch =
-            name.includes(search) ||
-            email.includes(search);
-
-
-          const roleMatch =
+          const matchesRole =
             role === "ALL" ||
             user.role === role;
 
 
           return (
-            searchMatch &&
-            roleMatch
+            matchesSearch &&
+            matchesRole
           );
 
         });
 
 
-      renderUsers(filtered);
+      if (!filtered.length) {
 
-    }
-
-
-    // =====================================
-    // RENDER USERS
-    // =====================================
-
-    function renderUsers(list) {
-
-      if (!list.length) {
-
-        usersTableBody.innerHTML = `
-          <tr>
-            <td
-              colspan="6"
-              class="empty"
-            >
-              No users found.
-            </td>
-          </tr>
-        `;
+        tableBody.innerHTML =
+          '<tr><td colspan="6">No users found.</td></tr>';
 
         return;
       }
 
-
-      usersTableBody.innerHTML =
-        list.map(function (user) {
-
-          const roleClass =
-            user.role === "ADMIN"
-              ? "role-admin"
-              : "role-user";
-
+          tableBody.innerHTML =
+        filtered.map(function(user) {
 
           return `
             <tr>
 
-              <td>
-                ${escapeHtml(user.id)}
-              </td>
+              <td>${user.id}</td>
 
               <td>
                 ${escapeHtml(user.name)}
@@ -1359,9 +868,7 @@
               </td>
 
               <td>
-                <span class="${roleClass}">
-                  ${escapeHtml(user.role)}
-                </span>
+                ${escapeHtml(user.role)}
               </td>
 
               <td>
@@ -1372,19 +879,14 @@
 
                 <button
                   class="action-btn"
-                  onclick="changeRole(
-                    ${user.id},
-                    '${user.role}'
-                  )"
+                  onclick="changeRole(${user.id})"
                 >
                   Change Role
                 </button>
 
                 <button
-                  class="delete-btn"
-                  onclick="deleteUser(
-                    ${user.id}
-                  )"
+                  class="action-btn delete-btn"
+                  onclick="deleteUser(${user.id})"
                 >
                   Delete
                 </button>
@@ -1399,50 +901,56 @@
     }
 
 
-    // =====================================
-    // SEARCH EVENTS
-    // =====================================
+    function filterUsers() {
 
-    if (searchInput) {
-
-      searchInput.addEventListener(
-        "input",
-        filterUsers
-      );
+      renderUsers();
 
     }
 
 
-    if (roleFilter) {
-
-      roleFilter.addEventListener(
-        "change",
-        filterUsers
-      );
-
-    }
+    document.getElementById(
+      "userSearch"
+    ).addEventListener(
+      "input",
+      filterUsers
+    );
 
 
-    // =====================================
-    // CHANGE USER ROLE
-    // =====================================
+    document.getElementById(
+      "roleFilter"
+    ).addEventListener(
+      "change",
+      filterUsers
+    );
 
-    async function changeRole(
-      userId,
-      currentRole
-    ) {
+        async function changeRole(id) {
+
+      const user =
+        users.find(function(item) {
+          return item.id === id;
+        });
+
+
+      if (!user) {
+        return;
+      }
+
 
       const newRole =
-        currentRole === "ADMIN"
+        user.role === "ADMIN"
           ? "USER"
           : "ADMIN";
 
 
-      if (
-        !confirm(
-          `Change role to ${newRole}?`
-        )
-      ) {
+      const confirmed =
+        confirm(
+          "Change role to " +
+          newRole +
+          "?"
+        );
+
+
+      if (!confirmed) {
         return;
       }
 
@@ -1451,25 +959,24 @@
 
         const response =
           await fetch(
-            `${API}/admin/users/${userId}/role`,
+            API + "/admin/users/" +
+            id +
+            "/role",
             {
               method: "PATCH",
 
               headers: {
-                "Authorization":
-                  `Bearer ${token}`,
-
                 "Content-Type":
                   "application/json",
 
-                "Accept":
-                  "application/json"
+                Authorization:
+                  "Bearer " +
+                  getToken()
               },
 
-              body:
-                JSON.stringify({
-                  role: newRole
-                })
+              body: JSON.stringify({
+                role: newRole
+              })
             }
           );
 
@@ -1482,19 +989,13 @@
 
           throw new Error(
             data.error ||
-            "Failed to change role."
+            "Failed to change role"
           );
 
         }
 
 
-        alert(
-          "User role changed successfully."
-        );
-
-
         await loadUsers();
-
 
       } catch (error) {
 
@@ -1503,26 +1004,22 @@
           error
         );
 
-        alert(
-          error.message ||
-          "Failed to change role."
-        );
+        alert(error.message);
 
       }
 
-    }
+        }
 
-          // =====================================
-    // DELETE USER
-    // =====================================
 
-    async function deleteUser(userId) {
+        async function deleteUser(id) {
 
-      if (
-        !confirm(
+      const confirmed =
+        confirm(
           "Are you sure you want to delete this user?"
-        )
-      ) {
+        );
+
+
+      if (!confirmed) {
         return;
       }
 
@@ -1531,16 +1028,14 @@
 
         const response =
           await fetch(
-            `${API}/admin/users/${userId}`,
+            API + "/admin/users/" + id,
             {
               method: "DELETE",
 
               headers: {
-                "Authorization":
-                  `Bearer ${token}`,
-
-                "Accept":
-                  "application/json"
+                Authorization:
+                  "Bearer " +
+                  getToken()
               }
             }
           );
@@ -1554,15 +1049,10 @@
 
           throw new Error(
             data.error ||
-            "Failed to delete user."
+            "Failed to delete user"
           );
 
         }
-
-
-        alert(
-          "User deleted successfully."
-        );
 
 
         await loadUsers();
@@ -1575,26 +1065,13 @@
           error
         );
 
-        alert(
-          error.message ||
-          "Failed to delete user."
-        );
+        alert(error.message);
 
       }
 
-    }
+        }
 
-
-    // =====================================
-    // GAMES MANAGEMENT
-    // =====================================
-
-    async function loadGames() {
-
-      if (!token) {
-        return;
-      }
-
+        async function loadGames() {
 
       const tableBody =
         document.getElementById(
@@ -1602,37 +1079,16 @@
         );
 
 
-      if (!tableBody) {
-        return;
-      }
-
-
-      tableBody.innerHTML = `
-        <tr>
-          <td
-            colspan="6"
-            class="empty"
-          >
-            Loading games...
-          </td>
-        </tr>
-      `;
-
-
       try {
 
         const response =
           await fetch(
-            `${API}/admin/games`,
+            API + "/admin/games",
             {
-              method: "GET",
-
               headers: {
-                "Authorization":
-                  `Bearer ${token}`,
-
-                "Accept":
-                  "application/json"
+                Authorization:
+                  "Bearer " +
+                  getToken()
               }
             }
           );
@@ -1646,300 +1102,23 @@
 
           throw new Error(
             data.error ||
-            "Failed to load games."
+            "Failed to load games"
           );
 
         }
 
 
         games =
-          Array.isArray(data.games)
-            ? data.games
-            : [];
+          data.games || data || [];
 
 
-        gameCount.textContent =
-          games.length;
-
-
-        if (!games.length) {
-
-          tableBody.innerHTML = `
-            <tr>
-              <td
-                colspan="6"
-                class="empty"
-              >
-                No games found.
-              </td>
-            </tr>
-          `;
-
-          return;
-        }
-
-
-        tableBody.innerHTML =
-          games.map(function (game) {
-
-            return `
-              <tr>
-
-                <td>
-                  ${escapeHtml(game.id)}
-                </td>
-
-                <td>
-                  ${game.icon || "🎮"}
-                  ${escapeHtml(game.name)}
-                </td>
-
-                <td>
-                  ${escapeHtml(
-                    game.category
-                  )}
-                </td>
-
-                <td>
-                  ${
-                    game.status
-                      ? "🟢 Active"
-                      : "🔴 Inactive"
-                  }
-                </td>
-
-                <td>
-                  ${formatDate(
-                    game.createdAt
-                  )}
-                      // =====================================
-    // DELETE USER
-    // =====================================
-
-    async function deleteUser(userId) {
-
-      if (
-        !confirm(
-          "Are you sure you want to delete this user?"
-        )
-      ) {
-        return;
-      }
-
-
-      try {
-
-        const response =
-          await fetch(
-            `${API}/admin/users/${userId}`,
-            {
-              method: "DELETE",
-
-              headers: {
-                "Authorization":
-                  `Bearer ${token}`,
-
-                "Accept":
-                  "application/json"
-              }
-            }
-          );
-
-
-        const data =
-          await response.json();
-
-
-        if (!response.ok) {
-
-          throw new Error(
-            data.error ||
-            "Failed to delete user."
-          );
-
-        }
-
-
-        alert(
-          "User deleted successfully."
-        );
-
-
-        await loadUsers();
-
-
-      } catch (error) {
-
-        console.error(
-          "Delete user error:",
-          error
-        );
-
-        alert(
-          error.message ||
-          "Failed to delete user."
-        );
-
-      }
-
-    }
-
-
-    // =====================================
-    // GAMES MANAGEMENT
-    // =====================================
-
-    async function loadGames() {
-
-      if (!token) {
-        return;
-      }
-
-
-      const tableBody =
         document.getElementById(
-          "gamesTableBody"
-        );
-
-
-      if (!tableBody) {
-        return;
-      }
-
-
-      tableBody.innerHTML = `
-        <tr>
-          <td
-            colspan="6"
-            class="empty"
-          >
-            Loading games...
-          </td>
-        </tr>
-      `;
-
-
-      try {
-
-        const response =
-          await fetch(
-            `${API}/admin/games`,
-            {
-              method: "GET",
-
-              headers: {
-                "Authorization":
-                  `Bearer ${token}`,
-
-                "Accept":
-                  "application/json"
-              }
-            }
-          );
-
-
-        const data =
-          await response.json();
-
-
-        if (!response.ok) {
-
-          throw new Error(
-            data.error ||
-            "Failed to load games."
-          );
-
-        }
-
-
-        games =
-          Array.isArray(data.games)
-            ? data.games
-            : [];
-
-
-        gameCount.textContent =
+          "gameCount"
+        ).textContent =
           games.length;
 
 
-        if (!games.length) {
-
-          tableBody.innerHTML = `
-            <tr>
-              <td
-                colspan="6"
-                class="empty"
-              >
-                No games found.
-              </td>
-            </tr>
-          `;
-
-          return;
-        }
-
-
-        tableBody.innerHTML =
-          games.map(function (game) {
-
-            return `
-              <tr>
-
-                <td>
-                  ${escapeHtml(game.id)}
-                </td>
-
-                <td>
-                  ${game.icon || "🎮"}
-                  ${escapeHtml(game.name)}
-                </td>
-
-                <td>
-                  ${escapeHtml(
-                    game.category
-                  )}
-                </td>
-
-                <td>
-                  ${
-                    game.status
-                      ? "🟢 Active"
-                      : "🔴 Inactive"
-                  }
-                </td>
-
-                <td>
-                  ${formatDate(
-                    game.createdAt
-                  )}
-                </td>
-
-                <td>
-
-                  <button
-                    class="action-btn"
-                    onclick="editGame(
-                      ${game.id}
-                    )"
-                  >
-                    Edit
-                  </button>
-
-                  <button
-                    class="delete-btn"
-                    onclick="deleteGame(
-                      ${game.id}
-                    )"
-                  >
-                    Delete
-                  </button>
-
-                </td>
-
-              </tr>
-            `;
-
-          }).join("");
+        renderGames();
 
 
       } catch (error) {
@@ -1949,366 +1128,329 @@
           error
         );
 
-        tableBody.innerHTML = `
-          <tr>
-            <td
-              colspan="6"
-              class="empty"
-            >
-              Failed to load games.
-            </td>
-          </tr>
-        `;
+
+        tableBody.innerHTML =
+          '<tr><td colspan="6">Failed to load games.</td></tr>';
 
       }
 
-              }
+        }
 
-                  // =====================================
-    // OPEN GAME MODAL
-    // =====================================
+        function renderGames() {
 
-    function openGameModal() {
-
-      const modal =
+      const tableBody =
         document.getElementById(
-          "gameModal"
+          "gamesTableBody"
         );
 
-      const form =
-        document.getElementById(
-          "gameForm"
-        );
 
-      if (!modal || !form) {
+      if (!games.length) {
+
+        tableBody.innerHTML =
+          '<tr><td colspan="6">No games found.</td></tr>';
+
         return;
       }
 
 
-      form.reset();
+      tableBody.innerHTML =
+        games.map(function(game) {
 
-      delete form.dataset.editingId;
+          return `
+            <tr>
+
+              <td>${game.id}</td>
+
+              <td>
+                ${escapeHtml(game.name)}
+              </td>
+
+              <td>
+                ${escapeHtml(
+                  game.category || "-"
+                )}
+              </td>
+
+              <td>
+                ${game.status
+                  ? "Active"
+                  : "Inactive"}
+              </td>
+
+              <td>
+                ${formatDate(
+                  game.createdAt
+                )}
+              </td>
+
+              <td>
+
+                <button
+                  class="action-btn"
+                  onclick="editGame(${game.id})"
+                >
+                  Edit
+                </button>
+
+                <button
+                  class="action-btn delete-btn"
+                  onclick="deleteGame(${game.id})"
+                >
+                  Delete
+                </button>
+
+              </td>
+
+            </tr>
+          `;
+
+        }).join("");
+
+        }
+
+        function openGameModal(game) {
+
+      document.getElementById(
+        "gameModal"
+      ).classList.add("active");
 
 
       document.getElementById(
         "gameModalTitle"
       ).textContent =
-        "Add New Game";
+        game
+          ? "Edit Game"
+          : "Add Game";
 
 
       document.getElementById(
-        "gameModalDescription"
-      ).textContent =
-        "Create a new game for NOVA88.";
-
-
-      document.getElementById(
-        "gameSaveButton"
-      ).textContent =
-        "Save Game";
-
-
-      document.getElementById(
-        "gameStatus"
-      ).checked = true;
-
-
-      modal.style.display =
-        "flex";
-
-    }
-
-
-    // =====================================
-    // CLOSE GAME MODAL
-    // =====================================
-
-    function closeGameModal() {
-
-      const modal =
-        document.getElementById(
-          "gameModal"
-        );
-
-      if (!modal) {
-        return;
-      }
-
-
-      modal.style.display =
-        "none";
-
-    }
-
-
-    // =====================================
-    // EDIT GAME
-    // =====================================
-
-    async function editGame(id) {
-
-      const game =
-        games.find(function (item) {
-
-          return Number(item.id) ===
-            Number(id);
-
-        });
-
-
-      if (!game) {
-
-        alert(
-          "Game data not found."
-        );
-
-        return;
-      }
-
-
-      const form =
-        document.getElementById(
-          "gameForm"
-        );
-
-
-      document.getElementById(
-        "gameModalTitle"
-      ).textContent =
-        "Edit Game";
-
-
-      document.getElementById(
-        "gameModalDescription"
-      ).textContent =
-        "Update this NOVA88 game.";
-
-
-      document.getElementById(
-        "gameSaveButton"
-      ).textContent =
-        "Update Game";
+        "gameId"
+      ).value =
+        game ? game.id : "";
 
 
       document.getElementById(
         "gameName"
       ).value =
-        game.name || "";
+        game
+          ? game.name || ""
+          : "";
 
 
       document.getElementById(
         "gameCategory"
       ).value =
-        game.category || "";
+        game
+          ? game.category || ""
+          : "";
 
 
       document.getElementById(
         "gameIcon"
       ).value =
-        game.icon || "";
+        game
+          ? game.icon || ""
+          : "";
 
-
-      document.getElementById(
+          document.getElementById(
         "gameDescription"
       ).value =
-        game.description || "";
+        game
+          ? game.description || ""
+          : "";
 
 
       document.getElementById(
         "gameImage"
       ).value =
-        game.image || "";
+        game
+          ? game.image || ""
+          : "";
 
 
       document.getElementById(
         "gameStatus"
-      ).checked =
-        Boolean(game.status);
-
-
-      form.dataset.editingId =
-        game.id;
-
-
-      document.getElementById(
-        "gameModal"
-      ).style.display =
-        "flex";
+      ).value =
+        game
+          ? String(game.status)
+          : "true";
 
     }
 
 
-    // =====================================
-    // SAVE / UPDATE GAME
-    // =====================================
+    function closeGameModal() {
 
-    const gameForm =
+      document.getElementById(
+        "gameModal"
+      ).classList.remove("active");
+
+
       document.getElementById(
         "gameForm"
-      );
+      ).reset();
 
 
-    if (gameForm) {
+      document.getElementById(
+        "gameId"
+      ).value = "";
 
-      gameForm.addEventListener(
-        "submit",
-        async function (event) {
-
-          event.preventDefault();
+    }
 
 
-          if (!token) {
+    function editGame(id) {
 
-            alert(
-              "Authentication required."
-            );
-
-            return;
-          }
+      const game =
+        games.find(function(item) {
+          return item.id === id;
+        });
 
 
-          const editingId =
-            gameForm.dataset.editingId;
+      if (!game) {
 
-
-          const gameData = {
-
-            name:
-              document.getElementById(
-                "gameName"
-              ).value.trim(),
-
-            category:
-              document.getElementById(
-                "gameCategory"
-              ).value,
-
-            icon:
-              document.getElementById(
-                "gameIcon"
-              ).value.trim(),
-
-            description:
-              document.getElementById(
-                "gameDescription"
-              ).value.trim(),
-
-            image:
-              document.getElementById(
-                "gameImage"
-              ).value.trim(),
-
-            status:
-              document.getElementById(
-                "gameStatus"
-              ).checked
-
-          };
-
-
-          try {
-
-            const method =
-              editingId
-                ? "PATCH"
-                : "POST";
-
-
-            const url =
-              editingId
-                ? `${API}/admin/games/${editingId}`
-                : `${API}/admin/games`;
-
-
-            const response =
-              await fetch(
-                url,
-                {
-                  method,
-
-                  headers: {
-                    "Authorization":
-                      `Bearer ${token}`,
-
-                    "Content-Type":
-                      "application/json",
-
-                    "Accept":
-                      "application/json"
-                  },
-
-                  body:
-                    JSON.stringify(
-                      gameData
-                    )
-                }
-              );
-
-
-            const data =
-              await response.json();
-
-
-            if (!response.ok) {
-
-              throw new Error(
-                data.error ||
-                "Failed to save game."
-              );
-
-            }
-
-
-            alert(
-              editingId
-                ? "Game updated successfully!"
-                : "Game created successfully!"
-            );
-
-
-            delete gameForm.dataset.editingId;
-
-
-            closeGameModal();
-
-
-            await loadGames();
-
-
-          } catch (error) {
-
-            console.error(
-              "Save game error:",
-              error
-            );
-
-            alert(
-              error.message ||
-              "Failed to save game."
-            );
-
-          }
-
-        }
-      );
-
-                }
-
-          // =====================================
-    // DELETE GAME
-    // =====================================
-
-    async function deleteGame(id) {
-
-      if (!token) {
-
-        alert(
-          "Authentication required."
-        );
+        alert("Game not found.");
 
         return;
       }
 
+
+      openGameModal(game);
+
+    }
+
+        document.getElementById(
+      "addGameButton"
+    ).addEventListener(
+      "click",
+      function() {
+        openGameModal();
+      }
+    );
+
+
+    document.getElementById(
+      "gameForm"
+    ).addEventListener(
+      "submit",
+      async function(event) {
+
+        event.preventDefault();
+
+
+        const id =
+          document.getElementById(
+            "gameId"
+          ).value;
+
+
+        const payload = {
+
+          name:
+            document.getElementById(
+              "gameName"
+            ).value.trim(),
+
+          category:
+            document.getElementById(
+              "gameCategory"
+            ).value.trim(),
+
+          icon:
+            document.getElementById(
+              "gameIcon"
+            ).value.trim(),
+
+          description:
+            document.getElementById(
+              "gameDescription"
+            ).value.trim(),
+
+          image:
+            document.getElementById(
+              "gameImage"
+            ).value.trim(),
+
+          status:
+            document.getElementById(
+              "gameStatus"
+            ).value === "true"
+
+        };
+
+              try {
+
+          const url =
+            id
+              ? API + "/admin/games/" + id
+              : API + "/admin/games";
+
+
+          const method =
+            id
+              ? "PUT"
+              : "POST";
+
+
+          const response =
+            await fetch(
+              url,
+              {
+                method: method,
+
+                headers: {
+
+                  "Content-Type":
+                    "application/json",
+
+                  Authorization:
+                    "Bearer " +
+                    getToken()
+
+                },
+
+                body:
+                  JSON.stringify(payload)
+
+              }
+            );
+
+
+          const data =
+            await response.json();
+
+
+          if (!response.ok) {
+
+            throw new Error(
+              data.error ||
+              "Failed to save game"
+            );
+
+          }
+
+
+          closeGameModal();
+
+
+          await loadGames();
+
+
+          await updateDashboardStats();
+
+        } catch (error) {
+
+          console.error(
+            "Save game error:",
+            error
+          );
+
+          alert(error.message);
+
+        }
+
+      }
+    );
+
+        async function deleteGame(id) {
 
       const confirmed =
         confirm(
@@ -2325,16 +1467,14 @@
 
         const response =
           await fetch(
-            `${API}/admin/games/${id}`,
+            API + "/admin/games/" + id,
             {
               method: "DELETE",
 
               headers: {
-                "Authorization":
-                  `Bearer ${token}`,
-
-                "Accept":
-                  "application/json"
+                Authorization:
+                  "Bearer " +
+                  getToken()
               }
             }
           );
@@ -2348,18 +1488,16 @@
 
           throw new Error(
             data.error ||
-            "Failed to delete game."
+            "Failed to delete game"
           );
 
         }
 
 
-        alert(
-          "Game deleted successfully!"
-        );
-
-
         await loadGames();
+
+
+        await updateDashboardStats();
 
 
       } catch (error) {
@@ -2369,26 +1507,13 @@
           error
         );
 
-        alert(
-          error.message ||
-          "Failed to delete game."
-        );
+        alert(error.message);
 
       }
 
-    }
+        }
 
-
-    // =====================================
-    // LOAD PROMOTIONS
-    // =====================================
-
-    async function loadPromotions() {
-
-      if (!token) {
-        return;
-      }
-
+        async function loadPromotions() {
 
       const tableBody =
         document.getElementById(
@@ -2396,37 +1521,16 @@
         );
 
 
-      if (!tableBody) {
-        return;
-      }
-
-
-      tableBody.innerHTML = `
-        <tr>
-          <td
-            colspan="6"
-            class="empty"
-          >
-            Loading promotions...
-          </td>
-        </tr>
-      `;
-
-
       try {
 
         const response =
           await fetch(
-            `${API}/promotions`,
+            API + "/admin/promotions",
             {
-              method: "GET",
-
               headers: {
-                "Authorization":
-                  `Bearer ${token}`,
-
-                "Accept":
-                  "application/json"
+                Authorization:
+                  "Bearer " +
+                  getToken()
               }
             }
           );
@@ -2440,109 +1544,25 @@
 
           throw new Error(
             data.error ||
-            "Failed to load promotions."
+            "Failed to load promotions"
           );
 
         }
 
 
         promotions =
-          Array.isArray(data)
-            ? data
-            : Array.isArray(data.promotions)
-              ? data.promotions
-              : [];
+          data.promotions ||
+          data ||
+          [];
 
 
-        window.nova88Promotions =
-          promotions;
-
-
-        promotionCount.textContent =
+        document.getElementById(
+          "promotionCount"
+        ).textContent =
           promotions.length;
 
 
-        if (!promotions.length) {
-
-          tableBody.innerHTML = `
-            <tr>
-              <td
-                colspan="6"
-                class="empty"
-              >
-                No promotions found.
-              </td>
-            </tr>
-          `;
-
-          return;
-        }
-
-
-        tableBody.innerHTML =
-          promotions.map(function (promotion) {
-
-            return `
-              <tr>
-
-                <td>
-                  ${escapeHtml(
-                    promotion.id
-                  )}
-                </td>
-
-                <td>
-                  ${escapeHtml(
-                    promotion.title
-                  )}
-                </td>
-
-                <td>
-                  ${escapeHtml(
-                    promotion.description
-                  )}
-                </td>
-
-                <td>
-                  ${
-                    promotion.status
-                      ? "🟢 Active"
-                      : "🔴 Inactive"
-                  }
-                </td>
-
-                <td>
-                  ${formatDate(
-                    promotion.createdAt
-                  )}
-                </td>
-
-                <td>
-
-                  <button
-                    class="action-btn"
-                    onclick="editPromotion(
-                      ${promotion.id}
-                    )"
-                  >
-                    Edit
-                  </button>
-
-                  <button
-                    class="delete-btn"
-                    onclick="deletePromotion(
-                      ${promotion.id}
-                    )"
-                  >
-                    Delete
-                  </button>
-
-                </td>
-
-              </tr>
-            `;
-
-          }).join("");
+        renderPromotions();
 
 
       } catch (error) {
@@ -2552,183 +1572,310 @@
           error
         );
 
-        tableBody.innerHTML = `
-          <tr>
-            <td
-              colspan="6"
-              class="empty"
-            >
-              Failed to load promotions.
-            </td>
-          </tr>
-        `;
+
+        tableBody.innerHTML =
+          '<tr><td colspan="6">Failed to load promotions.</td></tr>';
 
       }
 
-      }
+        }
 
-          // =====================================
-    // OPEN PROMOTION MODAL
-    // =====================================
+        function renderPromotions() {
 
-    function openPromotionModal() {
-
-      const modal =
+      const tableBody =
         document.getElementById(
-          "promotionModal"
-        );
-
-      const form =
-        document.getElementById(
-          "promotionForm"
+          "promotionsTableBody"
         );
 
 
-      if (!modal || !form) {
+      if (!promotions.length) {
+
+        tableBody.innerHTML =
+          '<tr><td colspan="6">No promotions found.</td></tr>';
+
         return;
       }
 
 
-      form.reset();
+      tableBody.innerHTML =
+        promotions.map(function(item) {
+
+          return `
+            <tr>
+
+              <td>${item.id}</td>
+
+              <td>
+                ${escapeHtml(
+                  item.title
+                )}
+              </td>
+
+              <td>
+                ${escapeHtml(
+                  item.description || "-"
+                )}
+              </td>
+
+              <td>
+                ${item.status
+                  ? "Active"
+                  : "Inactive"}
+              </td>
+
+              <td>
+                ${formatDate(
+                  item.createdAt
+                )}
+              </td>
+
+              <td>
+
+                <button
+                  class="action-btn"
+                  onclick="editPromotion(${item.id})"
+                >
+                  Edit
+                </button>
+
+                <button
+                  class="action-btn delete-btn"
+                  onclick="deletePromotion(${item.id})"
+                >
+                  Delete
+                </button>
+
+              </td>
+
+            </tr>
+          `;
+
+        }).join("");
+
+        }
+
+
+        function openPromotionModal(item) {
+
+      document.getElementById(
+        "promotionModal"
+      ).classList.add("active");
+
+
+      document.getElementById(
+        "promotionModalTitle"
+      ).textContent =
+        item
+          ? "Edit Promotion"
+          : "Add Promotion";
+
+
+      document.getElementById(
+        "promotionId"
+      ).value =
+        item ? item.id : "";
+
+
+      document.getElementById(
+        "promotionTitle"
+      ).value =
+        item
+          ? item.title || ""
+          : "";
+
+
+      document.getElementById(
+        "promotionDescription"
+      ).value =
+        item
+          ? item.description || ""
+          : "";
+
+          document.getElementById(
+        "promotionImage"
+      ).value =
+        item
+          ? item.image || ""
+          : "";
+
+
+      document.getElementById(
+        "promotionStatus"
+      ).value =
+        item
+          ? String(item.status)
+          : "true";
+
+    }
+
+
+    function closePromotionModal() {
+
+      document.getElementById(
+        "promotionModal"
+      ).classList.remove("active");
+
+
+      document.getElementById(
+        "promotionForm"
+      ).reset();
 
 
       document.getElementById(
         "promotionId"
       ).value = "";
 
-
-      document.getElementById(
-        "promotionStatus"
-      ).value = "true";
-
-
-      document.getElementById(
-        "promotionModalTitle"
-      ).textContent =
-        "Add New Promotion";
-
-
-      document.getElementById(
-        "promotionSaveButton"
-      ).textContent =
-        "Save Promotion";
-
-
-      modal.style.display =
-        "flex";
-
     }
 
-
-    // =====================================
-    // CLOSE PROMOTION MODAL
-    // =====================================
-
-    function closePromotionModal() {
-
-      const modal =
-        document.getElementById(
-          "promotionModal"
-        );
-
-
-      if (!modal) {
-        return;
-      }
-
-
-      modal.style.display =
-        "none";
-
-    }
-
-
-    // =====================================
-    // EDIT PROMOTION
-    // =====================================
 
     function editPromotion(id) {
 
-      const promotion =
-        promotions.find(function (item) {
+      const item =
+        promotions.find(
+          function(promotion) {
+            return promotion.id === id;
+          }
+        );
 
-          return Number(item.id) ===
-            Number(id);
 
-        });
-
-
-      if (!promotion) {
+      if (!item) {
 
         alert(
-          "Promotion data not found."
+          "Promotion not found."
         );
 
         return;
       }
 
 
-      document.getElementById(
-        "promotionModalTitle"
-      ).textContent =
-        "Edit Promotion";
+      openPromotionModal(item);
 
+        }
 
-      document.getElementById(
-        "promotionId"
-      ).value =
-        promotion.id;
-
-
-      document.getElementById(
-        "promotionTitle"
-      ).value =
-        promotion.title || "";
-
-
-      document.getElementById(
-        "promotionDescription"
-      ).value =
-        promotion.description || "";
-
-
-      document.getElementById(
-        "promotionImage"
-      ).value =
-        promotion.image || "";
-
-
-      document.getElementById(
-        "promotionStatus"
-      ).value =
-        promotion.status
-          ? "true"
-          : "false";
-
-
-      document.getElementById(
-        "promotionSaveButton"
-      ).textContent =
-        "Update Promotion";
-
-
-      document
-
-          // =====================================
-    // DELETE PROMOTION
-    // =====================================
-
-    async function deletePromotion(id) {
-
-      if (!token) {
-
-        alert(
-          "Authentication required."
-        );
-
-        return;
+        document.getElementById(
+      "addPromotionButton"
+    ).addEventListener(
+      "click",
+      function() {
+        openPromotionModal();
       }
+    );
 
+
+    document.getElementById(
+      "promotionForm"
+    ).addEventListener(
+      "submit",
+      async function(event) {
+
+        event.preventDefault();
+
+
+        const id =
+          document.getElementById(
+            "promotionId"
+          ).value;
+
+
+        const payload = {
+
+          title:
+            document.getElementById(
+              "promotionTitle"
+            ).value.trim(),
+
+          description:
+            document.getElementById(
+              "promotionDescription"
+            ).value.trim(),
+
+          image:
+            document.getElementById(
+              "promotionImage"
+            ).value.trim(),
+
+          status:
+            document.getElementById(
+              "promotionStatus"
+            ).value === "true"
+
+        };
+
+              try {
+
+          const url =
+            id
+              ? API + "/admin/promotions/" + id
+              : API + "/admin/promotions";
+
+
+          const method =
+            id
+              ? "PUT"
+              : "POST";
+
+
+          const response =
+            await fetch(
+              url,
+              {
+                method: method,
+
+                headers: {
+
+                  "Content-Type":
+                    "application/json",
+
+                  Authorization:
+                    "Bearer " +
+                    getToken()
+
+                },
+
+                body:
+                  JSON.stringify(payload)
+
+              }
+            );
+
+
+          const data =
+            await response.json();
+
+
+          if (!response.ok) {
+
+            throw new Error(
+              data.error ||
+              "Failed to save promotion"
+            );
+
+          }
+
+
+          closePromotionModal();
+
+
+          await loadPromotions();
+
+
+          await updateDashboardStats();
+
+        } catch (error) {
+
+          console.error(
+            "Save promotion error:",
+            error
+          );
+
+          alert(error.message);
+
+        }
+
+      }
+    );
+
+        async function deletePromotion(id) {
 
       const confirmed =
         confirm(
@@ -2745,16 +1892,14 @@
 
         const response =
           await fetch(
-            `${API}/promotions/${id}`,
+            API + "/admin/promotions/" + id,
             {
               method: "DELETE",
 
               headers: {
-                "Authorization":
-                  `Bearer ${token}`,
-
-                "Accept":
-                  "application/json"
+                Authorization:
+                  "Bearer " +
+                  getToken()
               }
             }
           );
@@ -2768,18 +1913,16 @@
 
           throw new Error(
             data.error ||
-            "Failed to delete promotion."
+            "Failed to delete promotion"
           );
 
         }
 
 
-        alert(
-          "Promotion deleted successfully."
-        );
-
-
         await loadPromotions();
+
+
+        await updateDashboardStats();
 
 
       } catch (error) {
@@ -2789,45 +1932,24 @@
           error
         );
 
-        alert(
-          error.message ||
-          "Failed to delete promotion."
-        );
+        alert(error.message);
 
       }
 
-    }
+        }
 
-
-    // =====================================
-    // CHECK ADMIN ACCESS
-    // =====================================
-
-    async function checkAdminAccess() {
-
-      if (!token) {
-
-        window.location.href =
-          "index.html";
-
-        return;
-      }
-
+        async function updateDashboardStats() {
 
       try {
 
         const response =
           await fetch(
-            `${API}/auth/me`,
+            API + "/admin/dashboard",
             {
-              method: "GET",
-
               headers: {
-                "Authorization":
-                  `Bearer ${token}`,
-
-                "Accept":
-                  "application/json"
+                Authorization:
+                  "Bearer " +
+                  getToken()
               }
             }
           );
@@ -2838,56 +1960,55 @@
 
 
         if (!response.ok) {
-
-          localStorage.removeItem(
-            "nova88_token"
-          );
-
-          window.location.href =
-            "index.html";
-
           return;
         }
 
 
-        const user =
-          data.user || {};
+        const stats =
+          data.stats || {};
 
 
-        if (user.role !== "ADMIN") {
-
-          window.location.href =
-            "dashboard.html";
-
-          return;
-        }
+        document.getElementById(
+          "userCount"
+        ).textContent =
+          stats.users ?? 0;
 
 
-        await startAdminPanel();
+        document.getElementById(
+          "gameCount"
+        ).textContent =
+          stats.games ?? 0;
 
+
+        document.getElementById(
+          "promotionCount"
+        ).textContent =
+          stats.promotions ?? 0;
 
       } catch (error) {
 
         console.error(
-          "Admin access check error:",
+          "Stats update error:",
           error
         );
 
-        localStorage.removeItem(
-          "nova88_token"
-        );
-
-        window.location.href =
-          "index.html";
-
       }
+
+        }
+
+
+        async function startAdminPanel() {
+
+      await loadUsers();
+
+      await loadGames();
+
+      await loadPromotions();
+
+      await updateDashboardStats();
 
     }
 
-
-    // =====================================
-    // START
-    // =====================================
 
     console.log(
       "NOVA88 Admin Panel starting..."
