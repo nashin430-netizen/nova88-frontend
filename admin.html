@@ -14,27 +14,106 @@
 
   <style>
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
 
-    body {
-      font-family: Arial, sans-serif;
-      background: #08090d;
-      color: #ffffff;
-      min-height: 100vh;
-    }
+  body {
+    font-family: Arial, sans-serif;
+    background: #08090d;
+    color: #ffffff;
+    min-height: 100vh;
+  }
 
-    button,
-    input,
-    select,
-    textarea {
-      font-family: inherit;
-    }
+  button,
+  input,
+  select,
+  textarea {
+    font-family: inherit;
+  }
 
-  </style>
+  /* MODAL */
+
+  .modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: rgba(0, 0, 0, 0.75);
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+
+  .modal.active {
+    display: flex;
+  }
+
+  .modal-box {
+    width: 100%;
+    max-width: 520px;
+    max-height: 90vh;
+    overflow-y: auto;
+    background: #11131a;
+    border: 1px solid #2a2d38;
+    border-radius: 16px;
+    padding: 20px;
+  }
+
+  .modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+
+  .modal-header h3 {
+    font-size: 20px;
+  }
+
+  .modal-header button {
+    border: none;
+    background: transparent;
+    color: #ffffff;
+    font-size: 28px;
+    cursor: pointer;
+  }
+
+  .modal-box label {
+    display: block;
+    margin: 14px 0 6px;
+    font-size: 14px;
+  }
+
+  .modal-box input,
+  .modal-box select,
+  .modal-box textarea {
+    width: 100%;
+    padding: 11px;
+    border: 1px solid #30333d;
+    border-radius: 8px;
+    background: #08090d;
+    color: #ffffff;
+    outline: none;
+  }
+
+  .modal-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+  }
+
+  .modal-actions button {
+    flex: 1;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+
+                     </style>
 
 </head>
 
