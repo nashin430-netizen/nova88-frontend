@@ -642,6 +642,25 @@
 
     let promotions = [];
 
+async function safeJson(response) {
+
+  const text = await response.text();
+
+  if (!text || !text.trim()) {
+    return {};
+  }
+
+  try {
+    return JSON.parse(text);
+  } catch (error) {
+    console.error("Invalid server response:", text);
+    return {
+      error: "Invalid server response"
+    };
+  }
+
+    }
+    
         function escapeHtml(value) {
 
       return String(value ?? "")
@@ -718,8 +737,7 @@
 
 
         const data =
-          await response.json();
-
+  await safeJson(response);
 
         if (!response.ok) {
 
@@ -839,8 +857,7 @@
 
 
         const data =
-          await response.json();
-
+  await safeJson(response);
 
         if (!response.ok) {
 
