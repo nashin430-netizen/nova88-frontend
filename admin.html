@@ -1,2120 +1,4853 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
-<head>
 
+<head>
   <meta charset="UTF-8">
+
 
   <meta
     name="viewport"
     content="width=device-width, initial-scale=1.0"
   >
 
-  <title>NOVA88 - Admin Panel</title>
+
+  <title>NOVA88 | Admin Dashboard</title>
+
+
+  <meta
+    name="theme-color"
+    content="#080808"
+  >
+
 
   <style>
+    :root {
+      --bg: #080808;
+      --panel: #111111;
+      --panel2: #171717;
+      --gold: #d4af37;
+      --gold2: #f5d76e;
+      --text: #ffffff;
+      --muted: #a5a5a5;
+      --border: #292929;
+      --green: #27c980;
+      --red: #ff5252;
+      --blue: #54a7ff;
+      --radius: 16px;
+    }
 
-  * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-  }
 
-  body {
-    font-family: Arial, sans-serif;
-    background: #08090d;
-    color: #ffffff;
-    min-height: 100vh;
-  }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-  button,
-  input,
-  select,
-  textarea {
-    font-family: inherit;
-  }
 
-  /* MODAL */
+    html {
+      scroll-behavior: smooth;
+    }
 
-  .modal {
-    display: none;
-    position: fixed;
-    inset: 0;
-    z-index: 9999;
-    background: rgba(0, 0, 0, 0.75);
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-  }
 
-  .modal.active {
-    display: flex;
-  }
+    body {
+      font-family: Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.5;
+    }
 
-  .modal-box {
-    width: 100%;
-    max-width: 520px;
-    max-height: 90vh;
-    overflow-y: auto;
-    background: #11131a;
-    border: 1px solid #2a2d38;
-    border-radius: 16px;
-    padding: 20px;
-  }
 
-  .modal-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 20px;
-  }
+    button,
+    input,
+    select,
+    textarea {
+      font-family: inherit;
+      font-size: 14px;
+    }
 
-  .modal-header h3 {
-    font-size: 20px;
-  }
 
-  .modal-header button {
-    border: none;
-    background: transparent;
-    color: #ffffff;
-    font-size: 28px;
-    cursor: pointer;
-  }
+    button {
+      cursor: pointer;
+    }
 
-  .modal-box label {
-    display: block;
-    margin: 14px 0 6px;
-    font-size: 14px;
-  }
 
-  .modal-box input,
-  .modal-box select,
-  .modal-box textarea {
-    width: 100%;
-    padding: 11px;
-    border: 1px solid #30333d;
-    border-radius: 8px;
-    background: #08090d;
-    color: #ffffff;
-    outline: none;
-  }
+    button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
 
-  .modal-actions {
-    display: flex;
-    gap: 10px;
-    margin-top: 20px;
-  }
 
-  .modal-actions button {
-    flex: 1;
-    padding: 12px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-  }
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
 
-                     </style>
 
+    img {
+      max-width: 100%;
+    }
+
+
+    .app {
+      min-height: 100vh;
+    }
+
+
+    /* SIDEBAR */
+
+
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      width: 250px;
+      padding: 24px 16px;
+      background: #101010;
+      border-right: 1px solid var(--border);
+      overflow-y: auto;
+      z-index: 1000;
+    }
+
+
+    .brand {
+      padding: 8px 12px 28px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 24px;
+    }
+
+
+    .brand h1 {
+      color: var(--gold);
+      font-size: 28px;
+      letter-spacing: 3px;
+      font-weight: 900;
+    }
+
+
+    .brand p {
+      color: var(--muted);
+      font-size: 10px;
+      letter-spacing: 4px;
+      margin-top: 4px;
+    }
+
+
+    .nav-label {
+      color: #777;
+      font-size: 10px;
+      font-weight: bold;
+      letter-spacing: 2px;
+      padding: 0 12px;
+      margin: 20px 0 10px;
+    }
+
+
+    .nav-btn {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      width: 100%;
+      padding: 13px 14px;
+      margin-bottom: 7px;
+      border: 1px solid transparent;
+      border-radius: 10px;
+      background: transparent;
+      color: #c8c8c8;
+      text-align: left;
+      transition: 0.2s;
+    }
+
+
+    .nav-btn:hover,
+    .nav-btn.active {
+      background: #29230f;
+      border-color: #6f5a1d;
+      color: var(--gold2);
+    }
+
+
+    .nav-icon {
+      width: 23px;
+      text-align: center;
+      font-size: 18px;
+    }
+
+
+    .sidebar-bottom {
+      margin-top: 30px;
+      padding-top: 18px;
+      border-top: 1px solid var(--border);
+    }
+
+
+    /* MAIN AREA */
+
+
+    .main {
+      margin-left: 250px;
+      padding: 28px;
+      min-width: 0;
+    }
+
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border);
+    }
+
+
+    .topbar h2 {
+      font-size: 25px;
+      color: var(--gold2);
+    }
+
+
+    .topbar p {
+      color: var(--muted);
+      font-size: 13px;
+      margin-top: 5px;
+    }
+
+
+    .topbar-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 8px 12px;
+      border: 1px solid #235c42;
+      border-radius: 30px;
+      background: #10251a;
+      color: #7ce5ae;
+      font-size: 11px;
+    }
+
+
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      background: var(--green);
+      border-radius: 50%;
+    }
+
+
+    .menu-toggle {
+      display: none;
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      background: var(--panel);
+      color: var(--gold);
+      padding: 9px 12px;
+      font-size: 20px;
+    }
+
+
+    /* PAGE SECTIONS */
+
+
+    .page-section {
+      display: none;
+      animation: fadeIn 0.25s ease;
+    }
+
+
+    .page-section.active {
+      display: block;
+    }
+
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(5px);
+      }
+
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+
+    .section-heading {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+
+
+    .section-heading h2 {
+      font-size: 21px;
+    }
+
+
+    .section-heading p {
+      color: var(--muted);
+      font-size: 13px;
+      margin-top: 4px;
+    }
+
+
+    /* END OF PART 1 */
+
+
+    /* DASHBOARD CARDS */
+
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+      margin-bottom: 24px;
+    }
+
+
+    .stat-card {
+      position: relative;
+      overflow: hidden;
+      padding: 23px;
+      border: 1px solid #34301f;
+      border-radius: var(--radius);
+      background: linear-gradient(135deg, #19170f, #101010);
+    }
+
+
+    .stat-card::after {
+      content: "";
+      position: absolute;
+      right: -25px;
+      bottom: -35px;
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background: rgba(212, 175, 55, 0.06);
+    }
+
+
+    .stat-card .stat-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 43px;
+      height: 43px;
+      margin-bottom: 18px;
+      border: 1px solid #5a4a1d;
+      border-radius: 12px;
+      background: #28220f;
+      font-size: 22px;
+    }
+
+
+    .stat-card h3 {
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: normal;
+    }
+
+
+    .stat-card strong {
+      display: block;
+      margin-top: 8px;
+      color: var(--gold2);
+      font-size: 30px;
+    }
+
+
+    /* PANELS */
+
+
+    .panel {
+      margin-bottom: 24px;
+      padding: 23px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--panel);
+      min-width: 0;
+    }
+
+
+    .panel-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+
+
+    .panel-header h3 {
+      font-size: 17px;
+    }
+
+
+    .panel-description {
+      margin-top: 5px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+
+    .admin-info-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+
+    .info-item {
+      padding: 16px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: #0c0c0c;
+      overflow-wrap: anywhere;
+    }
+
+
+    .info-item span {
+      display: block;
+      margin-bottom: 7px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+
+    .info-item strong {
+      font-size: 14px;
+      color: var(--gold2);
+    }
+
+
+    /* BUTTONS */
+
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      min-height: 40px;
+      padding: 10px 15px;
+      border: 1px solid transparent;
+      border-radius: 9px;
+      font-weight: bold;
+      font-size: 12px;
+      transition: 0.2s;
+    }
+
+
+    .btn-primary {
+      background: linear-gradient(135deg, #f1d779, #bd9629);
+      color: #151107;
+    }
+
+
+    .btn-primary:hover {
+      filter: brightness(1.08);
+      transform: translateY(-1px);
+    }
+
+
+    .btn-secondary {
+      border-color: #393939;
+      background: #202020;
+      color: #fff;
+    }
+
+
+    .btn-secondary:hover {
+      border-color: var(--gold);
+    }
+
+
+    .btn-danger {
+      border-color: #713131;
+      background: #321616;
+      color: #ff9d9d;
+    }
+
+
+    .btn-small {
+      min-height: 32px;
+      padding: 7px 10px;
+      font-size: 11px;
+    }
+
+
+    /* SEARCH AND FILTERS */
+
+
+    .filters {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+
+    .filters input,
+    .filters select,
+    .form-control {
+      width: 100%;
+      min-width: 0;
+      padding: 12px 13px;
+      border: 1px solid #353535;
+      border-radius: 9px;
+      outline: none;
+      background: #0b0b0b;
+      color: #fff;
+    }
+
+
+    .filters input:focus,
+    .filters select:focus,
+    .form-control:focus {
+      border-color: var(--gold);
+    }
+
+
+    .filters select {
+      max-width: 180px;
+    }
+
+
+    /* TABLES */
+
+
+    .table-wrap {
+      width: 100%;
+      overflow-x: auto;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+    }
+
+
+    table {
+      width: 100%;
+      min-width: 650px;
+      border-collapse: collapse;
+      text-align: left;
+    }
+
+
+    th {
+      padding: 14px;
+      background: #1b190f;
+      color: var(--gold2);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      white-space: nowrap;
+    }
+
+
+    td {
+      padding: 14px;
+      border-top: 1px solid #252525;
+      color: #dedede;
+      font-size: 12px;
+      vertical-align: middle;
+    }
+
+
+    tbody tr:hover {
+      background: #171717;
+    }
+
+
+    .table-actions {
+      display: flex;
+      gap: 7px;
+      flex-wrap: wrap;
+    }
+
+
+    .badge {
+      display: inline-block;
+      padding: 5px 9px;
+      border-radius: 20px;
+      font-size: 10px;
+      font-weight: bold;
+    }
+
+
+    .badge-active {
+      background: #102b1d;
+      color: #70e7a4;
+    }
+
+
+    .badge-inactive {
+      background: #301717;
+      color: #ff9999;
+    }
+
+
+    .empty-state {
+      padding: 28px;
+      text-align: center;
+      color: var(--muted);
+    }
+
+
+    /* MODALS */
+
+
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 2000;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      background: rgba(0, 0, 0, 0.82);
+    }
+
+
+    .modal.active {
+      display: flex;
+    }
+
+
+    .modal-box {
+      width: 100%;
+      max-width: 520px;
+      max-height: 90vh;
+      overflow-y: auto;
+      padding: 23px;
+      border: 1px solid #66551f;
+      border-radius: 16px;
+      background: #121212;
+      box-shadow: 0 15px 60px rgba(0, 0, 0, 0.6);
+    }
+
+
+    .modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+
+    .modal-header h3 {
+      color: var(--gold2);
+      font-size: 19px;
+    }
+
+
+    .modal-header button {
+      border: none;
+      background: transparent;
+      color: #fff;
+      font-size: 27px;
+    }
+
+
+    .modal-box label {
+      display: block;
+      margin: 14px 0 6px;
+      color: #ddd;
+      font-size: 12px;
+    }
+
+
+    .modal-box input,
+    .modal-box select,
+    .modal-box textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #343434;
+      border-radius: 8px;
+      outline: none;
+      background: #080808;
+      color: #fff;
+    }
+
+
+    .modal-box input:focus,
+    .modal-box select:focus,
+    .modal-box textarea:focus {
+      border-color: var(--gold);
+    }
+
+
+    .modal-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 22px;
+    }
+
+
+    .modal-actions button {
+      flex: 1;
+    }
+
+
+    /* SETTINGS */
+
+
+    .settings-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+
+    .settings-card {
+      padding: 20px;
+      border: 1px solid var(--border);
+      border-radius: 13px;
+      background: #111;
+    }
+
+
+    .settings-card h3 {
+      margin-bottom: 8px;
+      color: var(--gold2);
+      font-size: 16px;
+    }
+
+
+    .settings-card p {
+      margin-bottom: 16px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+
+    /* RESPONSIVE */
+
+
+    @media (max-width: 1000px) {
+      .sidebar {
+        width: 220px;
+      }
+
+
+      .main {
+        margin-left: 220px;
+        padding: 22px;
+      }
+
+
+      .stats-grid {
+        gap: 12px;
+      }
+
+
+      .stat-card {
+        padding: 17px;
+      }
+    }
+
+
+    @media (max-width: 760px) {
+      .sidebar {
+        width: 260px;
+        transform: translateX(-100%);
+        transition: transform 0.25s ease;
+        box-shadow: none;
+      }
+
+
+      .sidebar.open {
+        transform: translateX(0);
+        box-shadow: 15px 0 45px rgba(0, 0, 0, 0.6);
+      }
+
+
+      .main {
+        margin-left: 0;
+        padding: 16px;
+      }
+
+
+      .menu-toggle {
+        display: inline-block;
+      }
+
+
+      .topbar {
+        align-items: flex-start;
+        gap: 10px;
+      }
+
+
+      .topbar h2 {
+        font-size: 20px;
+      }
+
+
+      .topbar-right {
+        gap: 6px;
+      }
+
+
+      .status-badge {
+        font-size: 9px;
+        padding: 7px;
+      }
+
+
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+
+
+      .stat-card {
+        padding: 19px;
+      }
+
+
+      .admin-info-grid,
+      .settings-grid {
+        grid-template-columns: 1fr;
+      }
+
+
+      .panel {
+        padding: 15px;
+      }
+
+
+      .filters {
+        flex-direction: column;
+      }
+
+
+      .filters select {
+        max-width: none;
+      }
+
+
+      .section-heading h2 {
+        font-size: 19px;
+      }
+    }
+
+
+    @media (max-width: 380px) {
+      .main {
+        padding: 11px;
+      }
+
+
+      .topbar h2 {
+        font-size: 17px;
+      }
+
+
+      .brand h1 {
+        font-size: 25px;
+      }
+
+
+      .btn {
+        padding: 9px 10px;
+      }
+    }
+
+
+    /* END OF PART 2 */
+
+
+  </style>
 </head>
+
 
 <body>
 
-  <header>
 
-    <h1>NOVA88</h1>
-
-    <p>ADMIN PANEL</p>
-
-    <button id="logoutButton">
-      Logout
-    </button>
-
-  </header>
-    <main>
-
-    <section class="page-title">
-
-      <h2>
-        Admin Dashboard
-      </h2>
-
-      <p>
-        Manage your NOVA88 demo platform.
-      </p>
-
-    </section>
+  <div class="app">
 
 
-    <section class="status-card">
-
-      <h3>
-        System Status
-      </h3>
-
-      <p id="systemStatus">
-        Starting...
-      </p>
-
-    </section>
+    <!-- SIDEBAR -->
 
 
-    <section class="stats-grid">
+    <aside class="sidebar" id="sidebar">
 
-      <div class="stat-card">
 
-        <span>👥</span>
-
-        <h3>Users</h3>
-
-        <strong id="userCount">—</strong>
-
-      </div>
-
-            <div class="stat-card">
-
-        <span>🎮</span>
-
-        <h3>Games</h3>
-
-        <strong id="gameCount">—</strong>
-
+      <div class="brand">
+        <h1>NOVA88</h1>
+        <p>ADMINISTRATION</p>
       </div>
 
 
-      <div class="stat-card">
+      <p class="nav-label">MAIN MENU</p>
 
-        <span>🎁</span>
 
-        <h3>Promotions</h3>
+      <button
+        class="nav-btn active"
+        data-section="dashboardSection"
+      >
+        <span class="nav-icon">📊</span>
+        Dashboard
+      </button>
 
-        <strong id="promotionCount">—</strong>
+
+      <button
+        class="nav-btn"
+        data-section="usersSection"
+      >
+        <span class="nav-icon">👥</span>
+        Users
+      </button>
+
+
+      <button
+        class="nav-btn"
+        data-section="gamesSection"
+      >
+        <span class="nav-icon">🎮</span>
+        Games
+      </button>
+
+
+      <button
+        class="nav-btn"
+        data-section="promotionsSection"
+      >
+        <span class="nav-icon">🎁</span>
+        Promotions
+      </button>
+
+
+      <p class="nav-label">CONFIGURATION</p>
+
+
+      <button
+        class="nav-btn"
+        data-section="settingsSection"
+      >
+        <span class="nav-icon">⚙️</span>
+        Settings
+      </button>
+
+
+      <div class="sidebar-bottom">
+
+
+        <button
+          class="nav-btn"
+          id="sidebarLogout"
+        >
+          <span class="nav-icon">🚪</span>
+          Logout
+        </button>
+
 
       </div>
 
-    </section>
+
+    </aside>
 
 
-    <section class="admin-info">
+    <!-- MAIN CONTENT -->
 
-      <h3>
-        Admin Information
-      </h3>
 
-      <p>
-        Email:
-        <span id="adminEmail">—</span>
-      </p>
+    <main class="main">
 
-      <p>
-        Role:
-        <span id="adminRole">—</span>
-      </p>
+
+      <header class="topbar">
+
+
+        <div
+          style="
+            display:flex;
+            align-items:center;
+            gap:12px;
+          "
+        >
+
+
+          <button
+            class="menu-toggle"
+            id="menuToggle"
+            type="button"
+          >
+            ☰
+          </button>
+
+
+          <div>
+            <h2 id="pageTitle">
+              Admin Dashboard
+            </h2>
+
+
             <p>
-        User ID:
-        <span id="adminUserId">—</span>
-      </p>
+              Welcome to NOVA88 administration.
+            </p>
+          </div>
 
-    </section>
-
-
-    <section class="panel">
-
-      <h3>
-        👥 Registered Users
-      </h3>
-
-      <div class="filters">
-
-        <input
-          type="text"
-          id="userSearch"
-          placeholder="🔎 Search by name or email..."
-        >
-
-        <select id="roleFilter">
-
-          <option value="ALL">
-            All Roles
-          </option>
-
-          <option value="ADMIN">
-            Admin
-          </option>
-
-          <option value="USER">
-            User
-          </option>
-
-        </select>
-
-      </div>
-
-            <div class="table-wrap">
-
-        <table>
-
-          <thead>
-
-            <tr>
-
-              <th>ID</th>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Role</th>
-              <th>Joined</th>
-              <th>Action</th>
-
-            </tr>
-
-          </thead>
-
-          <tbody id="usersTableBody">
-
-            <tr>
-              <td colspan="6">
-                Loading users...
-              </td>
-            </tr>
-
-          </tbody>
-
-        </table>
-
-      </div>
-
-    </section>
-
-
-    <section class="panel">
-
-      <div class="section-header">
-
-        <div>
-
-          <h3>
-            🎮 Games Management
-          </h3>
-
-          <p>
-            Manage NOVA88 games.
-          </p>
 
         </div>
 
-        <button
-          id="addGameButton"
-          type="button"
-        >
-          + Add Game
-        </button>
 
-      </div>
-
-            <div class="table-wrap">
-
-        <table>
-
-          <thead>
-
-            <tr>
-
-              <th>ID</th>
-              <th>Game</th>
-              <th>Category</th>
-              <th>Status</th>
-              <th>Created</th>
-              <th>Action</th>
-
-            </tr>
-
-          </thead>
-
-          <tbody id="gamesTableBody">
-
-            <tr>
-              <td colspan="6">
-                Loading games...
-              </td>
-            </tr>
-
-          </tbody>
-
-        </table>
-
-      </div>
-
-    </section>
+        <div class="topbar-right">
 
 
-    <section class="panel">
+          <span class="status-badge">
+            <span class="status-dot"></span>
+            Admin Panel
+          </span>
 
-      <div class="section-header">
-
-        <div>
-
-          <h3>
-            🎁 Promotions Management
-          </h3>
-
-          <p>
-            Manage NOVA88 promotions.
-          </p>
 
         </div>
 
-        <button
-          id="addPromotionButton"
-          type="button"
-        >
-          + Add Promotion
-        </button>
 
-      </div>
-
-            <div class="table-wrap">
-
-        <table>
-
-          <thead>
-
-            <tr>
-
-              <th>ID</th>
-              <th>Title</th>
-              <th>Description</th>
-              <th>Status</th>
-              <th>Created</th>
-              <th>Action</th>
-
-            </tr>
-
-          </thead>
-
-          <tbody id="promotionsTableBody">
-
-            <tr>
-              <td colspan="6">
-                Loading promotions...
-              </td>
-            </tr>
-
-          </tbody>
-
-        </table>
-
-      </div>
-
-    </section>
-
-    </main>
-
-    <div
-    id="gameModal"
-    class="modal"
-  >
-
-    <div class="modal-box">
-
-      <div class="modal-header">
-
-        <h3 id="gameModalTitle">
-          Add Game
-        </h3>
-
-        <button
-          type="button"
-          onclick="closeGameModal()"
-        >
-          ×
-        </button>
-
-      </div>
+      </header>
 
 
-      <form id="gameForm">
-
-        <input
-          type="hidden"
-          id="gameId"
-        >
-
-        <label>
-          Game Name
-        </label>
-
-        <input
-          type="text"
-          id="gameName"
-          required
-        >
-
-        <label>
-          Category
-        </label>
-
-        <input
-          type="text"
-          id="gameCategory"
-          required
-        >
-
-        <label>
-          Icon
-        </label>
-
-        <input
-          type="text"
-          id="gameIcon"
-        >
-
-                <label>
-          Description
-        </label>
-
-        <textarea
-          id="gameDescription"
-          rows="4"
-        ></textarea>
+      <!-- DASHBOARD SECTION -->
 
 
-        <label>
-          Image URL
-        </label>
-
-        <input
-          type="text"
-          id="gameImage"
-        >
+      <section
+        class="page-section active"
+        id="dashboardSection"
+      >
 
 
-        <label>
-          Status
-        </label>
-
-        <select id="gameStatus">
-
-          <option value="true">
-            Active
-          </option>
-
-          <option value="false">
-            Inactive
-          </option>
-
-        </select>
+        <div class="section-heading">
 
 
-        <div class="modal-actions">
+          <div>
+            <h2>Dashboard Overview</h2>
+
+
+            <p>
+              Monitor your platform activity.
+            </p>
+          </div>
+
+
+        </div>
+
+
+        <div class="stats-grid">
+
+
+          <div class="stat-card">
+
+
+            <div class="stat-icon">👥</div>
+
+
+            <h3>Total Users</h3>
+
+
+            <strong id="userCount">0</strong>
+
+
+          </div>
+
+
+          <div class="stat-card">
+
+
+            <div class="stat-icon">🎮</div>
+
+
+            <h3>Total Games</h3>
+
+
+            <strong id="gameCount">0</strong>
+
+
+          </div>
+
+
+          <div class="stat-card">
+
+
+            <div class="stat-icon">🎁</div>
+
+
+            <h3>Total Promotions</h3>
+
+
+            <strong id="promotionCount">0</strong>
+
+
+          </div>
+
+
+        </div>
+
+
+        <div class="panel">
+
+
+          <div class="panel-header">
+
+
+            <div>
+              <h3>System Status</h3>
+
+
+              <p class="panel-description">
+                Backend connection information.
+              </p>
+            </div>
+
+
+          </div>
+
+
+          <p id="systemStatus">
+            Checking connection...
+          </p>
+
+
+        </div>
+
+
+        <div class="panel">
+
+
+          <div class="panel-header">
+
+
+            <div>
+              <h3>Admin Information</h3>
+
+
+              <p class="panel-description">
+                Current administrator account.
+              </p>
+            </div>
+
+
+          </div>
+
+
+          <div class="admin-info-grid">
+
+
+            <div class="info-item">
+
+
+              <span>Email Address</span>
+
+
+              <strong id="adminEmail">—</strong>
+
+
+            </div>
+
+
+            <div class="info-item">
+
+
+              <span>Account Role</span>
+
+
+              <strong id="adminRole">—</strong>
+
+
+            </div>
+
+
+            <div class="info-item">
+
+
+              <span>Admin ID</span>
+
+
+              <strong id="adminUserId">—</strong>
+
+
+            </div>
+
+
+          </div>
+
+
+        </div>
+
+
+      </section>
+
+
+      <!-- USERS SECTION -->
+
+
+      <section
+        class="page-section"
+        id="usersSection"
+      >
+
+
+        <div class="section-heading">
+
+
+          <div>
+            <h2>User Management</h2>
+
+
+            <p>
+              View and manage registered accounts.
+            </p>
+          </div>
+
+
+        </div>
+
+
+        <div class="panel">
+
+
+          <div class="panel-header">
+
+
+            <div>
+              <h3>Registered Users</h3>
+
+
+              <p class="panel-description">
+                Search users and manage account roles.
+              </p>
+            </div>
+
+
+          </div>
+
+
+          <div class="filters">
+
+
+            <input
+              type="text"
+              id="userSearch"
+              placeholder="Search name or email..."
+            >
+
+
+            <select id="roleFilter">
+
+
+              <option value="ALL">
+                All Roles
+              </option>
+
+
+              <option value="ADMIN">
+                Admin
+              </option>
+
+
+              <option value="USER">
+                User
+              </option>
+
+
+            </select>
+
+
+          </div>
+
+
+          <div class="table-wrap">
+
+
+            <table>
+
+
+              <thead>
+
+
+                <tr>
+                  <th>ID</th>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Role</th>
+                  <th>Joined</th>
+                  <th>Actions</th>
+                </tr>
+
+
+              </thead>
+
+
+              <tbody id="usersTableBody">
+
+
+                <tr>
+                  <td colspan="6" class="empty-state">
+                    Loading users...
+                  </td>
+                </tr>
+
+
+              </tbody>
+
+
+            </table>
+
+
+          </div>
+
+
+        </div>
+
+
+      </section>
+
+
+      <!-- END OF PART 3B →
+
+
+      <!-- GAMES SECTION -->
+
+
+      <section
+        class="page-section"
+        id="gamesSection"
+      >
+
+
+        <div class="section-heading">
+
+
+          <div>
+            <h2>Games Management</h2>
+
+
+            <p>
+              Add, edit and manage platform games.
+            </p>
+          </div>
+
 
           <button
             type="button"
-            onclick="closeGameModal()"
+            class="btn btn-primary"
+            id="addGameButton"
           >
-            Cancel
+            + Add Game
           </button>
 
-          <button
-            type="submit"
-            id="gameSaveButton"
-          >
-            Save Game
-          </button>
 
         </div>
 
-      </form>
 
-    </div>
+        <div class="panel">
 
-    </div>
 
-    <div
-    id="promotionModal"
-    class="modal"
-  >
+          <div class="panel-header">
 
-    <div class="modal-box">
 
-      <div class="modal-header">
+            <div>
+              <h3>All Games</h3>
 
-        <h3 id="promotionModalTitle">
-          Add Promotion
-        </h3>
 
-        <button
-          type="button"
-          onclick="closePromotionModal()"
-        >
-          ×
-        </button>
+              <p class="panel-description">
+                Manage game details and visibility.
+              </p>
+            </div>
+
+
+          </div>
+
+
+          <div class="table-wrap">
+
+
+            <table>
+
+
+              <thead>
+
+
+                <tr>
+                  <th>ID</th>
+                  <th>Game</th>
+                  <th>Category</th>
+                  <th>Status</th>
+                  <th>Created</th>
+                  <th>Actions</th>
+                </tr>
+
+
+              </thead>
+
+
+              <tbody id="gamesTableBody">
+
+
+                <tr>
+                  <td colspan="6" class="empty-state">
+                    Loading games...
+                  </td>
+                </tr>
+
+
+              </tbody>
+
+
+            </table>
+
+
+          </div>
+
+
+        </div>
+
+
+      </section>
+
+
+      <!-- END OF PART 3C →
+
+
+
+
+      <!-- PROMOTIONS SECTION -->
+
+
+      <section
+        class="page-section"
+        id="promotionsSection"
+      >
+
+
+        <div class="section-heading">
+
+
+          <div>
+            <h2>Promotions Management</h2>
+
+
+            <p>
+              Create and manage promotional offers.
+            </p>
+          </div>
+
+
+          <button
+            type="button"
+            class="btn btn-primary"
+            id="addPromotionButton"
+          >
+            + Add Promotion
+          </button>
+
+
+        </div>
+
+
+        <div class="panel">
+
+
+          <div class="panel-header">
+
+
+            <div>
+              <h3>All Promotions</h3>
+
+
+              <p class="panel-description">
+                Manage promotional titles, images and status.
+              </p>
+            </div>
+
+
+          </div>
+
+
+          <div class="table-wrap">
+
+
+            <table>
+
+
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Title</th>
+                  <th>Description</th>
+                  <th>Status</th>
+                  <th>Created</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+
+
+              <tbody id="promotionsTableBody">
+
+
+                <tr>
+                  <td colspan="6" class="empty-state">
+                    Loading promotions...
+                  </td>
+                </tr>
+
+
+              </tbody>
+
+
+            </table>
+
+
+          </div>
+
+
+        </div>
+
+
+      </section>
+
+
+      <!-- END OF PART 3D →
+
+
+
+
+      <!-- SETTINGS SECTION -->
+
+
+      <section
+        class="page-section"
+        id="settingsSection"
+      >
+
+
+        <div class="section-heading">
+
+
+          <div>
+            <h2>Admin Settings</h2>
+
+
+            <p>
+              Manage website branding, payments and banners.
+            </p>
+          </div>
+
+
+        </div>
+
+
+        <!-- WEBSITE LOGO -->
+
+
+        <div class="panel">
+
+
+          <div class="panel-header">
+
+
+            <div>
+              <h3>🖼️ Website Logo</h3>
+
+
+              <p class="panel-description">
+                Change the logo displayed on your website.
+              </p>
+            </div>
+
+
+          </div>
+
+
+          <form id="logoForm">
+
+
+            <label for="websiteLogoUrl">
+              Logo Image URL
+            </label>
+
+
+            <input
+              class="form-control"
+              type="url"
+              id="websiteLogoUrl"
+              placeholder="https://example.com/logo.png"
+            >
+
+
+            <div
+              id="logoPreview"
+              style="
+                margin-top:15px;
+                min-height:80px;
+                display:flex;
+                align-items:center;
+              "
+            >
+              <span style="color:#a5a5a5">
+                Logo preview
+              </span>
+            </div>
+
+
+            <button
+              class="btn btn-primary"
+              type="submit"
+              style="margin-top:15px"
+            >
+              Save Website Logo
+            </button>
+
+
+          </form>
+
+
+        </div>
+
+
+        <!-- PAYMENT METHODS -->
+
+
+        <div class="panel">
+
+
+          <div class="panel-header">
+
+
+            <div>
+              <h3>💳 Payment Methods</h3>
+
+
+              <p class="panel-description">
+                Add and manage the payment methods displayed
+                on your platform.
+              </p>
+            </div>
+
+
+            <button
+              class="btn btn-primary"
+              type="button"
+              id="addPaymentMethodButton"
+            >
+              + Add Method
+            </button>
+
+
+          </div>
+
+
+          <div class="table-wrap">
+
+
+            <table>
+
+
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Method</th>
+                  <th>Details</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+
+
+              <tbody id="paymentMethodsTableBody">
+
+
+                <tr>
+                  <td
+                    colspan="5"
+                    class="empty-state"
+                  >
+                    Payment methods will appear here.
+                  </td>
+                </tr>
+
+
+              </tbody>
+
+
+            </table>
+
+
+          </div>
+
+
+        </div>
+
+
+        <!-- HOMEPAGE SLIDER -->
+
+
+        <div class="panel">
+
+
+          <div class="panel-header">
+
+
+            <div>
+              <h3>🎞️ Homepage Slider</h3>
+
+
+              <p class="panel-description">
+                Manage homepage banners and slider images.
+              </p>
+            </div>
+
+
+            <button
+              class="btn btn-primary"
+              type="button"
+              id="addBannerButton"
+            >
+              + Add Banner
+            </button>
+
+
+          </div>
+
+
+          <div class="table-wrap">
+
+
+            <table>
+
+
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Banner</th>
+                  <th>Title</th>
+                  <th>Status</th>
+                  <th>Order</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+
+
+              <tbody id="bannersTableBody">
+
+
+                <tr>
+                  <td
+                    colspan="6"
+                    class="empty-state"
+                  >
+                    Homepage banners will appear here.
+                  </td>
+                </tr>
+
+
+              </tbody>
+
+
+            </table>
+
+
+          </div>
+
+
+        </div>
+
+
+      </section>
+
+
+      <!-- END OF PART 3E →
+
+
+      <!-- GAME MODAL -->
+
+
+      <div
+        class="modal"
+        id="gameModal"
+      >
+
+
+        <div class="modal-box">
+
+
+          <div class="modal-header">
+
+
+            <h3 id="gameModalTitle">
+              Add Game
+            </h3>
+
+
+            <button
+              type="button"
+              onclick="closeGameModal()"
+              aria-label="Close"
+            >
+              &times;
+            </button>
+
+
+          </div>
+
+
+          <form id="gameForm">
+
+
+            <input
+              type="hidden"
+              id="gameId"
+            >
+
+
+            <label for="gameName">
+              Game Name
+            </label>
+
+
+            <input
+              type="text"
+              id="gameName"
+              required
+              maxlength="100"
+              placeholder="Enter game name"
+            >
+
+
+            <label for="gameCategory">
+              Category
+            </label>
+
+
+            <input
+              type="text"
+              id="gameCategory"
+              required
+              maxlength="60"
+              placeholder="e.g. Arcade"
+            >
+
+
+            <label for="gameIcon">
+              Game Icon
+            </label>
+
+
+            <input
+              type="text"
+              id="gameIcon"
+              maxlength="20"
+              placeholder="🎮"
+            >
+
+
+            <label for="gameDescription">
+              Description
+            </label>
+
+
+            <textarea
+              id="gameDescription"
+              rows="3"
+              maxlength="1000"
+              placeholder="Enter game description"
+            ></textarea>
+
+
+            <label for="gameImage">
+              Game Image URL
+            </label>
+
+
+            <input
+              type="url"
+              id="gameImage"
+              placeholder="https://example.com/game.png"
+            >
+
+
+            <label for="gameStatus">
+              Game Status
+            </label>
+
+
+            <select id="gameStatus">
+
+
+              <option value="true">
+                Active
+              </option>
+
+
+              <option value="false">
+                Inactive
+              </option>
+
+
+            </select>
+
+
+            <div class="modal-actions">
+
+
+              <button
+                class="btn btn-secondary"
+                type="button"
+                onclick="closeGameModal()"
+              >
+                Cancel
+              </button>
+
+
+              <button
+                class="btn btn-primary"
+                type="submit"
+                id="gameSaveButton"
+              >
+                Save Game
+              </button>
+
+
+            </div>
+
+
+          </form>
+
+
+        </div>
+
 
       </div>
 
 
-      <form id="promotionForm">
-
-        <input
-          type="hidden"
-          id="promotionId"
-        >
+      <!-- END OF PART 4A →
 
 
-        <label>
-          Promotion Title
-        </label>
-
-        <input
-          type="text"
-          id="promotionTitle"
-          required
-        >
 
 
-        <label>
-          Description
-        </label>
-
-        <textarea
-          id="promotionDescription"
-          rows="4"
-        ></textarea>
+      <!-- PROMOTION MODAL -->
 
 
-        <label>
-          Image URL
-        </label>
-
-        <input
-          type="text"
-          id="promotionImage"
-        >
-
-                <label>
-          Status
-        </label>
-
-        <select id="promotionStatus">
-
-          <option value="true">
-            Active
-          </option>
-
-          <option value="false">
-            Inactive
-          </option>
-
-        </select>
+      <div
+        class="modal"
+        id="promotionModal"
+      >
 
 
-        <div class="modal-actions">
+        <div class="modal-box">
 
-          <button
-            type="button"
-            onclick="closePromotionModal()"
-          >
-            Cancel
-          </button>
 
-          <button
-            type="submit"
-            id="promotionSaveButton"
-          >
-            Save Promotion
-          </button>
+          <div class="modal-header">
+
+
+            <h3 id="promotionModalTitle">
+              Add Promotion
+            </h3>
+
+
+            <button
+              type="button"
+              onclick="closePromotionModal()"
+              aria-label="Close"
+            >
+              &times;
+            </button>
+
+
+          </div>
+
+
+          <form id="promotionForm">
+
+
+            <input
+              type="hidden"
+              id="promotionId"
+            >
+
+
+            <label for="promotionTitle">
+              Promotion Title
+            </label>
+
+
+            <input
+              type="text"
+              id="promotionTitle"
+              required
+              maxlength="150"
+              placeholder="Enter promotion title"
+            >
+
+
+            <label for="promotionDescription">
+              Description
+            </label>
+
+
+            <textarea
+              id="promotionDescription"
+              rows="4"
+              maxlength="2000"
+              placeholder="Enter promotion details"
+            ></textarea>
+
+
+            <label for="promotionImage">
+              Promotion Image URL
+            </label>
+
+
+            <input
+              type="url"
+              id="promotionImage"
+              placeholder="https://example.com/banner.png"
+            >
+
+
+            <label for="promotionStatus">
+              Promotion Status
+            </label>
+
+
+            <select id="promotionStatus">
+
+
+              <option value="true">
+                Active
+              </option>
+
+
+              <option value="false">
+                Inactive
+              </option>
+
+
+            </select>
+
+
+            <div class="modal-actions">
+
+
+              <button
+                class="btn btn-secondary"
+                type="button"
+                onclick="closePromotionModal()"
+              >
+                Cancel
+              </button>
+
+
+              <button
+                class="btn btn-primary"
+                type="submit"
+                id="promotionSaveButton"
+              >
+                Save Promotion
+              </button>
+
+
+            </div>
+
+
+          </form>
+
 
         </div>
 
-      </form>
 
-    </div>
-
-  </div>
+      </div>
 
 
-  <script>
+      <!-- END OF PART 4B →
 
-    const API =
-      "https://nova88-backend.onrender.com/api";
 
-    let users = [];
+      <!-- PAYMENT METHOD MODAL -->
 
-    let games = [];
 
-    let promotions = [];
+      <div class="modal" id="paymentMethodModal">
 
-async function safeJson(response) {
 
-  const text = await response.text();
+        <div class="modal-box">
 
-  if (!text || !text.trim()) {
-    return {};
-  }
 
-  try {
-    return JSON.parse(text);
-  } catch (error) {
-    console.error("Invalid server response:", text);
-    return {
-      error: "Invalid server response"
-    };
-  }
+          <div class="modal-header">
+            <h3 id="paymentMethodModalTitle">
+              Add Payment Method
+            </h3>
 
-    }
-    
+
+            <button
+              type="button"
+              onclick="closePaymentMethodModal()"
+            >&times;</button>
+          </div>
+
+
+          <form id="paymentMethodForm">
+
+
+            <input type="hidden" id="paymentMethodId">
+
+
+            <label for="paymentMethodName">
+              Payment Method Name
+            </label>
+
+
+            <input
+              type="text"
+              id="paymentMethodName"
+              required
+              maxlength="100"
+              placeholder="e.g. Bank Transfer"
+            >
+
+
+            <label for="paymentMethodLogo">
+              Logo Image URL
+            </label>
+
+
+            <input
+              type="url"
+              id="paymentMethodLogo"
+              placeholder="https://example.com/logo.png"
+            >
+
+
+            <label for="paymentMethodDetails">
+              Payment Instructions
+            </label>
+
+
+            <textarea
+              id="paymentMethodDetails"
+              rows="3"
+              maxlength="2000"
+              required
+              placeholder="Account details, number or payment destination"
+            ></textarea>
+
+
+            <label for="paymentMethodInstructions">
+              Additional Instructions (Optional)
+            </label>
+
+
+            <textarea
+              id="paymentMethodInstructions"
+              rows="3"
+              maxlength="2000"
+              placeholder="Extra steps for customers"
+            ></textarea>
+
+
+            <label for="paymentMethodStatus">
+              Status
+            </label>
+
+
+            <select id="paymentMethodStatus">
+              <option value="true">Active</option>
+              <option value="false">Inactive</option>
+            </select>
+
+
+            <div class="modal-actions">
+
+
+              <button
+                class="btn btn-secondary"
+                type="button"
+                onclick="closePaymentMethodModal()"
+              >
+                Cancel
+              </button>
+
+
+              <button
+                class="btn btn-primary"
+                type="submit"
+                id="paymentMethodSaveButton"
+              >
+                Save Method
+              </button>
+
+
+            </div>
+
+
+          </form>
+
+
+        </div>
+
+
+      </div>
+
+
+      <!-- END OF PAYMENT METHOD MODAL -->
+
+
+
+
+      <!-- HOMEPAGE BANNER MODAL -->
+
+
+      <div class="modal" id="bannerModal">
+
+
+        <div class="modal-box">
+
+
+          <div class="modal-header">
+            <h3 id="bannerModalTitle">
+              Add Homepage Banner
+            </h3>
+
+
+            <button
+              type="button"
+              onclick="closeBannerModal()"
+            >&times;</button>
+          </div>
+
+
+          <form id="bannerForm">
+
+
+            <input type="hidden" id="bannerId">
+
+
+            <label for="bannerTitle">
+              Banner Title
+            </label>
+
+
+            <input
+              type="text"
+              id="bannerTitle"
+              required
+              maxlength="150"
+              placeholder="Enter banner title"
+            >
+
+
+            <label for="bannerImage">
+              Banner Image URL
+            </label>
+
+
+            <input
+              type="url"
+              id="bannerImage"
+              required
+              placeholder="https://example.com/banner.jpg"
+            >
+
+
+            <label for="bannerLink">
+              Destination Link (Optional)
+            </label>
+
+
+            <input
+              type="url"
+              id="bannerLink"
+              placeholder="https://example.com/page"
+            >
+
+
+            <label for="bannerOrder">
+              Display Order
+            </label>
+
+
+            <input
+              type="number"
+              id="bannerOrder"
+              min="0"
+              max="9999"
+              value="0"
+            >
+
+
+            <label for="bannerStatus">
+              Banner Status
+            </label>
+
+
+            <select id="bannerStatus">
+              <option value="true">Visible</option>
+              <option value="false">Hidden</option>
+            </select>
+
+
+            <div class="modal-actions">
+
+
+              <button
+                class="btn btn-secondary"
+                type="button"
+                onclick="closeBannerModal()"
+              >
+                Cancel
+              </button>
+
+
+              <button
+                class="btn btn-primary"
+                type="submit"
+                id="bannerSaveButton"
+              >
+                Save Banner
+              </button>
+
+
+            </div>
+
+
+          </form>
+
+
+        </div>
+
+
+      </div>
+
+
+      <!-- END OF PART 4C →
+
+
+
+
+<script>
+
+
+        const API =
+          "https://nova88-backend.onrender.com/api";
+
+
+
+
+        let users = [];
+
+
+        let games = [];
+
+
+        let promotions = [];
+
+
+        let paymentMethods = [];
+
+
+        let banners = [];
+
+
+
+
+        // SAFE JSON RESPONSE HANDLER
+
+
+        async function safeJson(response) {
+
+
+          const text = await response.text();
+
+
+          if (!text || !text.trim()) {
+            return {};
+          }
+
+
+          try {
+
+
+            return JSON.parse(text);
+
+
+          } catch (error) {
+
+
+            console.error(
+              "Invalid server response:",
+              text
+            );
+
+
+            return {
+              error: "Invalid server response"
+            };
+
+
+          }
+
+
+        }
+
+
+
+
+        // HTML ESCAPE HELPER
+
+
         function escapeHtml(value) {
 
-      return String(value ?? "")
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
+
+          return String(value ?? "")
+
+
+            .replace(/&/g, "&amp;")
+
+
+            .replace(/</g, "&lt;")
+
+
+            .replace(/>/g, "&gt;")
+
+
+            .replace(/"/g, "&quot;")
+
+
+            .replace(/'/g, "&#039;");
+
+
+        }
+
+
+
+
+        // DATE FORMAT HELPER
+
+
+        function formatDate(value) {
+
+
+          if (!value) {
+            return "—";
+          }
+
+
+          const date = new Date(value);
+
+
+          if (Number.isNaN(date.getTime())) {
+            return "—";
+          }
+
+
+          return date.toLocaleDateString();
+
+
+        }
+
+
+
+
+        // GET LOGIN TOKEN
+
+
+        function getToken() {
+
+
+          return localStorage.getItem(
+            "nova88_token"
+          );
+
+
+        }
+
+
+
+
+        // REQUEST HEADERS
+
+
+        function authHeaders(json = false) {
+
+
+          const headers = {};
+
+
+          const token = getToken();
+
+
+          if (token) {
+
+
+            headers.Authorization =
+              "Bearer " + token;
+
+
+          }
+
+
+          if (json) {
+
+
+            headers["Content-Type"] =
+              "application/json";
+
+
+          }
+
+
+          return headers;
+
+
+        }
+
+
+
+
+        // API REQUEST HELPER
+
+
+        async function apiRequest(
+          path,
+          options = {}
+        ) {
+
+
+          const response = await fetch(
+            API + path,
+            {
+              ...options,
+
+
+              headers: {
+                ...authHeaders(
+                  options.body !== undefined
+                ),
+
+
+                ...(options.headers || {})
+              }
+            }
+          );
+
+
+          const data = await safeJson(response);
+
+
+          if (!response.ok) {
+
+
+            throw new Error(
+              data.error ||
+              data.message ||
+              "Request failed: " + response.status
+            );
+
+
+          }
+
+
+          return data;
+
+
+        }
+
+
+
+
+        // END OF PART 5A
+
+
+
+
+// PAGE NAVIGATION
+
+
+    const navButtons =
+      document.querySelectorAll(".nav-btn[data-section]");
+
+
+    const pageSections =
+      document.querySelectorAll(".page-section");
+
+
+
+
+    const pageTitles = {
+
+
+      dashboardSection: "Admin Dashboard",
+
+
+      usersSection: "User Management",
+
+
+      gamesSection: "Game Management",
+
+
+      promotionsSection: "Promotion Management",
+
+
+      settingsSection: "Website Settings"
+
+
+    };
+
+
+
+
+    navButtons.forEach(button => {
+
+
+      button.addEventListener(
+        "click",
+        function () {
+
+
+          const targetId =
+            this.dataset.section;
+
+
+          pageSections.forEach(section => {
+
+
+            section.classList.toggle(
+              "active",
+              section.id === targetId
+            );
+
+
+          });
+
+
+
+
+          navButtons.forEach(nav => {
+
+
+            nav.classList.toggle(
+              "active",
+              nav === this
+            );
+
+
+          });
+
+
+
+
+          const title =
+            document.getElementById("pageTitle");
+
+
+          if (title) {
+
+
+            title.textContent =
+              pageTitles[targetId] ||
+              "NOVA88 Admin";
+
+
+          }
+
+
+
+
+          const sidebar =
+            document.getElementById("sidebar");
+
+
+          if (sidebar) {
+
+
+            sidebar.classList.remove(
+              "mobile-open"
+            );
+
+
+          }
+
+
+        }
+      );
+
+
+    });
+
+
+
+
+    // MOBILE SIDEBAR
+
+
+    const menuToggle =
+      document.getElementById("menuToggle");
+
+
+
+
+    if (menuToggle) {
+
+
+      menuToggle.addEventListener(
+        "click",
+        function () {
+
+
+          const sidebar =
+            document.getElementById("sidebar");
+
+
+          if (sidebar) {
+
+
+            sidebar.classList.toggle(
+              "mobile-open"
+            );
+
+
+          }
+
+
+        }
+      );
+
 
     }
 
 
-    function formatDate(value) {
 
-      if (!value) {
-        return "-";
+
+    // LOGOUT
+
+
+    function logoutAdmin() {
+
+
+      const confirmed = confirm(
+        "Are you sure you want to logout?"
+      );
+
+
+      if (!confirmed) {
+        return;
       }
 
-      return new Date(value)
-        .toLocaleDateString();
 
-    }
-
-
-    function getToken() {
-
-      return localStorage.getItem(
+      localStorage.removeItem(
         "nova88_token"
       );
 
-    }
 
+      window.location.href =
+        "index.html";
 
-    document.getElementById(
-      "logoutButton"
-    ).addEventListener(
-      "click",
-      function() {
-
-        localStorage.removeItem(
-          "nova88_token"
-        );
-
-        window.location.href =
-          "index.html";
-
-      }
-    );
-
-        async function checkAdminAccess() {
-
-      const token = getToken();
-
-      if (!token) {
-
-        window.location.href =
-          "index.html";
-
-        return;
-      }
-
-
-      try {
-
-        const response = await fetch(
-          API + "/admin/dashboard",
-          {
-            headers: {
-              Authorization:
-                "Bearer " + token
-            }
-          }
-        );
-
-
-        const data =
-  await safeJson(response);
-
-        if (!response.ok) {
-
-          throw new Error(
-            data.error ||
-            "Admin access denied"
-          );
-
-        }
-
-
-        const user =
-  data.admin || {};
-
-
-        document.getElementById(
-          "systemStatus"
-        ).textContent =
-          "Backend connected successfully.";
-
-
-        document.getElementById(
-          "adminEmail"
-        ).textContent =
-          user.email || "—";
-
-
-        document.getElementById(
-          "adminRole"
-        ).textContent =
-          user.role || "—";
-
-
-        document.getElementById(
-          "adminUserId"
-        ).textContent =
-          user.id || "—";
-
-        
-            const stats =
-          data.stats || {};
-
-        document.getElementById(
-          "userCount"
-        ).textContent =
-          stats.users ?? 0;
-
-        document.getElementById(
-          "gameCount"
-        ).textContent =
-          stats.games ?? 0;
-
-        document.getElementById(
-          "promotionCount"
-        ).textContent =
-          stats.promotions ?? 0;
-
-
-        await loadUsers();
-
-        await loadGames();
-
-        await loadPromotions();
-
-
-      } catch (error) {
-
-        console.error(
-          "Admin access error:",
-          error
-        );
-
-
-        document.getElementById(
-          "systemStatus"
-        ).textContent =
-          "Backend connection failed.";
-
-
-        alert(
-          "Admin access failed. Please login again."
-        );
-
-
-        localStorage.removeItem(
-          "nova88_token"
-        );
-
-
-        window.location.href =
-          "index.html";
-
-      }
-
-        }
-
-        async function loadUsers() {
-
-      const tableBody =
-        document.getElementById(
-          "usersTableBody"
-        );
-
-
-      try {
-
-        const response =
-          await fetch(
-            API + "/admin/users",
-            {
-              headers: {
-                Authorization:
-                  "Bearer " + getToken()
-              }
-            }
-          );
-
-
-        const data =
-  await safeJson(response);
-
-        if (!response.ok) {
-
-          throw new Error(
-            data.error ||
-            "Failed to load users"
-          );
-
-        }
-
-
-        users =
-          data.users || data || [];
-
-
-        renderUsers();
-
-
-      } catch (error) {
-
-        console.error(
-          "Load users error:",
-          error
-        );
-
-
-        tableBody.innerHTML =
-          '<tr><td colspan="6">Failed to load users.</td></tr>';
-
-      }
-
-        }
-
-        function renderUsers() {
-
-      const tableBody =
-        document.getElementById(
-          "usersTableBody"
-        );
-
-
-      const search =
-        document.getElementById(
-          "userSearch"
-        ).value
-          .toLowerCase()
-          .trim();
-
-
-      const role =
-        document.getElementById(
-          "roleFilter"
-        ).value;
-
-
-      const filtered =
-        users.filter(function(user) {
-
-          const matchesSearch =
-            !search ||
-            String(user.name || "")
-              .toLowerCase()
-              .includes(search) ||
-            String(user.email || "")
-              .toLowerCase()
-              .includes(search);
-
-
-          const matchesRole =
-            role === "ALL" ||
-            user.role === role;
-
-
-          return (
-            matchesSearch &&
-            matchesRole
-          );
-
-        });
-
-
-      if (!filtered.length) {
-
-        tableBody.innerHTML =
-          '<tr><td colspan="6">No users found.</td></tr>';
-
-        return;
-      }
-
-          tableBody.innerHTML =
-        filtered.map(function(user) {
-
-          return `
-            <tr>
-
-              <td>${user.id}</td>
-
-              <td>
-                ${escapeHtml(user.name)}
-              </td>
-
-              <td>
-                ${escapeHtml(user.email)}
-              </td>
-
-              <td>
-                ${escapeHtml(user.role)}
-              </td>
-
-              <td>
-                ${formatDate(user.createdAt)}
-              </td>
-
-              <td>
-
-                <button
-                  class="action-btn"
-                  onclick="changeRole(${user.id})"
-                >
-                  Change Role
-                </button>
-
-                <button
-                  class="action-btn delete-btn"
-                  onclick="deleteUser(${user.id})"
-                >
-                  Delete
-                </button>
-
-              </td>
-
-            </tr>
-          `;
-
-        }).join("");
 
     }
 
 
-    function filterUsers() {
 
-      renderUsers();
+
+    const sidebarLogout =
+      document.getElementById("sidebarLogout");
+
+
+
+
+    if (sidebarLogout) {
+
+
+      sidebarLogout.addEventListener(
+        "click",
+        logoutAdmin
+      );
+
 
     }
 
 
-    document.getElementById(
-      "userSearch"
-    ).addEventListener(
-      "input",
-      filterUsers
-    );
 
 
-    document.getElementById(
-      "roleFilter"
-    ).addEventListener(
-      "change",
-      filterUsers
-    );
-
-        async function changeRole(id) {
-
-      const user =
-        users.find(function(item) {
-          return item.id === id;
-        });
+    // END OF PART 5B
 
 
-      if (!user) {
-        return;
+// UPDATE DASHBOARD STATISTICS
+
+
+    function updateDashboardStats() {
+
+
+      const userCount =
+        document.getElementById("userCount");
+
+
+      const gameCount =
+        document.getElementById("gameCount");
+
+
+      const promotionCount =
+        document.getElementById("promotionCount");
+
+
+
+
+      if (userCount) {
+
+
+        userCount.textContent =
+          users.length;
+
+
       }
 
 
-      const newRole =
-        user.role === "ADMIN"
-          ? "USER"
-          : "ADMIN";
+      if (gameCount) {
 
 
-      const confirmed =
-        confirm(
-          "Change role to " +
-          newRole +
-          "?"
-        );
-
-
-      if (!confirmed) {
-        return;
-      }
-
-
-      try {
-
-        const response =
-          await fetch(
-            API + "/admin/users/" +
-            id +
-            "/role",
-            {
-              method: "PATCH",
-
-              headers: {
-                "Content-Type":
-                  "application/json",
-
-                Authorization:
-                  "Bearer " +
-                  getToken()
-              },
-
-              body: JSON.stringify({
-                role: newRole
-              })
-            }
-          );
-
-
-        const data =
-          await response.json();
-
-
-        if (!response.ok) {
-
-          throw new Error(
-            data.error ||
-            "Failed to change role"
-          );
-
-        }
-
-
-        await loadUsers();
-
-      } catch (error) {
-
-        console.error(
-          "Change role error:",
-          error
-        );
-
-        alert(error.message);
-
-      }
-
-        }
-
-
-        async function deleteUser(id) {
-
-      const confirmed =
-        confirm(
-          "Are you sure you want to delete this user?"
-        );
-
-
-      if (!confirmed) {
-        return;
-      }
-
-
-      try {
-
-        const response =
-          await fetch(
-            API + "/admin/users/" + id,
-            {
-              method: "DELETE",
-
-              headers: {
-                Authorization:
-                  "Bearer " +
-                  getToken()
-              }
-            }
-          );
-
-
-        const data =
-          await response.json();
-
-
-        if (!response.ok) {
-
-          throw new Error(
-            data.error ||
-            "Failed to delete user"
-          );
-
-        }
-
-
-        await loadUsers();
-
-
-      } catch (error) {
-
-        console.error(
-          "Delete user error:",
-          error
-        );
-
-        alert(error.message);
-
-      }
-
-        }
-
-        async function loadGames() {
-
-      const tableBody =
-        document.getElementById(
-          "gamesTableBody"
-        );
-
-
-      try {
-
-        const response =
-          await fetch(
-            API + "/admin/games",
-            {
-              headers: {
-                Authorization:
-                  "Bearer " +
-                  getToken()
-              }
-            }
-          );
-
-
-        const data =
-          await response.json();
-
-
-        if (!response.ok) {
-
-          throw new Error(
-            data.error ||
-            "Failed to load games"
-          );
-
-        }
-
-
-        games =
-          data.games || data || [];
-
-
-        document.getElementById(
-          "gameCount"
-        ).textContent =
+        gameCount.textContent =
           games.length;
 
 
-        renderGames();
-
-
-      } catch (error) {
-
-        console.error(
-          "Load games error:",
-          error
-        );
-
-
-        tableBody.innerHTML =
-          '<tr><td colspan="6">Failed to load games.</td></tr>';
-
-      }
-
-        }
-
-        function renderGames() {
-
-      const tableBody =
-        document.getElementById(
-          "gamesTableBody"
-        );
-
-
-      if (!games.length) {
-
-        tableBody.innerHTML =
-          '<tr><td colspan="6">No games found.</td></tr>';
-
-        return;
       }
 
 
-      tableBody.innerHTML =
-        games.map(function(game) {
+      if (promotionCount) {
 
-          return `
-            <tr>
 
-              <td>${game.id}</td>
-
-              <td>
-                ${escapeHtml(game.name)}
-              </td>
-
-              <td>
-                ${escapeHtml(
-                  game.category || "-"
-                )}
-              </td>
-
-              <td>
-                ${game.status
-                  ? "Active"
-                  : "Inactive"}
-              </td>
-
-              <td>
-                ${formatDate(
-                  game.createdAt
-                )}
-              </td>
-
-              <td>
-
-                <button
-                  class="action-btn"
-                  onclick="editGame(${game.id})"
-                >
-                  Edit
-                </button>
-
-                <button
-                  class="action-btn delete-btn"
-                  onclick="deleteGame(${game.id})"
-                >
-                  Delete
-                </button>
-
-              </td>
-
-            </tr>
-          `;
-
-        }).join("");
-
-        }
-
-        function openGameModal(game) {
-
-      document.getElementById(
-        "gameModal"
-      ).classList.add("active");
-
-
-      document.getElementById(
-        "gameModalTitle"
-      ).textContent =
-        game
-          ? "Edit Game"
-          : "Add Game";
-
-
-      document.getElementById(
-        "gameId"
-      ).value =
-        game ? game.id : "";
-
-
-      document.getElementById(
-        "gameName"
-      ).value =
-        game
-          ? game.name || ""
-          : "";
-
-
-      document.getElementById(
-        "gameCategory"
-      ).value =
-        game
-          ? game.category || ""
-          : "";
-
-
-      document.getElementById(
-        "gameIcon"
-      ).value =
-        game
-          ? game.icon || ""
-          : "";
-
-          document.getElementById(
-        "gameDescription"
-      ).value =
-        game
-          ? game.description || ""
-          : "";
-
-
-      document.getElementById(
-        "gameImage"
-      ).value =
-        game
-          ? game.image || ""
-          : "";
-
-
-      document.getElementById(
-        "gameStatus"
-      ).value =
-        game
-          ? String(game.status)
-          : "true";
-
-    }
-
-
-    function closeGameModal() {
-
-      document.getElementById(
-        "gameModal"
-      ).classList.remove("active");
-
-
-      document.getElementById(
-        "gameForm"
-      ).reset();
-
-
-      document.getElementById(
-        "gameId"
-      ).value = "";
-
-    }
-
-
-    function editGame(id) {
-
-      const game =
-        games.find(function(item) {
-          return item.id === id;
-        });
-
-
-      if (!game) {
-
-        alert("Game not found.");
-
-        return;
-      }
-
-
-      openGameModal(game);
-
-    }
-
-        document.getElementById(
-      "addGameButton"
-    ).addEventListener(
-      "click",
-      function() {
-        openGameModal();
-      }
-    );
-
-
-    document.getElementById(
-      "gameForm"
-    ).addEventListener(
-      "submit",
-      async function(event) {
-
-        event.preventDefault();
-
-
-        const id =
-          document.getElementById(
-            "gameId"
-          ).value;
-
-
-        const payload = {
-
-          name:
-            document.getElementById(
-              "gameName"
-            ).value.trim(),
-
-          category:
-            document.getElementById(
-              "gameCategory"
-            ).value.trim(),
-
-          icon:
-            document.getElementById(
-              "gameIcon"
-            ).value.trim(),
-
-          description:
-            document.getElementById(
-              "gameDescription"
-            ).value.trim(),
-
-          image:
-            document.getElementById(
-              "gameImage"
-            ).value.trim(),
-
-          status:
-            document.getElementById(
-              "gameStatus"
-            ).value === "true"
-
-        };
-
-              try {
-
-          const url =
-            id
-              ? API + "/admin/games/" + id
-              : API + "/admin/games";
-
-
-          const method =
-            id
-              ? "PATCH"
-              : "POST";
-
-
-          const response =
-            await fetch(
-              url,
-              {
-                method: method,
-
-                headers: {
-
-                  "Content-Type":
-                    "application/json",
-
-                  Authorization:
-                    "Bearer " +
-                    getToken()
-
-                },
-
-                body:
-                  JSON.stringify(payload)
-
-              }
-            );
-
-
-          const data =
-            await response.json();
-
-
-          if (!response.ok) {
-
-            throw new Error(
-              data.error ||
-              "Failed to save game"
-            );
-
-          }
-
-
-          closeGameModal();
-
-
-          await loadGames();
-
-
-          await updateDashboardStats();
-
-        } catch (error) {
-
-          console.error(
-            "Save game error:",
-            error
-          );
-
-          alert(error.message);
-
-        }
-
-      }
-    );
-
-        async function deleteGame(id) {
-
-      const confirmed =
-        confirm(
-          "Are you sure you want to delete this game?"
-        );
-
-
-      if (!confirmed) {
-        return;
-      }
-
-
-      try {
-
-        const response =
-          await fetch(
-            API + "/admin/games/" + id,
-            {
-              method: "DELETE",
-
-              headers: {
-                Authorization:
-                  "Bearer " +
-                  getToken()
-              }
-            }
-          );
-
-
-        const data =
-          await response.json();
-
-
-        if (!response.ok) {
-
-          throw new Error(
-            data.error ||
-            "Failed to delete game"
-          );
-
-        }
-
-
-        await loadGames();
-
-
-        await updateDashboardStats();
-
-
-      } catch (error) {
-
-        console.error(
-          "Delete game error:",
-          error
-        );
-
-        alert(error.message);
-
-      }
-
-        }
-
-        async function loadPromotions() {
-
-      const tableBody =
-        document.getElementById(
-          "promotionsTableBody"
-        );
-
-
-      try {
-
-        const response =
-          await fetch(
-            API + "/admin/promotions",
-            {
-              headers: {
-                Authorization:
-                  "Bearer " +
-                  getToken()
-              }
-            }
-          );
-
-
-        const data =
-          await response.json();
-
-
-        if (!response.ok) {
-
-          throw new Error(
-            data.error ||
-            "Failed to load promotions"
-          );
-
-        }
-
-
-        promotions =
-          data.promotions ||
-          data ||
-          [];
-
-
-        document.getElementById(
-          "promotionCount"
-        ).textContent =
+        promotionCount.textContent =
           promotions.length;
 
 
-        renderPromotions();
-
-
-      } catch (error) {
-
-        console.error(
-          "Load promotions error:",
-          error
-        );
-
-
-        tableBody.innerHTML =
-          '<tr><td colspan="6">Failed to load promotions.</td></tr>';
-
       }
 
-        }
 
-        function renderPromotions() {
-
-      const tableBody =
-        document.getElementById(
-          "promotionsTableBody"
-        );
+    }
 
 
-      if (!promotions.length) {
 
-        tableBody.innerHTML =
-          '<tr><td colspan="6">No promotions found.</td></tr>';
 
+    // UPDATE SYSTEM STATUS
+
+
+    function setSystemStatus(
+      message,
+      connected = false
+    ) {
+
+
+      const status =
+        document.getElementById("systemStatus");
+
+
+      if (!status) {
         return;
       }
 
 
-      tableBody.innerHTML =
-        promotions.map(function(item) {
+      status.textContent = message;
 
-          return `
+
+      status.style.color =
+        connected ? "#27c980" : "#ff5252";
+
+
+    }
+
+
+
+
+    // CHECK ADMIN ACCESS
+
+
+    async function checkAdminAccess() {
+
+
+      const token = getToken();
+
+
+      if (!token) {
+
+
+        window.location.href =
+          "index.html";
+
+
+        return;
+
+
+      }
+
+
+
+
+      setSystemStatus(
+        "Connecting to backend..."
+      );
+
+
+
+
+      try {
+
+
+        const data = await apiRequest(
+          "/admin/dashboard"
+        );
+
+
+
+
+        const admin =
+          data.admin || {};
+
+
+
+
+        const adminEmail =
+          document.getElementById("adminEmail");
+
+
+        const adminRole =
+          document.getElementById("adminRole");
+
+
+        const adminUserId =
+          document.getElementById("adminUserId");
+
+
+
+
+        if (adminEmail) {
+
+
+          adminEmail.textContent =
+            admin.email || "—";
+
+
+        }
+
+
+        if (adminRole) {
+
+
+          adminRole.textContent =
+            admin.role || "ADMIN";
+
+
+        }
+
+
+        if (adminUserId) {
+
+
+          adminUserId.textContent =
+            admin.id ?? "—";
+
+
+        }
+
+
+
+
+        setSystemStatus(
+          "Backend connected successfully.",
+          true
+        );
+
+
+
+
+        await Promise.allSettled([
+
+
+          loadUsers(),
+
+
+          loadGames(),
+
+
+          loadPromotions(),
+
+
+          loadSiteSettings(),
+
+
+          loadPaymentMethods(),
+
+
+          loadBanners()
+
+
+        ]);
+
+
+
+
+        updateDashboardStats();
+
+
+
+
+      } catch (error) {
+
+
+        console.error(
+          "Admin access check failed:",
+          error
+        );
+
+
+
+
+        setSystemStatus(
+          "Connection or permission error: " +
+          error.message
+        );
+
+
+
+
+        if (
+          error.message.toLowerCase().includes("token") ||
+          error.message.toLowerCase().includes("unauthorized") ||
+          error.message.includes("401") ||
+          error.message.includes("403")
+        ) {
+
+
+          localStorage.removeItem(
+            "nova88_token"
+          );
+
+
+          window.location.href =
+            "index.html";
+
+
+        }
+
+
+      }
+
+
+    }
+
+
+
+
+    // END OF PART 5C
+
+
+
+
+        // LOAD USERS
+
+
+        async function loadUsers() {
+
+
+          const tableBody =
+            document.getElementById("usersTableBody");
+
+
+          if (!tableBody) return;
+
+
+          tableBody.innerHTML = `
             <tr>
-
-              <td>${item.id}</td>
-
-              <td>
-                ${escapeHtml(
-                  item.title
-                )}
-              </td>
-
-              <td>
-                ${escapeHtml(
-                  item.description || "-"
-                )}
-              </td>
-
-              <td>
-                ${item.status
-                  ? "Active"
-                  : "Inactive"}
-              </td>
-
-              <td>
-                ${formatDate(
-                  item.createdAt
-                )}
-              </td>
-
-              <td>
-
-                <button
-                  class="action-btn"
-                  onclick="editPromotion(${item.id})"
-                >
-                  Edit
-                </button>
-
-                <button
-                  class="action-btn delete-btn"
-                  onclick="deletePromotion(${item.id})"
-                >
-                  Delete
-                </button>
-
-              </td>
-
+              <td colspan="6">Loading users...</td>
             </tr>
           `;
 
-        }).join("");
 
-        }
-
-
-        function openPromotionModal(item) {
-
-      document.getElementById(
-        "promotionModal"
-      ).classList.add("active");
+          try {
 
 
-      document.getElementById(
-        "promotionModalTitle"
-      ).textContent =
-        item
-          ? "Edit Promotion"
-          : "Add Promotion";
+            const data =
+              await apiRequest("/admin/users");
 
 
-      document.getElementById(
-        "promotionId"
-      ).value =
-        item ? item.id : "";
+            users = Array.isArray(data.users)
+              ? data.users
+              : Array.isArray(data)
+                ? data
+                : [];
 
 
-      document.getElementById(
-        "promotionTitle"
-      ).value =
-        item
-          ? item.title || ""
-          : "";
+            renderUsers();
 
 
-      document.getElementById(
-        "promotionDescription"
-      ).value =
-        item
-          ? item.description || ""
-          : "";
-
-          document.getElementById(
-        "promotionImage"
-      ).value =
-        item
-          ? item.image || ""
-          : "";
+            updateDashboardStats();
 
 
-      document.getElementById(
-        "promotionStatus"
-      ).value =
-        item
-          ? String(item.status)
-          : "true";
-
-    }
+          } catch (error) {
 
 
-    function closePromotionModal() {
-
-      document.getElementById(
-        "promotionModal"
-      ).classList.remove("active");
-
-
-      document.getElementById(
-        "promotionForm"
-      ).reset();
+            console.error(
+              "Load users error:",
+              error
+            );
 
 
-      document.getElementById(
-        "promotionId"
-      ).value = "";
+            tableBody.innerHTML = `
+              <tr>
+                <td colspan="6">
+                  Failed to load users:
+                  ${escapeHtml(error.message)}
+                </td>
+              </tr>
+            `;
 
-    }
 
-
-    function editPromotion(id) {
-
-      const item =
-        promotions.find(
-          function(promotion) {
-            return promotion.id === id;
           }
-        );
 
-
-      if (!item) {
-
-        alert(
-          "Promotion not found."
-        );
-
-        return;
-      }
-
-
-      openPromotionModal(item);
 
         }
 
-        document.getElementById(
-      "addPromotionButton"
-    ).addEventListener(
-      "click",
-      function() {
-        openPromotionModal();
-      }
-    );
 
 
-    document.getElementById(
-      "promotionForm"
-    ).addEventListener(
-      "submit",
-      async function(event) {
 
-        event.preventDefault();
+        // DISPLAY USERS
 
 
-        const id =
-          document.getElementById(
-            "promotionId"
-          ).value;
+        function renderUsers() {
 
 
-        const payload = {
+          const tableBody =
+            document.getElementById("usersTableBody");
 
-          title:
-            document.getElementById(
-              "promotionTitle"
-            ).value.trim(),
 
-          description:
-            document.getElementById(
-              "promotionDescription"
-            ).value.trim(),
+          if (!tableBody) return;
 
-          image:
-            document.getElementById(
-              "promotionImage"
-            ).value.trim(),
 
-          status:
-            document.getElementById(
-              "promotionStatus"
-            ).value === "true"
+          const searchInput =
+            document.getElementById("userSearch");
 
-        };
+
+          const roleFilter =
+            document.getElementById("roleFilter");
+
+
+          const searchTerm =
+            (searchInput?.value || "")
+              .trim()
+              .toLowerCase();
+
+
+          const selectedRole =
+            roleFilter?.value || "ALL";
+
+
+
+
+          const filteredUsers = users.filter(user => {
+
+
+            const name =
+              String(user.name || "").toLowerCase();
+
+
+            const email =
+              String(user.email || "").toLowerCase();
+
+
+            const role =
+              String(user.role || "USER").toUpperCase();
+
+
+            const matchesSearch =
+              name.includes(searchTerm) ||
+              email.includes(searchTerm) ||
+              String(user.id).includes(searchTerm);
+
+
+            const matchesRole =
+              selectedRole === "ALL" ||
+              role === selectedRole;
+
+
+            return matchesSearch && matchesRole;
+
+
+          });
+
+
+
+
+          if (filteredUsers.length === 0) {
+
+
+            tableBody.innerHTML = `
+              <tr>
+                <td colspan="6">
+                  No users found.
+                </td>
+              </tr>
+            `;
+
+
+            return;
+
+
+          }
+
+
+
+
+          tableBody.innerHTML =
+            filteredUsers.map(user => {
+
+
+              const role =
+                String(user.role || "USER")
+                  .toUpperCase();
+
+
+              const joined =
+                formatDate(
+                  user.createdAt ||
+                  user.created_at
+                );
+
+
+              return `
+                <tr>
+
+
+                  <td>
+                    ${escapeHtml(user.id)}
+                  </td>
+
+
+                  <td>
+                    ${escapeHtml(user.name || "—")}
+                  </td>
+
+
+                  <td>
+                    ${escapeHtml(user.email || "—")}
+                  </td>
+
+
+                  <td>
+
+
+                    <span class="badge">
+                      ${escapeHtml(role)}
+                    </span>
+
+
+                  </td>
+
+
+                  <td>
+                    ${escapeHtml(joined)}
+                  </td>
+
+
+                  <td>
+
+
+                    <div class="table-actions">
+
+
+                      <select
+                        aria-label="Change user role"
+                        onchange="changeUserRole('${escapeHtml(user.id)}', this.value)"
+                      >
+
+
+                        <option
+                          value="USER"
+                          ${role === "USER" ? "selected" : ""}
+                        >
+                          USER
+                        </option>
+
+
+                        <option
+                          value="ADMIN"
+                          ${role === "ADMIN" ? "selected" : ""}
+                        >
+                          ADMIN
+                        </option>
+
+
+                      </select>
+
+
+                      <button
+                        type="button"
+                        class="btn btn-danger btn-small"
+                        onclick="deleteUser('${escapeHtml(user.id)}')"
+                      >
+                        Delete
+                      </button>
+
+
+                    </div>
+
+
+                  </td>
+
+
+                </tr>
+              `;
+
+
+            }).join("");
+
+
+        }
+
+
+
+
+        // USER SEARCH AND ROLE FILTER
+
+
+        document
+          .getElementById("userSearch")
+          ?.addEventListener(
+            "input",
+            renderUsers
+          );
+
+
+        document
+          .getElementById("roleFilter")
+          ?.addEventListener(
+            "change",
+            renderUsers
+          );
+
+
+
+
+        // CHANGE USER ROLE
+
+
+        async function changeUserRole(
+          userId,
+          newRole
+        ) {
+
+
+          if (
+            newRole !== "USER" &&
+            newRole !== "ADMIN"
+          ) {
+            alert("Invalid role selected.");
+            return;
+          }
+
+
+          const confirmed = confirm(
+            "Change this user's role to " +
+            newRole +
+            "?"
+          );
+
+
+          if (!confirmed) {
+
+
+            renderUsers();
+            return;
+
+
+          }
+
+
+          try {
+
+
+            await apiRequest(
+              "/admin/users/" +
+              encodeURIComponent(userId) +
+              "/role",
+              {
+                method: "PATCH",
+
+
+                body: JSON.stringify({
+                  role: newRole
+                })
+              }
+            );
+
+
+            alert("User role updated successfully.");
+
+
+            await loadUsers();
+
+
+          } catch (error) {
+
+
+            console.error(
+              "Change user role error:",
+              error
+            );
+
+
+            alert(
+              "Could not update user role: " +
+              error.message
+            );
+
+
+            await loadUsers();
+
+
+          }
+
+
+        }
+
+
+
+
+        // DELETE USER
+
+
+        async function deleteUser(userId) {
+
+
+          const confirmed = confirm(
+            "Are you sure you want to delete this user? This action cannot be undone."
+          );
+
+
+          if (!confirmed) return;
+
+
+          try {
+
+
+            await apiRequest(
+              "/admin/users/" +
+              encodeURIComponent(userId),
+              {
+                method: "DELETE"
+              }
+            );
+
+
+            alert("User deleted successfully.");
+
+
+            await loadUsers();
+
+
+          } catch (error) {
+
+
+            console.error(
+              "Delete user error:",
+              error
+            );
+
+
+            alert(
+              "Could not delete user: " +
+              error.message
+            );
+
+
+          }
+
+
+        }
+
+
+
+
+        // END OF PART 5D
+
+
+
+
+
+
+        // LOAD GAMES
+
+
+        async function loadGames() {
+
+
+          const tableBody =
+            document.getElementById("gamesTableBody");
+
+
+          if (!tableBody) return;
+
+
+          tableBody.innerHTML = `
+            <tr>
+              <td colspan="6">Loading games...</td>
+            </tr>
+          `;
+
+
+          try {
+
+
+            const data =
+              await apiRequest("/admin/games");
+
+
+            games = Array.isArray(data.games)
+              ? data.games
+              : Array.isArray(data)
+                ? data
+                : [];
+
+
+            renderGames();
+
+
+            updateDashboardStats();
+
+
+          } catch (error) {
+
+
+            console.error(
+              "Load games error:",
+              error
+            );
+
+
+            tableBody.innerHTML = `
+              <tr>
+                <td colspan="6">
+                  Failed to load games:
+                  ${escapeHtml(error.message)}
+                </td>
+              </tr>
+            `;
+
+
+          }
+
+
+        }
+
+
+
+
+        // DISPLAY GAMES
+
+
+        function renderGames() {
+
+
+          const tableBody =
+            document.getElementById("gamesTableBody");
+
+
+          if (!tableBody) return;
+
+
+          if (games.length === 0) {
+
+
+            tableBody.innerHTML = `
+              <tr>
+                <td colspan="6">
+                  No games found. Add your first game.
+                </td>
+              </tr>
+            `;
+
+
+            return;
+
+
+          }
+
+
+
+
+          tableBody.innerHTML =
+            games.map(game => {
+
+
+              const isActive =
+                game.status === true ||
+                String(game.status).toLowerCase() === "true";
+
+
+              const created =
+                formatDate(
+                  game.createdAt ||
+                  game.created_at
+                );
+
+
+              return `
+                <tr>
+
+
+                  <td>
+                    ${escapeHtml(game.id)}
+                  </td>
+
+
+                  <td>
+                    ${escapeHtml(game.name || "—")}
+                  </td>
+
+
+                  <td>
+                    ${escapeHtml(game.category || "—")}
+                  </td>
+
+
+                  <td>
+                    ${isActive ? "Active" : "Inactive"}
+                  </td>
+
+
+                  <td>
+                    ${escapeHtml(created)}
+                  </td>
+
+
+                  <td>
+
+
+                    <div class="table-actions">
+
+
+                      <button
+                        type="button"
+                        class="btn btn-secondary btn-small"
+                        onclick="editGame('${escapeHtml(game.id)}')"
+                      >
+                        Edit
+                      </button>
+
+
+                      <button
+                        type="button"
+                        class="btn btn-danger btn-small"
+                        onclick="deleteGame('${escapeHtml(game.id)}')"
+                      >
+                        Delete
+                      </button>
+
+
+                    </div>
+
+
+                  </td>
+
+
+                </tr>
+              `;
+
+
+            }).join("");
+
+
+        }
+
+
+
+
+        // OPEN NEW GAME FORM
+
+
+        function openGameModal() {
+
+
+          const form =
+            document.getElementById("gameForm");
+
+
+          if (form) {
+            form.reset();
+          }
+
+
+          document.getElementById("gameId").value = "";
+
+
+          document.getElementById("gameStatus").value = "true";
+
+
+          document.getElementById("gameModal").classList.add("active");
+
+
+        }
+
+
+
+
+        // CLOSE GAME FORM
+
+
+        function closeGameModal() {
+
+
+          document
+            .getElementById("gameModal")
+            ?.classList.remove("active");
+
+
+        }
+
+
+
+
+        // EDIT GAME
+
+
+        function editGame(gameId) {
+
+
+          const game = games.find(
+            item => String(item.id) === String(gameId)
+          );
+
+
+          if (!game) {
+
+
+            alert("Game not found.");
+
+
+            return;
+
+
+          }
+
+
+          document.getElementById("gameId").value =
+            game.id ?? "";
+
+
+          document.getElementById("gameName").value =
+            game.name ?? "";
+
+
+          document.getElementById("gameCategory").value =
+            game.category ?? "";
+
+
+          document.getElementById("gameIcon").value =
+            game.icon ?? "";
+
+
+          document.getElementById("gameDescription").value =
+            game.description ?? "";
+
+
+          document.getElementById("gameImage").value =
+            game.image ?? "";
+
+
+          document.getElementById("gameStatus").value =
+            String(game.status !== false);
+
+
+          document.getElementById("gameModal").classList.add("active");
+
+
+        }
+
+
+
+
+        // SAVE GAME
+
+
+        document
+          .getElementById("gameForm")
+          ?.addEventListener(
+            "submit",
+            async function (event) {
+
+
+              event.preventDefault();
+
+
+              const gameId =
+                document.getElementById("gameId").value;
+
+
+              const payload = {
+
+
+                name:
+                  document.getElementById("gameName").value.trim(),
+
+
+                category:
+                  document.getElementById("gameCategory").value.trim(),
+
+
+                icon:
+                  document.getElementById("gameIcon").value.trim(),
+
+
+                description:
+                  document.getElementById("gameDescription").value.trim(),
+
+
+                image:
+                  document.getElementById("gameImage").value.trim(),
+
+
+                status:
+                  document.getElementById("gameStatus").value === "true"
+
+
+              };
+
+
+
+
+              if (!payload.name || !payload.category) {
+
+
+                alert("Game name and category are required.");
+
+
+                return;
+
+
+              }
+
+
+
+
+              const saveButton =
+                document.getElementById("gameSaveButton");
+
+
+              if (saveButton) {
+                saveButton.disabled = true;
+                saveButton.textContent = "Saving...";
+              }
+
+
+
 
               try {
 
-          const url =
-            id
-              ? API + "/admin/promotions/" + id
-              : API + "/admin/promotions";
+
+                await apiRequest(
+                  gameId
+                    ? "/admin/games/" + encodeURIComponent(gameId)
+                    : "/admin/games",
+                  {
+                    method: gameId ? "PATCH" : "POST",
 
 
-          const method =
-            id
-              ? "PATCH"
-              : "POST";
+                    body: JSON.stringify(payload)
+                  }
+                );
 
 
-          const response =
-            await fetch(
-              url,
+                alert("Game saved successfully.");
+
+
+                closeGameModal();
+
+
+                await loadGames();
+
+
+              } catch (error) {
+
+
+                console.error(
+                  "Save game error:",
+                  error
+                );
+
+
+                alert(
+                  "Could not save game: " +
+                  error.message
+                );
+
+
+              } finally {
+
+
+                if (saveButton) {
+                  saveButton.disabled = false;
+                  saveButton.textContent = "Save Game";
+                }
+
+
+              }
+
+
+            }
+          );
+
+
+
+
+        // DELETE GAME
+
+
+        async function deleteGame(gameId) {
+
+
+          const confirmed = confirm(
+            "Are you sure you want to delete this game?"
+          );
+
+
+          if (!confirmed) return;
+
+
+          try {
+
+
+            await apiRequest(
+              "/admin/games/" +
+              encodeURIComponent(gameId),
               {
-                method: method,
-
-                headers: {
-
-                  "Content-Type":
-                    "application/json",
-
-                  Authorization:
-                    "Bearer " +
-                    getToken()
-
-                },
-
-                body:
-                  JSON.stringify(payload)
-
+                method: "DELETE"
               }
             );
 
 
-          const data =
-            await response.json();
+            alert("Game deleted successfully.");
 
 
-          if (!response.ok) {
+            await loadGames();
 
-            throw new Error(
-              data.error ||
-              "Failed to save promotion"
+
+          } catch (error) {
+
+
+            console.error(
+              "Delete game error:",
+              error
             );
+
+
+            alert(
+              "Could not delete game: " +
+              error.message
+            );
+
 
           }
 
 
-          closePromotionModal();
+        }
 
 
-          await loadPromotions();
 
 
-          await updateDashboardStats();
+        // ADD GAME BUTTON
 
-        } catch (error) {
 
-          console.error(
-            "Save promotion error:",
-            error
+        document
+          .getElementById("addGameButton")
+          ?.addEventListener(
+            "click",
+            openGameModal
           );
 
-          alert(error.message);
+
+
+
+        // END OF PART 5E
+
+
+        // LOAD PROMOTIONS
+
+
+        async function loadPromotions() {
+
+
+          const tableBody =
+            document.getElementById("promotionsTableBody");
+
+
+          if (!tableBody) return;
+
+
+          tableBody.innerHTML = `
+            <tr>
+              <td colspan="6">Loading promotions...</td>
+            </tr>
+          `;
+
+
+          try {
+
+
+            const data =
+              await apiRequest("/admin/promotions");
+
+
+            promotions = Array.isArray(data.promotions)
+              ? data.promotions
+              : Array.isArray(data)
+                ? data
+                : [];
+
+
+            renderPromotions();
+
+
+            updateDashboardStats();
+
+
+          } catch (error) {
+
+
+            console.error(
+              "Load promotions error:",
+              error
+            );
+
+
+            tableBody.innerHTML = `
+              <tr>
+                <td colspan="6">
+                  Failed to load promotions:
+                  ${escapeHtml(error.message)}
+                </td>
+              </tr>
+            `;
+
+
+          }
+
 
         }
 
-      }
-    );
-
-        async function deletePromotion(id) {
-
-      const confirmed =
-        confirm(
-          "Are you sure you want to delete this promotion?"
-        );
 
 
-      if (!confirmed) {
-        return;
-      }
+
+        // DISPLAY PROMOTIONS
 
 
-      try {
+        function renderPromotions() {
 
-        const response =
-          await fetch(
-            API + "/admin/promotions/" + id,
-            {
-              method: "DELETE",
 
-              headers: {
-                Authorization:
-                  "Bearer " +
-                  getToken()
+          const tableBody =
+            document.getElementById("promotionsTableBody");
+
+
+          if (!tableBody) return;
+
+
+          if (promotions.length === 0) {
+
+
+            tableBody.innerHTML = `
+              <tr>
+                <td colspan="6">
+                  No promotions found.
+                </td>
+              </tr>
+            `;
+
+
+            return;
+
+
+          }
+
+
+
+
+          tableBody.innerHTML =
+            promotions.map(promotion => {
+
+
+              const isActive =
+                promotion.status === true ||
+                String(promotion.status).toLowerCase() === "true";
+
+
+              const description =
+                String(promotion.description || "");
+
+
+              const shortDescription =
+                description.length > 70
+                  ? description.slice(0, 70) + "..."
+                  : description;
+
+
+              const created =
+                formatDate(
+                  promotion.createdAt ||
+                  promotion.created_at
+                );
+
+
+              return `
+                <tr>
+
+
+                  <td>
+                    ${escapeHtml(promotion.id)}
+                  </td>
+
+
+                  <td>
+                    ${escapeHtml(promotion.title || "—")}
+                  </td>
+
+
+                  <td>
+                    ${escapeHtml(shortDescription || "—")}
+                  </td>
+
+
+                  <td>
+                    ${isActive ? "Active" : "Inactive"}
+                  </td>
+
+
+                  <td>
+                    ${escapeHtml(created)}
+                  </td>
+
+
+                  <td>
+
+
+                    <div class="table-actions">
+
+
+                      <button
+                        type="button"
+                        class="btn btn-secondary btn-small"
+                        onclick="editPromotion('${escapeHtml(promotion.id)}')"
+                      >
+                        Edit
+                      </button>
+
+
+                      <button
+                        type="button"
+                        class="btn btn-danger btn-small"
+                        onclick="deletePromotion('${escapeHtml(promotion.id)}')"
+                      >
+                        Delete
+                      </button>
+
+
+                    </div>
+
+
+                  </td>
+
+
+                </tr>
+              `;
+
+
+            }).join("");
+
+
+        }
+
+
+
+
+        // OPEN NEW PROMOTION FORM
+
+
+        function openPromotionModal() {
+
+
+          const form =
+            document.getElementById("promotionForm");
+
+
+          if (form) {
+            form.reset();
+          }
+
+
+          document.getElementById("promotionId").value = "";
+
+
+          document.getElementById("promotionStatus").value = "true";
+
+
+          document.getElementById("promotionModalTitle").textContent =
+            "Add Promotion";
+
+
+          document.getElementById("promotionModal").classList.add("active");
+
+
+        }
+
+
+
+
+        // CLOSE PROMOTION FORM
+
+
+        function closePromotionModal() {
+
+
+          document
+            .getElementById("promotionModal")
+            ?.classList.remove("active");
+
+
+        }
+
+
+
+
+        // EDIT PROMOTION
+
+
+        function editPromotion(promotionId) {
+
+
+          const promotion = promotions.find(
+            item => String(item.id) === String(promotionId)
+          );
+
+
+          if (!promotion) {
+
+
+            alert("Promotion not found.");
+
+
+            return;
+
+
+          }
+
+
+          document.getElementById("promotionId").value =
+            promotion.id ?? "";
+
+
+          document.getElementById("promotionTitle").value =
+            promotion.title ?? "";
+
+
+          document.getElementById("promotionDescription").value =
+            promotion.description ?? "";
+
+
+          document.getElementById("promotionImage").value =
+            promotion.image ?? "";
+
+
+          document.getElementById("promotionStatus").value =
+            String(promotion.status !== false);
+
+
+          document.getElementById("promotionModalTitle").textContent =
+            "Edit Promotion";
+
+
+          document.getElementById("promotionModal").classList.add("active");
+
+
+        }
+
+
+
+
+        // SAVE PROMOTION
+
+
+        document
+          .getElementById("promotionForm")
+          ?.addEventListener(
+            "submit",
+            async function (event) {
+
+
+              event.preventDefault();
+
+
+              const promotionId =
+                document.getElementById("promotionId").value;
+
+
+              const payload = {
+
+
+                title:
+                  document.getElementById("promotionTitle").value.trim(),
+
+
+                description:
+                  document.getElementById("promotionDescription").value.trim(),
+
+
+                image:
+                  document.getElementById("promotionImage").value.trim(),
+
+
+                status:
+                  document.getElementById("promotionStatus").value === "true"
+
+
+              };
+
+
+
+
+              if (!payload.title) {
+
+
+                alert("Promotion title is required.");
+
+
+                return;
+
+
               }
+
+
+
+
+              const saveButton =
+                document.getElementById("promotionSaveButton");
+
+
+              if (saveButton) {
+                saveButton.disabled = true;
+                saveButton.textContent = "Saving...";
+              }
+
+
+
+
+              try {
+
+
+                await apiRequest(
+                  promotionId
+                    ? "/admin/promotions/" + encodeURIComponent(promotionId)
+                    : "/admin/promotions",
+                  {
+                    method: promotionId ? "PATCH" : "POST",
+
+
+                    body: JSON.stringify(payload)
+                  }
+                );
+
+
+                alert("Promotion saved successfully.");
+
+
+                closePromotionModal();
+
+
+                await loadPromotions();
+
+
+              } catch (error) {
+
+
+                console.error(
+                  "Save promotion error:",
+                  error
+                );
+
+
+                alert(
+                  "Could not save promotion: " +
+                  error.message
+                );
+
+
+              } finally {
+
+
+                if (saveButton) {
+                  saveButton.disabled = false;
+                  saveButton.textContent = "Save Promotion";
+                }
+
+
+              }
+
+
             }
           );
 
 
-        const data =
-          await response.json();
 
 
-        if (!response.ok) {
+        // DELETE PROMOTION
 
-          throw new Error(
-            data.error ||
-            "Failed to delete promotion"
+
+        async function deletePromotion(promotionId) {
+
+
+          const confirmed = confirm(
+            "Are you sure you want to delete this promotion?"
           );
 
-        }
+
+          if (!confirmed) return;
 
 
-        await loadPromotions();
+          try {
 
 
-        await updateDashboardStats();
-
-
-      } catch (error) {
-
-        console.error(
-          "Delete promotion error:",
-          error
-        );
-
-        alert(error.message);
-
-      }
-
-        }
-
-        async function updateDashboardStats() {
-
-      try {
-
-        const response =
-          await fetch(
-            API + "/admin/dashboard",
-            {
-              headers: {
-                Authorization:
-                  "Bearer " +
-                  getToken()
+            await apiRequest(
+              "/admin/promotions/" +
+              encodeURIComponent(promotionId),
+              {
+                method: "DELETE"
               }
-            }
+            );
+
+
+            alert("Promotion deleted successfully.");
+
+
+            await loadPromotions();
+
+
+          } catch (error) {
+
+
+            console.error(
+              "Delete promotion error:",
+              error
+            );
+
+
+            alert(
+              "Could not delete promotion: " +
+              error.message
+            );
+
+
+          }
+
+
+        }
+
+
+
+
+        // ADD PROMOTION BUTTON
+
+
+        document
+          .getElementById("addPromotionButton")
+          ?.addEventListener(
+            "click",
+            openPromotionModal
           );
 
 
-        const data =
-          await response.json();
 
 
-        if (!response.ok) {
-          return;
-        }
+        // END OF PART 5F
 
 
-        const stats =
-          data.stats || {};
+// =====================================
+// SETTINGS: SHARED HELPERS
+// =====================================
+
+function showSettingsError(area, error) {
+  console.error(area + ':', error);
+  alert(area + ': ' + (error?.message || 'Please try again.'));
+}
+
+function validHttpUrl(value, required = false) {
+  const text = String(value || '').trim();
+  if (!text) return !required;
+  try {
+    const url = new URL(text);
+    return url.protocol === 'https:' || url.protocol === 'http:';
+  } catch (_) {
+    return false;
+  }
+}
+
+// =====================================
+// WEBSITE LOGO: BACKEND INTEGRATION
+// =====================================
+
+function updateLogoPreview() {
+  const input = document.getElementById('websiteLogoUrl');
+  const preview = document.getElementById('logoPreview');
+  if (!input || !preview) return;
+
+  const logoUrl = input.value.trim();
+  if (!logoUrl || !validHttpUrl(logoUrl, true)) {
+    preview.innerHTML = '<span style="color:#a5a5a5">Logo preview</span>';
+    return;
+  }
+
+  preview.innerHTML = `
+    <img src="${escapeHtml(logoUrl)}" alt="Website logo preview"
+      style="max-width:220px;max-height:100px;object-fit:contain;border:1px solid #333;border-radius:8px;padding:8px"
+      onerror="this.outerHTML='<span style=&quot;color:#ff9999&quot;>Could not load image preview</span>'">
+  `;
+}
+
+async function loadSiteSettings() {
+  const input = document.getElementById('websiteLogoUrl');
+  const preview = document.getElementById('logoPreview');
+  if (!input || !preview) return;
+  try {
+    const data = await apiRequest('/settings/site');
+    input.value = data.settings?.logoUrl || '';
+    updateLogoPreview();
+  } catch (error) {
+    console.error('Load site settings error:', error);
+    preview.innerHTML = '<span style="color:#ff9999">Could not load saved site settings.</span>';
+  }
+}
+
+document.getElementById('websiteLogoUrl')?.addEventListener('input', updateLogoPreview);
+
+document.getElementById('logoForm')?.addEventListener('submit', async function (event) {
+  event.preventDefault();
+  const input = document.getElementById('websiteLogoUrl');
+  const logoUrl = input?.value.trim() || '';
+  if (!validHttpUrl(logoUrl, true)) {
+    alert('Please enter a valid HTTP or HTTPS logo image URL.');
+    return;
+  }
+  const button = this.querySelector('button[type="submit"]');
+  if (button) button.disabled = true;
+  try {
+    const data = await apiRequest('/settings/admin/site', {
+      method: 'PATCH',
+      body: JSON.stringify({ logoUrl })
+    });
+    input.value = data.settings?.logoUrl || logoUrl;
+    updateLogoPreview();
+    alert('Website logo saved to the backend successfully.');
+  } catch (error) {
+    showSettingsError('Could not save website logo', error);
+  } finally {
+    if (button) button.disabled = false;
+  }
+});
+
+// =====================================
+// PAYMENT METHODS: BACKEND INTEGRATION
+// =====================================
+
+async function loadPaymentMethods() {
+  const tableBody = document.getElementById('paymentMethodsTableBody');
+  if (!tableBody) return;
+  tableBody.innerHTML = '<tr><td colspan="5" class="empty-state">Loading payment methods...</td></tr>';
+  try {
+    const data = await apiRequest('/settings/admin/payment-methods');
+    paymentMethods = Array.isArray(data.paymentMethods) ? data.paymentMethods : [];
+    renderPaymentMethods();
+  } catch (error) {
+    tableBody.innerHTML = '<tr><td colspan="5" class="empty-state">Could not load payment methods.</td></tr>';
+    console.error('Load payment methods error:', error);
+  }
+}
+
+function renderPaymentMethods() {
+  const tableBody = document.getElementById('paymentMethodsTableBody');
+  if (!tableBody) return;
+  if (!paymentMethods.length) {
+    tableBody.innerHTML = '<tr><td colspan="5" class="empty-state">No payment methods found. Add one to get started.</td></tr>';
+    return;
+  }
+  tableBody.innerHTML = paymentMethods.map(method => {
+    const active = method.status === true;
+    const icon = method.icon && validHttpUrl(method.icon, true)
+      ? `<img src="${escapeHtml(method.icon)}" alt="" width="30" height="30" style="object-fit:contain;vertical-align:middle;margin-right:8px" onerror="this.style.display='none'">`
+      : '';
+    return `<tr>
+      <td>${escapeHtml(method.id)}</td>
+      <td>${icon}${escapeHtml(method.name || '—')}</td>
+      <td style="max-width:260px;white-space:pre-wrap;overflow-wrap:anywhere">${escapeHtml(method.details || '—')}</td>
+      <td><span class="badge ${active ? 'badge-active' : 'badge-inactive'}">${active ? 'Active' : 'Inactive'}</span></td>
+      <td><div class="table-actions">
+        <button type="button" class="btn btn-secondary btn-small" onclick="editPaymentMethod(${Number(method.id)})">Edit</button>
+        <button type="button" class="btn btn-secondary btn-small" onclick="togglePaymentMethod(${Number(method.id)}, ${!active})">${active ? 'Disable' : 'Enable'}</button>
+        <button type="button" class="btn btn-danger btn-small" onclick="deletePaymentMethod(${Number(method.id)})">Delete</button>
+      </div></td>
+    </tr>`;
+  }).join('');
+}
+
+function openPaymentMethodModal() {
+  document.getElementById('paymentMethodForm')?.reset();
+  document.getElementById('paymentMethodId').value = '';
+  document.getElementById('paymentMethodStatus').value = 'true';
+  document.getElementById('paymentMethodModalTitle').textContent = 'Add Payment Method';
+  document.getElementById('paymentMethodModal').classList.add('active');
+}
+
+function closePaymentMethodModal() {
+  document.getElementById('paymentMethodModal')?.classList.remove('active');
+}
+
+function editPaymentMethod(methodId) {
+  const method = paymentMethods.find(item => Number(item.id) === Number(methodId));
+  if (!method) return alert('Payment method not found. Refresh the list and try again.');
+  document.getElementById('paymentMethodId').value = method.id;
+  document.getElementById('paymentMethodName').value = method.name || '';
+  document.getElementById('paymentMethodLogo').value = method.icon || '';
+  document.getElementById('paymentMethodDetails').value = method.details || '';
+  document.getElementById('paymentMethodInstructions').value = method.instructions || '';
+  document.getElementById('paymentMethodStatus').value = String(method.status === true);
+  document.getElementById('paymentMethodModalTitle').textContent = 'Edit Payment Method';
+  document.getElementById('paymentMethodModal').classList.add('active');
+}
+
+document.getElementById('paymentMethodForm')?.addEventListener('submit', async function (event) {
+  event.preventDefault();
+  const id = document.getElementById('paymentMethodId').value;
+  const name = document.getElementById('paymentMethodName').value.trim();
+  const icon = document.getElementById('paymentMethodLogo').value.trim();
+  const details = document.getElementById('paymentMethodDetails').value.trim();
+  const instructions = document.getElementById('paymentMethodInstructions').value.trim();
+  const status = document.getElementById('paymentMethodStatus').value === 'true';
+  if (!name || !details) return alert('Payment method name and details are required.');
+  if (!validHttpUrl(icon)) return alert('Please enter a valid HTTP or HTTPS icon URL, or leave it empty.');
+  const button = document.getElementById('paymentMethodSaveButton');
+  if (button) button.disabled = true;
+  try {
+    const payload = { name, details, icon: icon || null, instructions: instructions || null, status };
+    await apiRequest(id ? `/settings/admin/payment-methods/${encodeURIComponent(id)}` : '/settings/admin/payment-methods', {
+      method: id ? 'PATCH' : 'POST',
+      body: JSON.stringify(payload)
+    });
+    closePaymentMethodModal();
+    await loadPaymentMethods();
+    alert(id ? 'Payment method updated successfully.' : 'Payment method added successfully.');
+  } catch (error) {
+    showSettingsError('Could not save payment method', error);
+  } finally {
+    if (button) button.disabled = false;
+  }
+});
+
+async function togglePaymentMethod(methodId, status) {
+  try {
+    await apiRequest(`/settings/admin/payment-methods/${encodeURIComponent(methodId)}`, {
+      method: 'PATCH', body: JSON.stringify({ status })
+    });
+    await loadPaymentMethods();
+  } catch (error) {
+    showSettingsError('Could not change payment method status', error);
+  }
+}
+
+async function deletePaymentMethod(methodId) {
+  if (!confirm('Permanently delete this payment method?')) return;
+  try {
+    await apiRequest(`/settings/admin/payment-methods/${encodeURIComponent(methodId)}`, { method: 'DELETE' });
+    await loadPaymentMethods();
+    alert('Payment method deleted successfully.');
+  } catch (error) {
+    showSettingsError('Could not delete payment method', error);
+  }
+}
+
+document.getElementById('addPaymentMethodButton')?.addEventListener('click', openPaymentMethodModal);
+
+// =====================================
+// HOMEPAGE BANNERS: BACKEND INTEGRATION
+// =====================================
+
+async function loadBanners() {
+  const tableBody = document.getElementById('bannersTableBody');
+  if (!tableBody) return;
+  tableBody.innerHTML = '<tr><td colspan="6" class="empty-state">Loading homepage banners...</td></tr>';
+  try {
+    const data = await apiRequest('/settings/admin/banners');
+    banners = Array.isArray(data.banners) ? data.banners : [];
+    renderBanners();
+  } catch (error) {
+    tableBody.innerHTML = '<tr><td colspan="6" class="empty-state">Could not load homepage banners.</td></tr>';
+    console.error('Load banners error:', error);
+  }
+}
+
+function renderBanners() {
+  const tableBody = document.getElementById('bannersTableBody');
+  if (!tableBody) return;
+  if (!banners.length) {
+    tableBody.innerHTML = '<tr><td colspan="6" class="empty-state">No homepage banners found. Add one to get started.</td></tr>';
+    return;
+  }
+  const sorted = [...banners].sort((a, b) => Number(a.sortOrder || 0) - Number(b.sortOrder || 0));
+  tableBody.innerHTML = sorted.map(banner => {
+    const active = banner.status === true;
+    const image = banner.imageUrl && validHttpUrl(banner.imageUrl, true)
+      ? `<img src="${escapeHtml(banner.imageUrl)}" alt="" width="90" height="48" style="object-fit:cover;border-radius:6px" onerror="this.style.display='none'">`
+      : '—';
+    return `<tr>
+      <td>${escapeHtml(banner.id)}</td>
+      <td>${image}</td>
+      <td>${escapeHtml(banner.title || '—')}${banner.linkUrl ? `<div style="color:#999;font-size:11px;overflow-wrap:anywhere">${escapeHtml(banner.linkUrl)}</div>` : ''}</td>
+      <td><span class="badge ${active ? 'badge-active' : 'badge-inactive'}">${active ? 'Active' : 'Inactive'}</span></td>
+      <td>${escapeHtml(banner.sortOrder ?? 0)}</td>
+      <td><div class="table-actions">
+        <button type="button" class="btn btn-secondary btn-small" onclick="editBanner(${Number(banner.id)})">Edit</button>
+        <button type="button" class="btn btn-secondary btn-small" onclick="toggleBanner(${Number(banner.id)}, ${!active})">${active ? 'Disable' : 'Enable'}</button>
+        <button type="button" class="btn btn-danger btn-small" onclick="deleteBanner(${Number(banner.id)})">Delete</button>
+      </div></td>
+    </tr>`;
+  }).join('');
+}
+
+function openBannerModal() {
+  document.getElementById('bannerForm')?.reset();
+  document.getElementById('bannerId').value = '';
+  document.getElementById('bannerOrder').value = '0';
+  document.getElementById('bannerStatus').value = 'true';
+  document.getElementById('bannerModalTitle').textContent = 'Add Homepage Banner';
+  document.getElementById('bannerModal').classList.add('active');
+}
+
+function closeBannerModal() {
+  document.getElementById('bannerModal')?.classList.remove('active');
+}
+
+function editBanner(bannerId) {
+  const banner = banners.find(item => Number(item.id) === Number(bannerId));
+  if (!banner) return alert('Banner not found. Refresh the list and try again.');
+  document.getElementById('bannerId').value = banner.id;
+  document.getElementById('bannerTitle').value = banner.title || '';
+  document.getElementById('bannerImage').value = banner.imageUrl || '';
+  document.getElementById('bannerLink').value = banner.linkUrl || '';
+  document.getElementById('bannerOrder').value = banner.sortOrder ?? 0;
+  document.getElementById('bannerStatus').value = String(banner.status === true);
+  document.getElementById('bannerModalTitle').textContent = 'Edit Homepage Banner';
+  document.getElementById('bannerModal').classList.add('active');
+}
+
+document.getElementById('bannerForm')?.addEventListener('submit', async function (event) {
+  event.preventDefault();
+  const id = document.getElementById('bannerId').value;
+  const title = document.getElementById('bannerTitle').value.trim();
+  const imageUrl = document.getElementById('bannerImage').value.trim();
+  const linkValue = document.getElementById('bannerLink').value.trim();
+  const sortOrder = Number(document.getElementById('bannerOrder').value);
+  const status = document.getElementById('bannerStatus').value === 'true';
+  if (!title || !validHttpUrl(imageUrl, true)) return alert('Enter a title and a valid HTTP or HTTPS banner image URL.');
+  if (!validHttpUrl(linkValue)) return alert('Please enter a valid HTTP or HTTPS destination URL, or leave it empty.');
+  if (!Number.isInteger(sortOrder)) return alert('Display order must be a whole number.');
+  const button = this.querySelector('button[type="submit"]');
+  if (button) button.disabled = true;
+  try {
+    const payload = { title, imageUrl, linkUrl: linkValue || null, sortOrder, status };
+    await apiRequest(id ? `/settings/admin/banners/${encodeURIComponent(id)}` : '/settings/admin/banners', {
+      method: id ? 'PATCH' : 'POST', body: JSON.stringify(payload)
+    });
+    closeBannerModal();
+    await loadBanners();
+    alert(id ? 'Banner updated successfully.' : 'Banner added successfully.');
+  } catch (error) {
+    showSettingsError('Could not save banner', error);
+  } finally {
+    if (button) button.disabled = false;
+  }
+});
+
+async function toggleBanner(bannerId, status) {
+  try {
+    await apiRequest(`/settings/admin/banners/${encodeURIComponent(bannerId)}`, {
+      method: 'PATCH', body: JSON.stringify({ status })
+    });
+    await loadBanners();
+  } catch (error) {
+    showSettingsError('Could not change banner status', error);
+  }
+}
+
+async function deleteBanner(bannerId) {
+  if (!confirm('Permanently delete this homepage banner?')) return;
+  try {
+    await apiRequest(`/settings/admin/banners/${encodeURIComponent(bannerId)}`, { method: 'DELETE' });
+    await loadBanners();
+    alert('Homepage banner deleted successfully.');
+  } catch (error) {
+    showSettingsError('Could not delete banner', error);
+  }
+}
+
+document.getElementById('addBannerButton')?.addEventListener('click', openBannerModal);
 
 
-        document.getElementById(
-          "userCount"
-        ).textContent =
-          stats.users ?? 0;
+    // CLOSE MODALS WHEN CLICKING OUTSIDE
 
 
-        document.getElementById(
-          "gameCount"
-        ).textContent =
-          stats.games ?? 0;
+    document
+      .querySelectorAll(".modal")
+      .forEach(modal => {
 
 
-        document.getElementById(
-          "promotionCount"
-        ).textContent =
-          stats.promotions ?? 0;
+        modal.addEventListener(
+          "click",
+          function (event) {
 
-      } catch (error) {
 
-        console.error(
-          "Stats update error:",
-          error
+            if (event.target !== modal) {
+              return;
+            }
+
+
+            modal.classList.remove("active");
+
+
+          }
         );
 
-      }
 
-        }
-
-
-        async function startAdminPanel() {
-
-      await loadUsers();
-
-      await loadGames();
-
-      await loadPromotions();
-
-      await updateDashboardStats();
-
-    }
+      });
 
 
-    console.log(
-      "NOVA88 Admin Panel starting..."
-    );
+
+
+    // START ADMIN PANEL
 
 
     checkAdminAccess();
 
+
+
+
+    // END OF ADMIN JAVASCRIPT
+
+
   </script>
 
-</body>
 
+</main>
+
+
+  </div>
+</body>
 </html>
