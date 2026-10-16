@@ -1,1009 +1,340 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
   <meta charset="UTF-8">
-
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>NOVA88 - My Account</title>
-
   <style>
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      font-family: Arial, sans-serif;
-      background:
-        radial-gradient(
-          circle at top,
-          #151820 0%,
-          #08090d 45%,
-          #05060a 100%
-        );
-      color: #fff;
-      min-height: 100vh;
-    }
-
-    /* =========================
-       HEADER
-    ========================= */
-
-    header {
-      height: 76px;
-      padding: 0 24px;
-      border-bottom: 1px solid #252832;
-      background: rgba(8, 9, 13, 0.92);
-
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-
-      position: sticky;
-      top: 0;
-      z-index: 100;
-
-      backdrop-filter: blur(12px);
-    }
-
-    .logo {
-      font-size: 28px;
-      font-weight: 900;
-      letter-spacing: 1px;
-    }
-
-    .logo span {
-      color: #ffae2b;
-    }
-
-    .back {
-      color: #111;
-
-      background:
-        linear-gradient(
-          135deg,
-          #ffae2b,
-          #ff791c
-        );
-
-      border: none;
-
-      padding: 11px 18px;
-
-      border-radius: 10px;
-
-      font-weight: 800;
-
-      cursor: pointer;
-
-      transition: 0.2s ease;
-    }
-
-    .back:hover {
-      transform: translateY(-2px);
-      filter: brightness(1.08);
-    }
-
-    /* =========================
-       MAIN
-    ========================= */
-
-    main {
-      width: 100%;
-      max-width: 900px;
-
-      margin: auto;
-
-      padding: 42px 20px 60px;
-    }
-
-    .title {
-      margin-bottom: 30px;
-    }
-
-    .title h1 {
-      font-size: 36px;
-      margin-bottom: 10px;
-      font-weight: 900;
-    }
-
-    .title p {
-      color: #9da3b2;
-      line-height: 1.6;
-    }
-
-    /* =========================
-       ACCOUNT CARD
-    ========================= */
-
-    .account-card {
-      background:
-        linear-gradient(
-          145deg,
-          #151821,
-          #0e1016
-        );
-
-      border: 1px solid #292d38;
-
-      border-radius: 20px;
-
-      overflow: hidden;
-
-      box-shadow:
-        0 20px 55px rgba(0, 0, 0, 0.28);
-    }
-
-    .account-header {
-      padding: 28px;
-
-      border-bottom:
-        1px solid #292d38;
-
-      display: flex;
-      align-items: center;
-      gap: 18px;
-    }
-
-    .profile-icon {
-      width: 64px;
-      height: 64px;
-
-      flex-shrink: 0;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      border-radius: 18px;
-
-      background:
-        linear-gradient(
-          135deg,
-          #252a35,
-          #171a22
-        );
-
-      border: 1px solid #3a3f4c;
-
-      font-size: 30px;
-    }
-
-    .account-header h2 {
-      color: #ffae2b;
-      margin-bottom: 6px;
-      font-size: 23px;
-    }
-
-    .account-header p {
-      color: #9da3b2;
-      line-height: 1.5;
-    }
-
-    /* =========================
-       INFORMATION
-    ========================= */
-
-    .info {
-      padding: 10px 28px 20px;
-    }
-
-    .row {
-      min-height: 76px;
-
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-
-      gap: 20px;
-
-      padding: 18px 0;
-
-      border-bottom:
-        1px solid #242732;
-    }
-
-    .row:last-child {
-      border-bottom: none;
-    }
-
-    .label {
-      color: #858b9b;
-      font-size: 14px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    .value {
-      font-weight: 700;
-      text-align: right;
-      word-break: break-word;
-      color: #fff;
-    }
-
-    .role {
-      color: #ffae2b;
-    }
-
-    .balance {
-  color: #42e695;
-  font-size: 22px;
-  font-weight: 900;
-    }
-    
-    .loading {
-      color: #ffae2b;
-    }
-
-    .error {
-      color: #ff6b6b !important;
-    }
-
-    /* =========================
-       ACCOUNT STATUS
-    ========================= */
-
-    .status-box {
-      margin-top: 22px;
-
-      padding: 18px 20px;
-
-      background:
-        rgba(255, 174, 43, 0.045);
-
-      border:
-        1px solid rgba(255, 174, 43, 0.16);
-
-      border-radius: 14px;
-
-      color: #aeb3c0;
-
-      line-height: 1.6;
-
-      text-align: center;
-    }
-
-    .status-box strong {
-      color: #ffae2b;
-    }
-
-    /* =========================
-       MOBILE
-    ========================= */
-
-    @media (max-width: 600px) {
-
-      header {
-        height: 68px;
-        padding: 0 16px;
-      }
-
-      .logo {
-        font-size: 24px;
-      }
-
-      .back {
-        padding: 10px 14px;
-        font-size: 13px;
-      }
-
-      main {
-        padding:
-          30px 16px 50px;
-      }
-
-      .title h1 {
-        font-size: 28px;
-      }
-
-      .account-header {
-        padding: 22px;
-      }
-
-      .profile-icon {
-        width: 56px;
-        height: 56px;
-        font-size: 26px;
-      }
-
-      .account-header h2 {
-        font-size: 20px;
-      }
-
-      .info {
-        padding:
-          8px 22px 16px;
-      }
-
-      .row {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 7px;
-      }
-
-      .value {
-        text-align: left;
-      }
-
-    }
-
+    *{box-sizing:border-box;margin:0;padding:0}
+    :root{--gold:#ffae2b;--orange:#ff791c;--bg:#08090d;--panel:#11141c;--line:#292d38;--muted:#9da3b2;--green:#42e695;--red:#ff6b6b}
+    body{font-family:Arial,sans-serif;background:radial-gradient(circle at top,#151820 0%,#08090d 45%,#05060a 100%);color:#fff;min-height:100vh}
+    header{min-height:72px;padding:14px 22px;border-bottom:1px solid #252832;background:rgba(8,9,13,.94);display:flex;justify-content:space-between;align-items:center;gap:14px;position:sticky;top:0;z-index:10;backdrop-filter:blur(12px)}
+    .logo{font-size:27px;font-weight:900;letter-spacing:1px}.logo span{color:var(--gold)}
+    button,input,select{font:inherit}
+    button{cursor:pointer}
+    .back,.submit{border:0;border-radius:10px;background:linear-gradient(135deg,var(--gold),var(--orange));color:#111;font-weight:800;padding:12px 17px}
+    .back:hover,.submit:hover{filter:brightness(1.07)}
+    main{max-width:900px;margin:auto;padding:36px 18px 60px}
+    .page-title{margin-bottom:24px}.page-title h1{font-size:34px;margin-bottom:8px}.page-title p{color:var(--muted);line-height:1.6}
+    .card{background:linear-gradient(145deg,#151821,#0e1016);border:1px solid var(--line);border-radius:18px;overflow:hidden;margin-bottom:22px;box-shadow:0 16px 45px #0003}
+    .card-head{padding:23px 25px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:15px}
+    .icon{width:54px;height:54px;flex-shrink:0;display:flex;align-items:center;justify-content:center;border-radius:15px;background:linear-gradient(135deg,#252a35,#171a22);border:1px solid #3a3f4c;font-size:26px}
+    .card-head h2{color:var(--gold);font-size:21px;margin-bottom:5px}.card-head p{color:var(--muted);line-height:1.5;font-size:14px}
+    .content{padding:8px 25px 20px}
+    .row{min-height:62px;display:flex;justify-content:space-between;align-items:center;gap:18px;padding:14px 0;border-bottom:1px solid #242732}
+    .row:last-child{border-bottom:0}.label{color:#858b9b;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.5px}
+    .value{text-align:right;word-break:break-word;font-weight:700}.role{color:var(--gold)}.balance{color:var(--green);font-size:22px;font-weight:900}
+    .field{width:100%;max-width:360px;padding:12px 13px;border-radius:10px;border:1px solid #333845;background:#0b0d12;color:#fff;outline:none}
+    .field:focus{border-color:var(--gold)}select.field option{background:#0b0d12;color:#fff}
+    .form-row{align-items:center}.submit-row{display:block}.submit{width:100%;padding:14px}
+    .message{padding:10px 0 0;text-align:center;color:var(--muted);line-height:1.5;overflow-wrap:anywhere}.message.success{color:var(--green)}.message.error{color:var(--red)}
+    .status{margin-top:6px;padding:17px 19px;background:#ffae2b0b;border:1px solid #ffae2b2b;border-radius:13px;color:#aeb3c0;line-height:1.6;text-align:center}.status strong{color:var(--gold)}
+    .table-wrap{width:100%;overflow-x:auto}.history-table{width:100%;border-collapse:collapse;min-width:560px}.history-table th,.history-table td{text-align:left;padding:13px 10px;border-bottom:1px solid #292d38;font-size:13px}.history-table th{color:var(--gold);font-size:12px;text-transform:uppercase;letter-spacing:.4px}.history-table td{color:#e9ebf1;overflow-wrap:anywhere}.empty{text-align:center;color:var(--muted);padding:22px 8px;line-height:1.5}.pill{display:inline-block;border-radius:999px;padding:5px 9px;background:#ffffff10;border:1px solid #ffffff1c;font-size:11px;font-weight:800;text-transform:capitalize}.pill.approved,.pill.completed,.pill.success{color:var(--green);border-color:#42e69555}.pill.rejected,.pill.failed{color:var(--red);border-color:#ff6b6b55}.pill.pending{color:var(--gold);border-color:#ffae2b55}
+    .loading{color:var(--gold)}.error-text{color:var(--red)}
+    @media(max-width:600px){header{min-height:65px;padding:12px 14px}.logo{font-size:23px}.back{padding:10px 12px;font-size:13px}main{padding:27px 13px 45px}.page-title h1{font-size:28px}.card-head{padding:19px}.icon{width:48px;height:48px;font-size:23px}.card-head h2{font-size:19px}.content{padding:6px 19px 17px}.row{flex-direction:column;align-items:stretch;gap:9px}.value{text-align:left}.field{max-width:none}.balance{font-size:20px}}
   </style>
-
 </head>
-
-
 <body>
-
-  <!-- =========================
-       HEADER
-  ========================= -->
-
   <header>
-
-    <div class="logo">
-      NOVA<span>88</span>
-    </div>
-
-    <button
-      class="back"
-      id="backBtn"
-    >
-      ← Dashboard
-    </button>
-
+    <div class="logo">NOVA<span>88</span></div>
+    <button class="back" id="backBtn" type="button">← Dashboard</button>
   </header>
 
-
-  <!-- =========================
-       MAIN
-  ========================= -->
-
   <main>
-
-    <div class="title">
-
-      <h1>
-        My Account
-      </h1>
-
-      <p>
-        Manage and view your NOVA88
-        account information.
-      </p>
-
+    <div class="page-title">
+      <h1>My Account</h1>
+      <p>Manage your NOVA88 account, check your demo balance, and submit deposit requests.</p>
     </div>
 
-
-    <!-- ACCOUNT CARD -->
-
-    <div class="account-card">
-
-
-      <div class="account-header">
-
-        <div class="profile-icon">
-          👤
-        </div>
-
-        <div>
-
-          <h2>
-            Account Information
-          </h2>
-
-          <p>
-            Your registered account details.
-          </p>
-
-        </div>
-
+    <section class="card">
+      <div class="card-head"><div class="icon">👤</div><div><h2>Account Information</h2><p>Your registered account details.</p></div></div>
+      <div class="content">
+        <div class="row"><span class="label">Name</span><span class="value loading" id="userName">Loading...</span></div>
+        <div class="row"><span class="label">Email</span><span class="value loading" id="userEmail">Loading...</span></div>
+        <div class="row"><span class="label">Account Role</span><span class="value role loading" id="userRole">Loading...</span></div>
       </div>
+    </section>
 
-
-      <div class="info">
-
-
-        <!-- NAME -->
-
-        <div class="row">
-
-          <span class="label">
-            Name
-          </span>
-
-          <span
-            class="value loading"
-            id="userName"
-          >
-            Loading...
-          </span>
-
-        </div>
-
-
-        <!-- EMAIL -->
-
-        <div class="row">
-
-          <span class="label">
-            Email
-          </span>
-
-          <span
-            class="value loading"
-            id="userEmail"
-          >
-            Loading...
-          </span>
-
-        </div>
-
-
-        <!-- ROLE -->
-
-        <div class="row">
-
-          <span class="label">
-            Account Role
-          </span>
-
-          <span
-            class="value role loading"
-            id="userRole"
-          >
-            Loading...
-          </span>
-
-        </div>
-
-
+    <section class="card">
+      <div class="card-head"><div class="icon">💰</div><div><h2>Account Balance</h2><p>Your current NOVA88 demo balance.</p></div></div>
+      <div class="content">
+        <div class="row"><span class="label">Current Balance</span><span class="value balance loading" id="userBalance">Loading...</span></div>
       </div>
+    </section>
 
-    </div>
-
-    <!-- BALANCE -->
-
-    <div class="account-card">
-
-      <div class="account-header">
-
-        <div class="profile-icon">
-          💰
-        </div>
-
-        <div>
-
-          <h2>
-            Account Balance
-          </h2>
-
-          <p>
-            Your current NOVA88 demo balance.
-          </p>
-
-        </div>
-
+    <section class="card">
+      <div class="card-head"><div class="icon">💳</div><div><h2>Deposit Request</h2><p>Submit a demo deposit request for admin review.</p></div></div>
+      <div class="content">
+        <div class="row form-row"><label class="label" for="depositAmount">Amount</label><input class="field" type="number" id="depositAmount" placeholder="Enter amount" min="1" step="0.01" inputmode="decimal"></div>
+        <div class="row form-row"><label class="label" for="depositMethod">Payment Method</label><select class="field" id="depositMethod"><option value="">Loading payment methods...</option></select></div>
+        <div class="row form-row"><label class="label" for="transactionId">Transaction ID</label><input class="field" type="text" id="transactionId" placeholder="Optional"></div>
+        <div class="row form-row"><label class="label" for="depositNote">Note</label><input class="field" type="text" id="depositNote" placeholder="Optional note"></div>
+        <div class="row submit-row"><button class="submit" id="depositSubmit" type="button">Submit Deposit Request</button><div class="message" id="depositMessage" role="status" aria-live="polite"></div></div>
       </div>
+    </section>
 
-
-      <div class="info">
-
-        <div class="row">
-
-          <span class="label">
-            Current Balance
-          </span>
-
-          <span
-            class="value balance loading"
-            id="userBalance"
-          >
-            Loading...
-          </span>
-
+    <section class="card">
+      <div class="card-head"><div class="icon">📋</div><div><h2>Deposit History</h2><p>Review your recent deposit requests and their status.</p></div></div>
+      <div class="content">
+        <div id="historyMessage" class="empty">Loading deposit history...</div>
+        <div class="table-wrap" id="historyTableWrap" hidden>
+          <table class="history-table">
+            <thead><tr><th>Date</th><th>Amount</th><th>Method</th><th>Status</th><th>Transaction ID</th></tr></thead>
+            <tbody id="historyBody"></tbody>
+          </table>
         </div>
-
       </div>
+    </section>
 
-    </div>
-
-        <!-- DEPOSIT REQUEST -->
-
-    <div class="account-card">
-
-      <div class="account-header">
-
-        <div class="profile-icon">
-          💳
-        </div>
-
-        <div>
-          <h2>Deposit Request</h2>
-          <p>Submit a demo deposit request for admin review.</p>
-        </div>
-
-      </div>
-
-      <div class="info">
-
-        <div class="row">
-          <span class="label">Amount</span>
-
-          <input
-            type="number"
-            id="depositAmount"
-            placeholder="Enter amount"
-            min="1"
-            step="0.01"
-            style="
-              width: 100%;
-              max-width: 300px;
-              padding: 12px;
-              border-radius: 10px;
-              border: 1px solid #333845;
-              background: #0b0d12;
-              color: #fff;
-            "
-          >
-        </div>
-
-        <div class="row">
-          <span class="label">Method</span>
-
-          <select
-            id="depositMethod"
-            style="
-              width: 100%;
-              max-width: 300px;
-              padding: 12px;
-              border-radius: 10px;
-              border: 1px solid #333845;
-              background: #0b0d12;
-              color: #fff;
-            "
-          >
-            <option value="">Select Method</option>
-            <option value="Bank Transfer">Bank Transfer</option>
-            <option value="Mobile Payment">Mobile Payment</option>
-            <option value="Demo Payment">Demo Payment</option>
-          </select>
-        </div>
-
-        <div class="row">
-          <span class="label">Transaction ID</span>
-
-          <input
-            type="text"
-            id="transactionId"
-            placeholder="Optional"
-            style="
-              width: 100%;
-              max-width: 300px;
-              padding: 12px;
-              border-radius: 10px;
-              border: 1px solid #333845;
-              background: #0b0d12;
-              color: #fff;
-            "
-          >
-        </div>
-
-        <div class="row">
-          <span class="label">Note</span>
-
-          <input
-            type="text"
-            id="depositNote"
-            placeholder="Optional note"
-            style="
-              width: 100%;
-              max-width: 300px;
-              padding: 12px;
-              border-radius: 10px;
-              border: 1px solid #333845;
-              background: #0b0d12;
-              color: #fff;
-            "
-          >
-        </div>
-
-        <div class="row">
-
-          <button
-            id="depositSubmit"
-            style="
-              width: 100%;
-              padding: 14px;
-              border: none;
-              border-radius: 10px;
-              background: linear-gradient(135deg,#ffae2b,#ff791c);
-              color: #111;
-              font-weight: 900;
-              cursor: pointer;
-            "
-          >
-            Submit Deposit Request
-          </button>
-
-        </div>
-
-        <div
-          id="depositMessage"
-          style="
-            text-align: center;
-            margin-top: 10px;
-            color: #9da3b2;
-          "
-        ></div>
-
-      </div>
-
-    </div>
-    
-    <!-- DEMO STATUS -->
-
-    <div class="status-box">
-
-      <strong>Account Status:</strong>
-      Your NOVA88 account information is
-      securely loaded from your account.
-
-    </div>
-
+    <div class="status"><strong>Account Status:</strong> Your account information is loaded securely from NOVA88.</div>
   </main>
 
-
   <script>
+    "use strict";
 
-    /* =========================
-       API
-    ========================= */
+    const API = "https://nova88-backend.onrender.com/api";
+    const token = localStorage.getItem("nova88_token");
+    const $ = (id) => document.getElementById(id);
 
-    const API =
-      "https://nova88-backend.onrender.com/api";
+    async function readJson(response) {
+      const text = await response.text();
+      if (!text || !text.trim()) return {};
+      try { return JSON.parse(text); }
+      catch (_) { throw new Error("The server returned an invalid response. Please try again."); }
+    }
 
+    function setMessage(element, message, type) {
+      element.textContent = message || "";
+      element.classList.remove("success", "error");
+      if (type) element.classList.add(type);
+    }
 
-    /* =========================
-       TOKEN
-    ========================= */
+    function money(value) {
+      const number = Number(value);
+      return Number.isFinite(number) ? number.toFixed(2) : "0.00";
+    }
 
-    const token =
-      localStorage.getItem(
-        "nova88_token"
-      );
+    function safeText(value, fallback = "—") {
+      if (value === null || value === undefined || value === "") return fallback;
+      return String(value);
+    }
 
-
-    /* =========================
-       AUTH PROTECTION
-    ========================= */
+    function getStatus(item) {
+      return safeText(item.status || item.state || item.depositStatus, "Pending").toLowerCase();
+    }
 
     if (!token) {
-
-      window.location.href =
-        "index.html";
-
+      window.location.replace("index.html");
     }
-
-
-    /* =========================
-       LOAD ACCOUNT
-    ========================= */
 
     async function loadAccount() {
-
       try {
-
-        const response =
-          await fetch(
-            `${API}/auth/me`,
-            {
-              method: "GET",
-
-              headers: {
-                "Authorization":
-                  `Bearer ${token}`
-              }
-            }
-          );
-
-
-        const data =
-          await response.json();
-
-
-        /* =========================
-           INVALID TOKEN
-        ========================= */
-
+        const response = await fetch(`${API}/auth/me`, {
+          method: "GET",
+          headers: { "Authorization": `Bearer ${token}` }
+        });
+        const data = await readJson(response);
         if (!response.ok) {
-
-          localStorage.removeItem(
-            "nova88_token"
-          );
-
-          window.location.href =
-            "index.html";
-
+          localStorage.removeItem("nova88_token");
+          window.location.replace("index.html");
           return;
-
         }
-
-
-        /* =========================
-           USER DATA
-        ========================= */
-
-        const user =
-          data.user;
-
-
-        document.getElementById(
-          "userName"
-        ).textContent =
-          user.name || "Not available";
-
-
-        document.getElementById(
-          "userEmail"
-        ).textContent =
-          user.email || "Not available";
-
-
-        document.getElementById(
-          "userRole"
-        ).textContent =
-          user.role || "USER";
-
-
-        /* =========================
-           REMOVE LOADING
-        ========================= */
-
-        document
-          .querySelectorAll(".loading")
-          .forEach(
-            element => {
-
-              element.classList.remove(
-                "loading"
-              );
-
-            }
-          );
-
+        const user = data.user || data;
+        $("userName").textContent = safeText(user.name, "Not available");
+        $("userEmail").textContent = safeText(user.email, "Not available");
+        $("userRole").textContent = safeText(user.role, "USER").toUpperCase();
+        ["userName", "userEmail", "userRole"].forEach(id => $(id).classList.remove("loading"));
+      } catch (error) {
+        console.error("Account loading error:", error);
+        ["userName", "userEmail", "userRole"].forEach(id => {
+          $(id).textContent = "Unable to load";
+          $(id).classList.remove("loading");
+          $(id).classList.add("error-text");
+        });
       }
-
-
-      catch (error) {
-
-        console.error(
-          "Account loading error:",
-          error
-        );
-
-
-        document.getElementById(
-          "userName"
-        ).textContent =
-          "Unable to load";
-
-
-        document.getElementById(
-          "userEmail"
-        ).textContent =
-          "Unable to load";
-
-
-        document.getElementById(
-          "userRole"
-        ).textContent =
-          "Unable to load";
-
-
-        document
-          .querySelectorAll(".value")
-          .forEach(
-            element => {
-
-              element.classList.add(
-                "error"
-              );
-
-            }
-          );
-
-      }
-
     }
 
-        async function loadBalance() {
-
+    async function loadPaymentMethods() {
+      const select = $("depositMethod");
+      select.innerHTML = '<option value="">Loading payment methods...</option>';
       try {
+        const response = await fetch(`${API}/settings/payment-methods`, { method: "GET" });
+        const data = await readJson(response);
+        if (!response.ok) throw new Error(data.error || "Could not load payment methods.");
 
-        const response = await fetch(
-          `${API}/deposits/my`,
-          {
-            method: "GET",
-            headers: {
-              "Authorization": `Bearer ${token}`
-            }
+        const allMethods = Array.isArray(data.paymentMethods)
+          ? data.paymentMethods
+          : Array.isArray(data.methods) ? data.methods : [];
+
+        const activeMethods = allMethods.filter(method =>
+          method && method.name &&
+          method.status !== false &&
+          String(method.status ?? "active").toLowerCase() !== "inactive" &&
+          String(method.status ?? "active").toLowerCase() !== "disabled"
+        );
+
+        select.innerHTML = "";
+        const defaultOption = document.createElement("option");
+        defaultOption.value = "";
+        defaultOption.textContent = "Select Method";
+        select.appendChild(defaultOption);
+
+        activeMethods.forEach(method => {
+          const option = document.createElement("option");
+          option.value = String(method.name);
+          option.textContent = String(method.name);
+          if (method.details || method.instructions) {
+            option.title = [method.details, method.instructions].filter(Boolean).join(" — ");
           }
-        );
+          select.appendChild(option);
+        });
 
-        const data = await response.json();
-
-        if (!response.ok) {
-          throw new Error(
-            data.error || "Failed to load balance"
-          );
+        if (activeMethods.length === 0) {
+          select.innerHTML = '<option value="">No active payment methods available</option>';
         }
-
-        const balance =
-          Number(data.balance || 0).toFixed(2);
-
-        const balanceElement =
-          document.getElementById("userBalance");
-
-        balanceElement.textContent =
-          `${balance} Demo Credits`;
-
-        balanceElement.classList.remove("loading");
-
       } catch (error) {
+        console.error("Payment methods loading error:", error);
+        select.innerHTML = '<option value="">Unable to load payment methods</option>';
+      }
+    }
 
-        console.error(
-          "Balance loading error:",
-          error
-        );
+    function renderHistory(items) {
+      const message = $("historyMessage");
+      const wrap = $("historyTableWrap");
+      const body = $("historyBody");
+      body.innerHTML = "";
 
-        const balanceElement =
-          document.getElementById("userBalance");
-
-        balanceElement.textContent =
-          "Unable to load";
-
-        balanceElement.classList.remove("loading");
-
-        balanceElement.classList.add("error");
-
+      if (!Array.isArray(items) || items.length === 0) {
+        wrap.hidden = true;
+        message.hidden = false;
+        message.textContent = "No deposit history found yet.";
+        return;
       }
 
+      items.forEach(item => {
+        const row = document.createElement("tr");
+        const dateValue = item.createdAt || item.created_at || item.date || item.updatedAt;
+        let dateText = "—";
+        if (dateValue) {
+          const date = new Date(dateValue);
+          dateText = Number.isNaN(date.getTime()) ? String(dateValue) : date.toLocaleString();
         }
-
-    /* =========================
-       BACK TO DASHBOARD
-    ========================= */
-
-    document
-      .getElementById("backBtn")
-      .addEventListener(
-        "click",
-        () => {
-
-          window.location.href =
-            "dashboard.html";
-
-        }
-      );
-
-
-    /* =========================
-       START
-    ========================= */
-
-    loadAccount();
-    loadBalance();
-
-        document
-      .getElementById("depositSubmit")
-      .addEventListener("click", async () => {
-
-        const amount =
-          document.getElementById("depositAmount").value;
-
-        const method =
-          document.getElementById("depositMethod").value;
-
-        const transactionId =
-          document.getElementById("transactionId").value;
-
-        const note =
-          document.getElementById("depositNote").value;
-
-        const message =
-          document.getElementById("depositMessage");
-
-        if (!amount || Number(amount) <= 0) {
-          message.textContent =
-            "Please enter a valid amount.";
-          return;
-        }
-
-        if (!method) {
-          message.textContent =
-            "Please select a deposit method.";
-          return;
-        }
-
-        message.textContent =
-          "Submitting request...";
-
-        try {
-
-          const response = await fetch(
-            `${API}/deposits`,
-            {
-              method: "POST",
-
-              headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${token}`
-              },
-
-              body: JSON.stringify({
-                amount: Number(amount),
-                method: method,
-                transactionId: transactionId,
-                note: note
-              })
-            }
-          );
-
-          const data =
-            await response.json();
-
-          if (!response.ok) {
-            throw new Error(
-              data.error ||
-              "Failed to submit deposit request"
-            );
-          }
-
-          message.textContent =
-            "Deposit request submitted successfully.";
-
-          document.getElementById(
-            "depositAmount"
-          ).value = "";
-
-          document.getElementById(
-            "depositMethod"
-          ).value = "";
-
-          document.getElementById(
-            "transactionId"
-          ).value = "";
-
-          document.getElementById(
-            "depositNote"
-          ).value = "";
-
-        } catch (error) {
-
-          console.error(
-            "Deposit request error:",
-            error
-          );
-
-          message.textContent =
-            error.message ||
-            "Failed to submit deposit request.";
-
-        }
-
+        const amount = item.amount !== undefined ? money(item.amount) : "—";
+        const method = safeText(item.method || item.paymentMethod, "—");
+        const status = getStatus(item);
+        const transactionId = safeText(item.transactionId || item.transaction_id, "—");
+        [dateText, amount, method].forEach(value => {
+          const cell = document.createElement("td");
+          cell.textContent = value;
+          row.appendChild(cell);
+        });
+        const statusCell = document.createElement("td");
+        const pill = document.createElement("span");
+        pill.className = `pill ${status.replace(/[^a-z0-9_-]/g, "")}`;
+        pill.textContent = status;
+        statusCell.appendChild(pill);
+        row.appendChild(statusCell);
+        const transactionCell = document.createElement("td");
+        transactionCell.textContent = transactionId;
+        row.appendChild(transactionCell);
+        body.appendChild(row);
       });
-    
+
+      message.hidden = true;
+      wrap.hidden = false;
+    }
+
+    async function loadBalanceAndHistory() {
+      try {
+        const response = await fetch(`${API}/deposits/my`, {
+          method: "GET",
+          headers: { "Authorization": `Bearer ${token}` }
+        });
+        const data = await readJson(response);
+        if (!response.ok) throw new Error(data.error || "Failed to load balance.");
+
+        $("userBalance").textContent = `${money(data.balance ?? data.user?.balance ?? 0)} Demo Credits`;
+        $("userBalance").classList.remove("loading", "error-text");
+
+        const history = Array.isArray(data.deposits) ? data.deposits
+          : Array.isArray(data.requests) ? data.requests
+          : Array.isArray(data.transactions) ? data.transactions
+          : Array.isArray(data.history) ? data.history
+          : [];
+        renderHistory(history);
+      } catch (error) {
+        console.error("Balance/history loading error:", error);
+        $("userBalance").textContent = "Unable to load";
+        $("userBalance").classList.remove("loading");
+        $("userBalance").classList.add("error-text");
+        $("historyMessage").hidden = false;
+        $("historyMessage").textContent = "Unable to load deposit history right now.";
+        $("historyTableWrap").hidden = true;
+      }
+    }
+
+    async function submitDeposit() {
+      const button = $("depositSubmit");
+      const message = $("depositMessage");
+      const amount = Number($("depositAmount").value);
+      const method = $("depositMethod").value;
+      const transactionId = $("transactionId").value.trim();
+      const note = $("depositNote").value.trim();
+
+      if (!Number.isFinite(amount) || amount <= 0) {
+        setMessage(message, "Please enter a valid amount greater than zero.", "error");
+        return;
+      }
+      if (!method) {
+        setMessage(message, "Please select an active payment method.", "error");
+        return;
+      }
+
+      button.disabled = true;
+      button.textContent = "Submitting...";
+      setMessage(message, "Submitting deposit request...");
+      try {
+        const response = await fetch(`${API}/deposits`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+          },
+          body: JSON.stringify({
+            amount,
+            method,
+            transactionId,
+            note
+          })
+        });
+        const data = await readJson(response);
+        if (!response.ok) throw new Error(data.error || "Failed to submit deposit request.");
+
+        setMessage(message, data.message || "Deposit request submitted successfully.", "success");
+        $("depositAmount").value = "";
+        $("depositMethod").value = "";
+        $("transactionId").value = "";
+        $("depositNote").value = "";
+        await loadBalanceAndHistory();
+      } catch (error) {
+        console.error("Deposit request error:", error);
+        setMessage(message, error.message || "Failed to submit deposit request.", "error");
+      } finally {
+        button.disabled = false;
+        button.textContent = "Submit Deposit Request";
+      }
+    }
+
+    $("backBtn").addEventListener("click", () => {
+      window.location.href = "dashboard.html";
+    });
+    $("depositSubmit").addEventListener("click", submitDeposit);
+
+    if (token) {
+      loadAccount();
+      loadPaymentMethods();
+      loadBalanceAndHistory();
+    }
   </script>
-
 </body>
-
 </html>
