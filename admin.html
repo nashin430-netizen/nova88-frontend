@@ -1314,7 +1314,7 @@
       </section>
 
 
-      <!-- END OF PART 3B -->
+      <!-- END OF PART 3B →
 
 
       <!-- GAMES SECTION -->
@@ -1417,7 +1417,7 @@
       </section>
 
 
-      <!-- END OF PART 3C -->
+      <!-- END OF PART 3C →
 
 
 
@@ -1518,7 +1518,7 @@
       </section>
 
 
-      <!-- END OF PART 3D -->
+      <!-- END OF PART 3D →
 
 
 
@@ -1584,6 +1584,12 @@
               id="websiteLogoUrl"
               placeholder="https://example.com/logo.png"
             >
+            <div class="image-upload-box" style="margin-top:10px;padding:12px;border:1px dashed #a87920;border-radius:10px">
+              <label for="websiteLogoFile">Or select logo image from your phone</label>
+              <input class="form-control" type="file" id="websiteLogoFile" accept="image/png,image/jpeg,image/webp,image/gif">
+              <button class="btn btn-secondary" type="button" id="uploadWebsiteLogoButton" style="margin-top:8px">📁 Upload Logo Image</button>
+              <small id="websiteLogoUploadStatus" style="display:block;margin-top:6px;color:#aaa">Choose an image, then tap Upload Logo Image.</small>
+            </div>
 
 
             <div
@@ -1767,7 +1773,7 @@
       </section>
 
 
-      <!-- END OF PART 3E -->
+      <!-- END OF PART 3E →
 
 
       <!-- GAME MODAL -->
@@ -1931,7 +1937,7 @@
       </div>
 
 
-      <!-- END OF PART 4A -->
+      <!-- END OF PART 4A →
 
 
 
@@ -2070,7 +2076,7 @@
       </div>
 
 
-      <!-- END OF PART 4B -->
+      <!-- END OF PART 4B →
 
 
       <!-- PAYMENT METHOD MODAL -->
@@ -2125,6 +2131,12 @@
               id="paymentMethodLogo"
               placeholder="https://example.com/logo.png"
             >
+            <div style="margin:8px 0 14px;padding:10px;border:1px dashed #a87920;border-radius:8px">
+              <label for="paymentMethodLogoFile">Or choose logo from phone</label>
+              <input type="file" id="paymentMethodLogoFile" accept="image/png,image/jpeg,image/webp,image/gif">
+              <button class="btn btn-secondary" type="button" id="uploadPaymentLogoButton" style="margin-top:8px">📁 Upload Payment Logo</button>
+              <small id="paymentLogoUploadStatus" style="display:block;margin-top:6px;color:#aaa">Choose a file, then upload it.</small>
+            </div>
 
 
             <label for="paymentMethodDetails">
@@ -2256,6 +2268,13 @@
               required
               placeholder="https://example.com/banner.jpg"
             >
+            <div style="margin:8px 0 14px;padding:10px;border:1px dashed #a87920;border-radius:8px">
+              <label for="bannerImageFile">Or choose banner image from phone</label>
+              <input type="file" id="bannerImageFile" accept="image/png,image/jpeg,image/webp,image/gif">
+              <button class="btn btn-secondary" type="button" id="uploadBannerImageButton" style="margin-top:8px">📁 Upload Banner Image</button>
+              <small id="bannerUploadStatus" style="display:block;margin-top:6px;color:#aaa">Choose a file, then upload it.</small>
+              <div id="bannerImagePreview" style="margin-top:8px"></div>
+            </div>
 
 
             <label for="bannerLink">
@@ -2328,7 +2347,7 @@
       </div>
 
 
-      <!-- END OF PART 4C -->
+      <!-- END OF PART 4C →
 
 
 
@@ -2670,7 +2689,7 @@
 
 
             sidebar.classList.remove(
-              "open"
+              "mobile-open"
             );
 
 
@@ -2711,7 +2730,7 @@
 
 
             sidebar.classList.toggle(
-              "open"
+              "mobile-open"
             );
 
 
@@ -4491,6 +4510,75 @@ function validHttpUrl(value, required = false) {
     return false;
   }
 }
+
+// =====================================
+// DIRECT IMAGE UPLOAD (CLOUDINARY UNSIGNED PRESET)
+// =====================================
+// One-time setup: create an unsigned upload preset in Cloudinary.
+// The Cloud Name and preset name are saved in this browser only. Never put an API secret here.
+function getImageUploadConfig() {
+  let cloudName = localStorage.getItem('nova88_cloudinary_cloud_name') || '';
+  let preset = localStorage.getItem('nova88_cloudinary_upload_preset') || '';
+  if (!cloudName) {
+    cloudName = prompt('Cloudinary Cloud Name (from your Cloudinary dashboard):') || '';
+    cloudName = cloudName.trim();
+    if (!cloudName) throw new Error('Cloud Name is required before uploading images.');
+    localStorage.setItem('nova88_cloudinary_cloud_name', cloudName);
+  }
+  if (!preset) {
+    preset = prompt('Cloudinary UNSIGNED Upload Preset name:') || '';
+    preset = preset.trim();
+    if (!preset) throw new Error('Unsigned Upload Preset is required before uploading images.');
+    localStorage.setItem('nova88_cloudinary_upload_preset', preset);
+  }
+  return { cloudName, preset };
+}
+
+async function uploadNova88Image(file, statusElement, button) {
+  if (!file) throw new Error('Please choose an image from your phone first.');
+  if (!file.type || !file.type.startsWith('image/')) throw new Error('Please select an image file.');
+  if (file.size > 10 * 1024 * 1024) throw new Error('Image must be 10 MB or smaller.');
+  const { cloudName, preset } = getImageUploadConfig();
+  if (button) button.disabled = true;
+  if (statusElement) statusElement.textContent = 'Uploading image… please wait.';
+  try {
+    const form = new FormData();
+    form.append('file', file);
+    form.append('upload_preset', preset);
+    const response = await fetch(`https://api.cloudinary.com/v1_1/${encodeURIComponent(cloudName)}/image/upload`, { method: 'POST', body: form });
+    const result = await response.json();
+    if (!response.ok || !result.secure_url) throw new Error(result.error?.message || 'Upload failed. Check Cloud Name and unsigned preset.');
+    if (statusElement) statusElement.textContent = 'Upload successful ✓';
+    return result.secure_url;
+  } finally {
+    if (button) button.disabled = false;
+  }
+}
+
+function connectImageUploader(buttonId, fileId, targetInputId, statusId, previewId) {
+  const button = document.getElementById(buttonId);
+  if (!button) return;
+  button.addEventListener('click', async () => {
+    const fileInput = document.getElementById(fileId);
+    const target = document.getElementById(targetInputId);
+    const status = document.getElementById(statusId);
+    try {
+      const url = await uploadNova88Image(fileInput?.files?.[0], status, button);
+      target.value = url;
+      target.dispatchEvent(new Event('input', { bubbles: true }));
+      const preview = previewId ? document.getElementById(previewId) : null;
+      if (preview) preview.innerHTML = `<img src="${escapeHtml(url)}" alt="Uploaded image preview" style="max-width:100%;max-height:150px;object-fit:contain;border-radius:8px">`;
+      if (status) status.textContent = 'Uploaded ✓ Image URL filled in automatically.';
+    } catch (error) {
+      if (status) status.textContent = error.message || 'Upload failed.';
+      alert('Image upload: ' + (error.message || 'Please try again.'));
+    }
+  });
+}
+
+connectImageUploader('uploadWebsiteLogoButton', 'websiteLogoFile', 'websiteLogoUrl', 'websiteLogoUploadStatus', 'logoPreview');
+connectImageUploader('uploadPaymentLogoButton', 'paymentMethodLogoFile', 'paymentMethodLogo', 'paymentLogoUploadStatus');
+connectImageUploader('uploadBannerImageButton', 'bannerImageFile', 'bannerImage', 'bannerUploadStatus', 'bannerImagePreview');
 
 // =====================================
 // WEBSITE LOGO: BACKEND INTEGRATION
