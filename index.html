@@ -5,213 +5,93 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>NOVA88 — Gaming Demo</title>
 <link rel="stylesheet" href="style.css">
+<style>
+#homepageBannerSection{display:none;padding:24px 5%;max-width:1400px;margin:0 auto}
+.homepage-banner-item{margin-bottom:16px}
+.homepage-banner-image{display:block;width:100%;max-height:390px;min-height:150px;object-fit:cover;border-radius:18px;border:1px solid rgba(212,175,55,.45)}
+.homepage-banner-title{padding:8px 2px;color:#d4af37;font-weight:700}
+@media(max-width:600px){#homepageBannerSection{padding:14px 4%}.homepage-banner-image{max-height:240px;min-height:120px}}
+</style>
 </head>
-
 <body>
-
 <header class="topbar">
-  <a class="logo" href="#">NOVA<span>88</span></a>
-
+  <a class="logo" href="#" id="siteLogo"><span id="siteLogoText">NOVA<span>88</span></span><img id="siteLogoImage" alt="NOVA88 logo" style="display:none;max-height:48px;max-width:180px;object-fit:contain"></a>
   <nav id="nav">
     <a href="#home">Home</a>
     <a href="#games">Games</a>
     <a href="#promo">Promotions</a>
     <a href="#about">About</a>
   </nav>
-
   <div class="actions">
     <button class="btn ghost" data-modal="login">Login</button>
     <button class="btn primary" data-modal="register">Register</button>
     <button class="menu" id="menuBtn">☰</button>
   </div>
 </header>
-
 <main>
-
 <section class="hero" id="home">
   <div class="hero-content">
-
     <p class="eyebrow">WELCOME TO NOVA88</p>
-
-    <h1>
-      PLAY THE <span>EXCITEMENT</span>
-    </h1>
-
-    <p class="lead">
-      A modern gaming-style landing page demo built with pure HTML, CSS and JavaScript.
-    </p>
-
+    <h1>PLAY THE <span>EXCITEMENT</span></h1>
+    <p class="lead">A modern gaming-style landing page demo built with pure HTML, CSS and JavaScript.</p>
     <div class="hero-buttons">
-      <a class="btn primary large" href="#games">
-        Explore Games
-      </a>
-
-      <button class="btn ghost large" data-modal="register">
-        Create Account
-      </button>
+      <a class="btn primary large" href="#games">Explore Games</a>
+      <button class="btn ghost large" data-modal="register">Create Account</button>
     </div>
-
   </div>
-
   <div class="hero-orb orb1"></div>
   <div class="hero-orb orb2"></div>
 </section>
-
-
-<section class="ticker">
-  <div>
-    🔥 NEW GAMES • DAILY PROMOTIONS • 24/7 SUPPORT • MOBILE FRIENDLY • 🔥
-  </div>
-</section>
-
-
+<section id="homepageBannerSection" aria-label="Homepage banners"><div id="homepageBannerTrack"></div></section>
+<section class="ticker"><div>🔥 NEW GAMES • DAILY PROMOTIONS • 24/7 SUPPORT • MOBILE FRIENDLY • 🔥</div></section>
 <section class="section" id="games">
-
-  <div class="section-head">
-
-    <div>
-      <p class="eyebrow">EXPLORE</p>
-      <h2>Popular <span>Games</span></h2>
-    </div>
-
-    <div class="filters">
-      <button class="filter active" data-filter="all">All</button>
-      <button class="filter" data-filter="slots">Slots</button>
-      <button class="filter" data-filter="arcade">Arcade</button>
-      <button class="filter" data-filter="cards">Cards</button>
-    </div>
-
+  <div class="section-head"><div><p class="eyebrow">EXPLORE</p><h2>Popular <span>Games</span></h2></div>
+    <div class="filters"><button class="filter active" data-filter="all">All</button><button class="filter" data-filter="slots">Slots</button><button class="filter" data-filter="arcade">Arcade</button><button class="filter" data-filter="cards">Cards</button></div>
   </div>
-
   <div class="games" id="gameGrid"></div>
-
 </section>
-
-
-<section class="promo" id="promo">
-
-  <div>
-    <p class="eyebrow">SPECIAL OFFER</p>
-
-    <h2>
-      WELCOME BONUS <strong>50%</strong>
-    </h2>
-
-    <p>
-      Demo promotion area — replace this content with your own legal offer.
-    </p>
-  </div>
-
-  <button class="btn primary large" data-modal="register">
-    Join Demo
-  </button>
-
-</section>
-
-
+<section class="promo" id="promo"><div><p class="eyebrow">SPECIAL OFFER</p><h2>WELCOME BONUS <strong>50%</strong></h2><p>Demo promotion area — replace this content with your own legal offer.</p></div><button class="btn primary large" data-modal="register">Join Demo</button></section>
 <section class="section features" id="about">
-
-  <div class="feature">
-    <b>⚡</b>
-    <h3>Fast Experience</h3>
-    <p>
-      Clean, lightweight frontend with smooth interactions.
-    </p>
-  </div>
-
-  <div class="feature">
-    <b>📱</b>
-    <h3>Mobile Ready</h3>
-    <p>
-      Responsive layout designed for phones, tablets and desktops.
-    </p>
-  </div>
-
-  <div class="feature">
-    <b>🔒</b>
-    <h3>Secure Account</h3>
-    <p>
-      Account registration and authentication are handled by the backend.
-    </p>
-  </div>
-
+  <div class="feature"><b>⚡</b><h3>Fast Experience</h3><p>Clean, lightweight frontend with smooth interactions.</p></div>
+  <div class="feature"><b>📱</b><h3>Mobile Ready</h3><p>Responsive layout designed for phones, tablets and desktops.</p></div>
+  <div class="feature"><b>🔒</b><h3>Secure Account</h3><p>Account registration and authentication are handled by the backend.</p></div>
 </section>
-
 </main>
-
-
-<footer>
-
-  <div class="logo">
-    NOVA<span>88</span>
-  </div>
-
-  <p>
-    © 2026 NOVA88 Demo. Frontend concept only.
-  </p>
-
-</footer>
-
-
+<footer><div class="logo" id="siteFooterLogo"><span id="siteFooterLogoText">NOVA<span>88</span></span><img id="siteFooterLogoImage" alt="NOVA88 logo" style="display:none;max-height:42px;max-width:160px;object-fit:contain"></div><p>© 2026 NOVA88 Demo. Frontend concept only.</p></footer>
 <!-- AUTH MODAL -->
-
-<div class="modal" id="modal">
-
-  <div class="modal-card">
-
-    <button class="close" id="close">×</button>
-
-    <h2 id="modalTitle">
-      Welcome
-    </h2>
-
-    <p class="muted" id="modalSubtitle">
-      Create your account to get started.
-    </p>
-
-    <form id="demoForm">
-
-      <input
-        type="text"
-        name="name"
-        placeholder="Username"
-        autocomplete="name"
-        required
-      >
-
-      <input
-        type="email"
-        name="email"
-        placeholder="Email address"
-        autocomplete="email"
-        required
-      >
-
-      <input
-        type="password"
-        name="password"
-        placeholder="Password"
-        autocomplete="new-password"
-        required
-      >
-
-      <button
-        type="submit"
-        class="btn primary full"
-      >
-        Continue
-      </button>
-
-    </form>
-
-    <p id="formMsg" class="form-msg"></p>
-
-  </div>
-
-</div>
-
-
+<div class="modal" id="modal"><div class="modal-card"><button class="close" id="close">×</button><h2 id="modalTitle">Welcome</h2><p class="muted" id="modalSubtitle">Create your account to get started.</p>
+<form id="demoForm"><input type="text" name="name" placeholder="Username" autocomplete="name" required><input type="email" name="email" placeholder="Email address" autocomplete="email" required><input type="password" name="password" placeholder="Password" autocomplete="new-password" required><button type="submit" class="btn primary full">Continue</button></form><p id="formMsg" class="form-msg"></p></div></div>
 <script src="script.js"></script>
-
+<script>
+(() => {
+  const API_BASE = 'https://nova88-backend.onrender.com/api';
+  const esc = value => String(value ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+  async function loadSiteBranding() {
+    try {
+      const response = await fetch(API_BASE + '/settings/site');
+      if (!response.ok) return;
+      const data = await response.json();
+      const logoUrl = data.settings && data.settings.logoUrl;
+      if (!logoUrl) return;
+      ['siteLogoImage','siteFooterLogoImage'].forEach(id => { const img=document.getElementById(id); if(img){img.src=logoUrl;img.style.display='inline-block';} });
+      ['siteLogoText','siteFooterLogoText'].forEach(id => { const el=document.getElementById(id); if(el) el.style.display='none'; });
+    } catch(error) { console.warn('Could not load NOVA88 logo',error); }
+  }
+  async function loadHomepageBanners() {
+    const section=document.getElementById('homepageBannerSection'); const track=document.getElementById('homepageBannerTrack');
+    if(!section||!track)return;
+    try {
+      const response=await fetch(API_BASE+'/settings/banners'); if(!response.ok)return;
+      const data=await response.json(); const banners=Array.isArray(data.banners)?data.banners:[]; if(!banners.length)return;
+      track.innerHTML=banners.map(banner=>{
+        const img=`<img class="homepage-banner-image" src="${esc(banner.imageUrl)}" alt="${esc(banner.title||'NOVA88 banner')}">`;
+        const content=banner.linkUrl?`<a href="${esc(banner.linkUrl)}" aria-label="${esc(banner.title||'Open banner')}">${img}</a>`:img;
+        return `<div class="homepage-banner-item">${content}<div class="homepage-banner-title">${esc(banner.title||'')}</div></div>`;
+      }).join(''); section.style.display='block';
+    } catch(error) { console.warn('Could not load homepage banners',error); }
+  }
+  loadSiteBranding(); loadHomepageBanners();
+})();
+</script>
 </body>
 </html>
